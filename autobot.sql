@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2022 at 12:55 PM
+-- Generation Time: Jul 28, 2022 at 06:53 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -172,9 +172,7 @@ INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` text DEFAULT NULL,
-  `user_name` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
-  `password` text DEFAULT NULL,
   `status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -182,9 +180,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `user_name`, `mobile`, `password`, `status`) VALUES
-(1, 'Divakar', 'divakar', '1234567890', 'diva@123', '0'),
-(2, 'Senthilganesh', 'kathir', '9876543234', 'deen123', '1');
+INSERT INTO `users` (`id`, `name`, `mobile`, `status`) VALUES
+(1, 'Divakar', '1234567890', '0'),
+(2, 'Senthilganesh', '9876543234', '1');
 
 --
 -- Indexes for dumped tables
