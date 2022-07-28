@@ -13,9 +13,9 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-if (empty($_POST['bike_name'])) {
+if (empty($_POST['name'])) {
     $response['success'] = false;
-    $response['message'] = "Bike Name is Empty";
+    $response['message'] = "Name is Empty";
     print_r(json_encode($response));
     return false;
 }
@@ -44,7 +44,7 @@ if (empty($_POST['category'])) {
     return false;
 }
 
-$bike_name = $db->escapeString($_POST['bike_name']);
+$name = $db->escapeString($_POST['name']);
 $model = $db->escapeString($_POST['model']);
 $mobile = $db->escapeString($_POST['mobile']);
 $service_type = $db->escapeString($_POST['service_type']);
@@ -52,7 +52,7 @@ $category = $db->escapeString($_POST['category']);
 
    
 
-$sql = "INSERT INTO services (`bike_name`,`model`,`mobile`,`service_type`,`category`) VALUES ('$bike_name','$model','$mobile','$service_type','$category')";
+$sql = "INSERT INTO services (`name`,`model`,`mobile`,`service_type`,`category`) VALUES ('$name','$model','$mobile','$service_type','$category')";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;

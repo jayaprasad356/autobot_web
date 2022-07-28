@@ -22,7 +22,7 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
-                                    <th data-field="bike_name" data-sortable="true">Bike Name</th>
+                                    <th data-field="name" data-sortable="true">Name</th>
                                     <th data-field="model" data-sortable="true">Model</th>
                                     <th data-field="mobile" data-sortable="true">Mobile</th>
                                     <th data-field="service_type" data-sortable="true">Service Type</th>

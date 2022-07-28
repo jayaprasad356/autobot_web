@@ -385,7 +385,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE service_type like '%" . $search . "%' OR category like '%" . $search . "%'OR bike_name like '%" . $search . "%'";
+        $where .= "WHERE service_type like '%" . $search . "%' OR category like '%" . $search . "%'OR name like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -417,7 +417,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
         $operate = ' <a href="#?id=' . $row['id'] . '"><i class="fa fa-folder"></i></a>';
 
         $tempRow['id'] = $row['id'];
-        $tempRow['bike_name'] = $row['bike_name'];
+        $tempRow['name'] = $row['name'];
         $tempRow['model'] = $row['model'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['service_type'] = $row['service_type'];
