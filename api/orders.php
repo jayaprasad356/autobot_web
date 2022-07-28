@@ -55,6 +55,18 @@ if (empty($_POST['product_variant_id'])) {
     print_r(json_encode($response));
     return false;
 }
+if (empty($_POST['model'])) {
+    $response['success'] = false;
+    $response['message'] = "Model is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+if (empty($_POST['price'])) {
+    $response['success'] = false;
+    $response['message'] = "Price is Empty";
+    print_r(json_encode($response));
+    return false;
+}
 $user_id = $db->escapeString($_POST['user_id']);
 $mobile = $db->escapeString($_POST['mobile']);
 $name = $db->escapeString($_POST['name']);
@@ -62,21 +74,17 @@ $address = $db->escapeString($_POST['address']);
 $pincode = $db->escapeString($_POST['pincode']);
 $product_id = $db->escapeString($_POST['product_id']);
 $product_variant_id = $db->escapeString($_POST['product_variant_id']);
-
+$model = $db->escapeString($_POST['model']);
+$price = $db->escapeString($_POST['price']);
    
 
-$sql = "INSERT INTO orders (`user_id`,`mobile`,`name`,`address`,`pincode`,`product_id`,`product_variant_id`,`status`)VALUES('$user_id','$mobile','$name','$address','$pincode','$product_id','$product_variant_id',1)";
+$sql = "INSERT INTO orders (`user_id`,`mobile`,`name`,`address`,`pincode`,`product_id`,`product_variant_id`,`model`,`price`,`status`)VALUES('$user_id','$mobile','$name','$address','$pincode','$product_id','$product_variant_id','$model','$price',1)";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;
 $response['message'] = "Order Placed Successfully ";
 $response['data'] = $res;
 print_r(json_encode($response));
-
-
-
-
-
 
 
 ?>

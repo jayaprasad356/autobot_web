@@ -56,7 +56,7 @@ include "header.php";
                             <p>Users</p>
                         </div>
                         <div class="icon"><i class="fa fa-user"></i></div>
-                        <a href="news.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="users.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6">

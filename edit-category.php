@@ -7,10 +7,6 @@
 	$currentTime = time() + 25200;
 	$expired = 3600;
 	
-	// if session not set go to login page
-	if(!isset($_SESSION['user'])){
-		header("location:index.php");
-	}
 	
 	// if current time is more than session timeout back to login page
 	if($currentTime > $_SESSION['timeout']){

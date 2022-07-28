@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2022 at 06:53 AM
+-- Generation Time: Jul 28, 2022 at 10:58 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -73,6 +73,25 @@ INSERT INTO `models` (`id`, `model`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `title` text DEFAULT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `title`, `description`) VALUES
+(1, 'hoic', 'scefefe');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -85,6 +104,8 @@ CREATE TABLE `orders` (
   `pincode` text DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `product_variant_id` int(11) DEFAULT NULL,
+  `model` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -92,8 +113,9 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `mobile`, `name`, `address`, `pincode`, `product_id`, `product_variant_id`, `status`) VALUES
-(1, 1, '7358832695', 'Henry', '1,Thayanur,Trichy', '643452', 6, 5, 1);
+INSERT INTO `orders` (`id`, `user_id`, `mobile`, `name`, `address`, `pincode`, `product_id`, `product_variant_id`, `model`, `price`, `status`) VALUES
+(1, 1, '7358832695', 'Henry', '1,Thayanur,Trichy', '643452', 6, 5, NULL, NULL, 1),
+(2, 2, '8428225519', 'Divakar', '1,Thayanur,Trichy', '643452', 6, 5, 'Yamaha FZ', '500', 1);
 
 -- --------------------------------------------------------
 
@@ -146,6 +168,29 @@ INSERT INTO `product_variant` (`id`, `product_id`, `model`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(11) NOT NULL,
+  `bike_name` text DEFAULT NULL,
+  `model` text DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
+  `service_type` text DEFAULT NULL,
+  `category` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `bike_name`, `model`, `mobile`, `service_type`, `category`) VALUES
+(1, 'Pulsar NS160', '2017', '7358832695', 'Puncture', 'Emergency'),
+(2, 'Yamaha', '2018', '8765757667', 'Breakdown', 'general');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `slides`
 --
 
@@ -161,7 +206,8 @@ CREATE TABLE `slides` (
 --
 
 INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
-(1, 'shop', 'upload/slides/3629-2022-07-27.jpg', 1);
+(2, 'shop', 'upload/slides/3595-2022-07-28.jpg', 1),
+(3, 'home', 'upload/slides/0232-2022-07-29.png', 1);
 
 -- --------------------------------------------------------
 
@@ -201,6 +247,12 @@ ALTER TABLE `models`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -216,6 +268,12 @@ ALTER TABLE `products`
 -- Indexes for table `product_variant`
 --
 ALTER TABLE `product_variant`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -247,10 +305,16 @@ ALTER TABLE `models`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -265,16 +329,22 @@ ALTER TABLE `product_variant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

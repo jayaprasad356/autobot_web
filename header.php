@@ -183,8 +183,17 @@ $fn = new custom_functions;
                         <i class="fa fa-angle-right pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="add-slide.php"><i class="fa fa-sliders"></i> Add Slide</a></li>
+                        <li><a href="add-slide.php"><i class="fa fa-plus"></i> Add Slide</a></li>
                         <li><a href="slides.php"><i class="fa fa-sliders"></i> Manage Slides</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-wrench"></i>
+                        <span>Services</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="services.php"><i class="fa fa-sliders"></i> Manage Services</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -194,6 +203,17 @@ $fn = new custom_functions;
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="orders.php"><i class="fa fa-sliders"></i> Manage Orders</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <span>Notifications</span>
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="add-notification.php"><i class="fa fa-plus"></i> Add Notification</a></li>
+                        <li><a href="notifications.php"><i class="fa fa-sliders"></i> Manage Notifications</a></li>
                     </ul>
                 </li>
               

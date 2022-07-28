@@ -43,3 +43,24 @@
         </div>
         <!-- /.row (main row) -->
     </section>
+<script>
+    $('#seller_id').on('change', function() {
+        $('#products_table').bootstrapTable('refresh');
+    });
+    $('#community').on('change', function() {
+        $('#users_table').bootstrapTable('refresh');
+    });
+
+    function queryParams(p) {
+        return {
+            "category_id": $('#category_id').val(),
+            "seller_id": $('#seller_id').val(),
+            "community": $('#community').val(),
+            limit: p.limit,
+            sort: p.sort,
+            order: p.order,
+            offset: p.offset,
+            search: p.search
+        };
+    }
+</script>

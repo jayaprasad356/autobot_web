@@ -24,7 +24,7 @@ $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1){
     
-        $sql = "SELECT *,products.image AS image FROM orders,products,product_variant WHERE orders.product_id = products.id AND orders.product_variant_id = product_variant.id AND orders.user_id='$user_id'";
+        $sql = "SELECT *,products.image AS image,orders.model AS model,orders.price AS price FROM orders,products,product_variant WHERE orders.product_id = products.id AND orders.product_variant_id = product_variant.id AND orders.user_id='$user_id'";
         $db->sql($sql);
         $res = $db->getResult();
         $num = $db->numRows($res);
@@ -36,6 +36,7 @@ if ($num >= 1){
                 $temp['address'] = $row['address'];
                 $temp['pincode'] = $row['pincode'];
                 $temp['product_name'] = $row['product_name'];
+                $temp['product_variant_id'] = $row['product_variant_id'];
                 $temp['brand'] = $row['brand'];
                 $temp['image'] = DOMAIN_URL . $row['image'];
                 $temp['model'] = $row['model'];

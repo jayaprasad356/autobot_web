@@ -31,7 +31,7 @@ $order_id = $_GET['id'];
                         $num = $db->numRows();
                         if($num >= 1){
 
-                            $sql = "SELECT *,orders.id AS id,orders.status AS status FROM orders,products,product_variant WHERE orders.product_id=products.id  AND orders.product_variant_id=product_variant.id AND orders.id = $order_id";
+                            $sql = "SELECT *,orders.id AS id,orders.status AS status,orders.model AS model,orders.price AS price FROM orders,products,product_variant WHERE orders.product_id=products.id  AND orders.product_variant_id=product_variant.id AND orders.id = $order_id";
                             $db->sql($sql);
                             $res = $db->getResult();
                             ?>
@@ -62,6 +62,10 @@ $order_id = $_GET['id'];
                             <tr>
                                 <th style="width: 200px">Brand</th>
                                 <td><?php echo $res[0]['brand'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Product Variant ID</th>
+                                <td><?php echo $res[0]['product_variant_id'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Model</th>
