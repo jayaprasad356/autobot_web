@@ -385,7 +385,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE service_type like '%" . $search . "%' OR category like '%" . $search . "%'OR name like '%" . $search . "%'";
+        $where .= "WHERE service_type like '%" . $search . "%' OR category like '%" . $search . "%'OR bike_name like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -414,15 +414,72 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
 
     foreach ($res as $row) {
 
-        $operate = ' <a href="#?id=' . $row['id'] . '"><i class="fa fa-folder"></i></a>';
 
         $tempRow['id'] = $row['id'];
-        $tempRow['name'] = $row['name'];
+        $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['model'] = $row['model'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['service_type'] = $row['service_type'];
-        $tempRow['category'] = $row['category'];
-       $tempRow['operate'] = $operate;
+    $tempRow['category'] = $row['category'];
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+if (isset($_GET['table']) && $_GET['table'] == 'rental') {
+
+    $offset = 0;
+    $limit = 10;
+    $sort = 'id';
+    $order = 'DESC';
+    $where = '';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= "WHERE vehicle_no like '%" . $search . "%' OR model like '%" . $search . "%'OR vehicle_group like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+
+    }
+    $sql = "SELECT COUNT(`id`) as total FROM `rental` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+    $sql = "SELECT * FROM `rental` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $db->sql($sql);
+    $res = $db->getResult();
+
+        
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+
+        $tempRow['id'] = $row['id'];
+        $tempRow['vehicle_no'] = $row['vehicle_no'];
+        $tempRow['vehicle_group'] = $row['vehicle_group'];
+        $tempRow['model'] = $row['model'];
+        $tempRow['year_of_manufacture'] = $row['year_of_manufacture'];
         $rows[] = $tempRow;
     }
     $bulkData['rows'] = $rows;

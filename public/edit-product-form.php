@@ -144,17 +144,20 @@ if (isset($_POST['btnCancel'])) { ?>
 						   <div class="row">
 							    <div class="form-group">
 									<div class='col-md-4'>
-										<label for="">category</label><?php echo isset($error['category']) ? $error['category'] : ''; ?>
-										<select id='category' name="category" class='form-control' value="<?php echo $res[0]['categories']; ?>">
-												<?php
-												$sql = "SELECT * FROM `categories` WHERE status = 1";
-												$db->sql($sql);
-												$result = $db->getResult();
-												foreach ($result as $value) {
-												?>
-													<option value='<?= $value['id'] ?>'><?= $value['name'] ?></option>
-											<?php } ?>
-											</select>
+									          <label for="exampleInputEmail1">Model</label> <i class="text-danger asterik">*</i>
+												<select id='category' name="category" class='form-control' required>
+                                                <option value="none">Select</option>
+                                                            <?php
+                                                            $sql = "SELECT * FROM `categories`";
+                                                            $db->sql($sql);
+
+                                                            $result = $db->getResult();
+                                                            foreach ($result as $value) {
+                                                            ?>
+															 <option value='<?= $value['id'] ?>' <?= $value['id']==$res[0]['category_id'] ? 'selected="selected"' : '';?>><?= $value['name'] ?></option>
+                                                               
+                                                            <?php } ?>
+                                                </select>
 									</div>
 									 <div class="col-md-4">
 										<label for="exampleInputEmail1">Product Name</label><?php echo isset($error['product_name']) ? $error['product_name'] : ''; ?>
@@ -177,7 +180,7 @@ if (isset($_POST['btnCancel'])) { ?>
 									 <label for="exampleInputFile">Image</label>
                                         
                                         <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
-                                        <p class="help-block"><img id="blah" src="<?php echo DOMAIN_URL . $res[0]['image']; ?>" style="max-width:100%" /></p>
+                                        <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
 									 </div>
 								</div>
 						   </div>
@@ -219,7 +222,7 @@ if (isset($_POST['btnCancel'])) { ?>
 										<?php if ($i == 0) { ?>
 												<div class='col-md-1'>
 													<label>Variation</label>
-													<a id='add_packate_variation' title='Add variation of product' style='cursor: pointer;'><i class="fa fa-plus-square-o fa-2x"></i></a>
+													<a id="add_packate_variation" title='Add variation of product' style='cursor: pointer;'><i class="fa fa-plus-square-o fa-2x"></i></a>
 												</div>
 											<?php } else { ?>
 												<div class="col-md-1" style="display: grid;">
@@ -233,8 +236,11 @@ if (isset($_POST['btnCancel'])) { ?>
 								
 
 							<hr>
-					</div><!-- /.box-body -->
-
+					
+					
+					
+						</div><!-- /.box-body -->
+                       
 					<div class="box-footer">
 						<button type="submit" class="btn btn-primary" name="btnEdit">Update</button>
 					
@@ -265,7 +271,7 @@ if (isset($_POST['btnCancel'])) { ?>
                                                             $db->sql($sql);
                                                             $result = $db->getResult();
                                                             foreach ($result as $value) {
-                                                            ?><option value="<?= $value['model'] ?>"><?= $value['model'] ?></option><?php } ?></select></div></div>'+'<div class="col-md-3"><div class="form-group"><label for="price">Price</label>'+'<input type="text" class="form-control" name="insert_price[]" required /></div></div>'+'<div class="col-md-1" style="display: grid;"><label>Variation</label><a class="remove text-danger" style="cursor:pointer;"><i class="fa fa-times fa-2x"></i></a></div>'+'</div>'); //add input box
+                                                            ?><option value="<?= $value['model'] ?>"><?= $value['model'] ?></option><?php } ?></select></div></div>'+'<div class="col-md-3"><div class="form-group"><label for="price">Price</label>'+'<input type="text" class="form-control" name="insert_price[]" required></div></div>'+'<div class="col-md-1" style="display: grid;"><label>Variation</label><a class="remove text-danger" style="cursor:pointer;"><i class="fa fa-times fa-2x"></i></a></div>'+'</div>'); //add input box
             } else {
                 alert('You Reached the limits')
             }

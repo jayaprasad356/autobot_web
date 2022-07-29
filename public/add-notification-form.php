@@ -4,8 +4,7 @@ $function = new functions;
 include_once('includes/custom-functions.php');
 $fn = new custom_functions;
 
-?>
-<?php
+
 if (isset($_POST['btnAdd'])) {
 
 
@@ -24,10 +23,9 @@ if (isset($_POST['btnAdd'])) {
 
       
 
-        if (!empty($name) && !empty($description)) {
-            
-           
-            $sql_query = "INSERT INTO `notifications` (title,description) VALUES ('$title','$description')";
+        if (!empty($title) && !empty($description))
+         {
+            $sql_query ="INSERT INTO notifications (title,description) VALUES ('$title','$description')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -37,9 +35,9 @@ if (isset($_POST['btnAdd'])) {
             }
 
             if ($result ==1) {
-                $error['add_notification'] = " <section class='content-header'><span class='label label-success'>Notification sent Successfully</span></section>";
+                $error['add_notification'] = "<span class='label label-success'>Notification sent Successfully</span>";
             } else {
-                $error['add_notification'] = " <span class='label label-danger'>Failed</span>";
+                $error['add_notification'] = "<span class='label label-danger'>Failed</span>";
             }
             }
         }
@@ -64,12 +62,12 @@ if (isset($_POST['btnAdd'])) {
 
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form name="add_notification" method="post" enctype="multipart/form-data">
+                <form name="add_notification"  method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
                             <div class="row">
                                  <div class='col-md-6'>
-                                    <label for="exampleInputEmail1">Title</label> <i class="text-danger asterik">*</i><?php echo isset($error['title']) ? $error['title'] : ''; ?>
+                                    <label for="exampleInputEmail1">Title</label><?php echo isset($error['title']) ? $error['title'] : ''; ?>
                                     <input type="text" class="form-control" name="title" required>
                                 </div>
                             </div>
@@ -77,8 +75,8 @@ if (isset($_POST['btnAdd'])) {
                         <div class="form-group">
                            <div class="row">
                                 <div class='col-md-6'>
-                                    <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
-                                    <input type="text" class="form-control" name="description"  required>
+                                    <label for="exampleInputEmail1">Description</label><?php echo isset($error['description']) ? $error['description'] : ''; ?>
+                                    <textarea type="text" class="form-control" name="description" rows="10"  required></textarea>
                                 </div>
                             </div>
 

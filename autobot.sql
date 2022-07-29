@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2022 at 10:58 PM
+-- Generation Time: Jul 29, 2022 at 11:54 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -43,7 +43,8 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date_created`) VALUES
 (1, 'Oil', 'upload/images/1658903944.2566.jpg', 1, '2022-07-27 07:23:27', '2022-07-27 05:49:11'),
 (2, 'Spare parts', 'upload/images/1658903957.6194.jpg', 1, '2022-07-27 06:39:17', '2022-07-27 05:50:35'),
-(3, 'tyres', 'upload/images/0582-2022-07-27.jpg', 1, '2022-07-27 06:53:39', '2022-07-27 06:41:35');
+(3, 'tyres', 'upload/images/0582-2022-07-27.jpg', 1, '2022-07-29 17:22:45', '2022-07-27 06:41:35'),
+(4, 'Rods', 'upload/images/1659123088.7927.jpg', 0, '2022-07-29 19:31:28', '2022-07-29 18:18:36');
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,7 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `title`, `description`) VALUES
-(1, 'hoic', 'scefefe');
+(1, 'payments', 'I can\'t pay through online payment');
 
 -- --------------------------------------------------------
 
@@ -137,10 +138,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `description`, `image`) VALUES
-(1, 1, 'Engine Oil', 'Racer', 'one of the best brand used by 1000+ customers', 'upload/products/1767-2022-07-27.jpg'),
-(2, 1, 'Front tyre', 'MRF', 'wertyuiop', 'upload/products/1233-2022-07-27.jpg'),
-(5, 2, 'Indicator', 'epson', 'like a call', 'upload/products/7456-2022-07-27.jpeg'),
-(6, 2, 'Handle Miror', 'jace', 'cdsce', 'upload/products/5129-2022-07-27.jpg');
+(1, 1, 'Engine Oil', 'Racer', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg'),
+(6, 2, 'Handle Miror', 'jace', 'cdsce', 'upload/products/1659119349.1368.jpg'),
+(8, 3, 'Front tyre', 'MRF', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg');
 
 -- --------------------------------------------------------
 
@@ -163,7 +163,30 @@ INSERT INTO `product_variant` (`id`, `product_id`, `model`, `price`) VALUES
 (1, 1, 'Yamaha', '700'),
 (2, 1, 'KTM', '849'),
 (4, 6, 'Yamaha', '67'),
-(5, 6, 'Royal Enfield', '900');
+(5, 6, 'Royal Enfield', '900'),
+(8, 8, 'Hero Honda', '560'),
+(9, 8, 'Yamaha', '789');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rental`
+--
+
+CREATE TABLE `rental` (
+  `id` int(11) NOT NULL,
+  `vehicle_no` text DEFAULT NULL,
+  `vehicle_group` text DEFAULT NULL,
+  `model` text DEFAULT NULL,
+  `year_of_manufacture` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rental`
+--
+
+INSERT INTO `rental` (`id`, `vehicle_no`, `vehicle_group`, `model`, `year_of_manufacture`) VALUES
+(1, 'TN65AJ8940', 'Bajaj', 'Pulsar 150', '2020');
 
 -- --------------------------------------------------------
 
@@ -271,6 +294,12 @@ ALTER TABLE `product_variant`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rental`
+--
+ALTER TABLE `rental`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -296,7 +325,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `models`
@@ -320,13 +349,19 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product_variant`
 --
 ALTER TABLE `product_variant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `rental`
+--
+ALTER TABLE `rental`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `services`

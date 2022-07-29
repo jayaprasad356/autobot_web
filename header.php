@@ -198,6 +198,15 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="#">
+                        <i class="fa fa-motorcycle"></i>
+                        <span>Rentals</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="rentals.php"><i class="fa fa-sliders"></i> Manage Rentals</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
                         <i class="fa fa-shopping-cart"></i>
                         <span>Orders</span>
                     </a>
