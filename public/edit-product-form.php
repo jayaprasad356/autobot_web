@@ -13,6 +13,9 @@ if (isset($_GET['id'])) {
     return false;
     exit(0);
 }
+$sql = "SELECT * FROM `models`";
+$db->sql($sql);
+$model_res = $db->getResult();
 if (isset($_POST['btnEdit'])) {
 
 	    $category = $db->escapeString(($_POST['category']));
@@ -195,13 +198,8 @@ if (isset($_POST['btnCancel'])) { ?>
 									<div class="row">
 									<input type="hidden" class="form-control" name="product_variant_id[]" id="product_variant_id" value='<?= $row['id']; ?>' />
 
-										<div class="col-md-3">
-											<div class="form-group packate_div">
-												<label for="exampleInputEmail1"> Price</label> <i class="text-danger asterik">*</i>
-												<input type="text" class="form-control" name="price[]" value="<?php echo $row['price'] ?>" required />
-											</div>
-										</div>
-										<div class="col-md-3">
+
+									<div class="col-md-3">
 											<div class="form-group packate_div">
 												<label for="exampleInputEmail1">Model</label> <i class="text-danger asterik">*</i>
 												<select id='model' name="model[]" class='form-control' required>
@@ -219,6 +217,13 @@ if (isset($_POST['btnCancel'])) { ?>
                                                 </select>
 											</div>
 										</div>
+										<div class="col-md-3">
+											<div class="form-group packate_div">
+												<label for="exampleInputEmail1"> Price</label> <i class="text-danger asterik">*</i>
+												<input type="text" class="form-control" name="price[]" value="<?php echo $row['price'] ?>" required />
+											</div>
+										</div>
+
 										<?php if ($i == 0) { ?>
 												<div class='col-md-1'>
 													<label>Variation</label>
@@ -266,16 +271,18 @@ if (isset($_POST['btnCancel'])) { ?>
             e.preventDefault();
             if (x < max_fields) {
                 x++;
-                $(wrapper).append('<div class="row"><div class="col-md-3"><div class="form-group"><label for="model">Model</label>' + '<select id=model name="insert_model[]" class=form-control required><option value="none">Select</option><?php
-                                                            $sql = "SELECT * FROM `models`";
-                                                            $db->sql($sql);
-                                                            $result = $db->getResult();
-                                                            foreach ($result as $value) {
-                                                            ?><option value="<?= $value['model'] ?>"><?= $value['model'] ?></option><?php } ?></select></div></div>'+'<div class="col-md-3"><div class="form-group"><label for="price">Price</label>'+'<input type="text" class="form-control" name="insert_price[]" required></div></div>'+'<div class="col-md-1" style="display: grid;"><label>Variation</label><a class="remove text-danger" style="cursor:pointer;"><i class="fa fa-times fa-2x"></i></a></div>'+'</div>'); //add input box
+				$(wrapper).append('<div class="row"><div class="col-md-3"><div class="form-group"><label for="model">Model</label>' + '<select id=model name="insert_model[]" class=form-control required><option value="none">Select</option>'+
+																'<?php
+																foreach ($model_res as  $row) {
+																	echo "<option value=" . $row['model'] . ">" . $row['model'] . "</option>";
+																}
+																?>' 
+															+'</select></div></div>'+'<div class="col-md-3"><div class="form-group"><label for="price">Price</label>'+'<input type="text" class="form-control" name="insert_price[]" required /></div></div>'+'<div class="col-md-1" style="display: grid;"><label>Variation</label><a class="remove text-danger" style="cursor:pointer;"><i class="fa fa-times fa-2x"></i></a></div>'+'</div>');
             } else {
                 alert('You Reached the limits')
             }
         });
+
 
         $(wrapper).on("click", ".remove", function (e) {
             e.preventDefault();

@@ -31,7 +31,7 @@ $order_id = $_GET['id'];
                         $num = $db->numRows();
                         if($num >= 1){
 
-                            $sql = "SELECT *,orders.id AS id,orders.status AS status,orders.model AS model,orders.price AS price FROM orders,products,product_variant WHERE orders.product_id=products.id  AND orders.product_variant_id=product_variant.id AND orders.id = $order_id";
+                            $sql = "SELECT *,orders.id AS id,orders.status AS status,orders.model AS model,orders.price AS price FROM orders,products WHERE orders.product_id=products.id AND orders.id = $order_id";
                             $db->sql($sql);
                             $res = $db->getResult();
                             ?>
@@ -74,6 +74,10 @@ $order_id = $_GET['id'];
                             <tr>
                                 <th style="width: 200px">price</th>
                                 <td><?php echo $res[0]['price']; ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">customised tyre size</th>
+                                <td><?php echo $res[0]['customised_tyre_size']; ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">status</th>
