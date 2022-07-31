@@ -1,7 +1,5 @@
 <?php
-if (isset($_SESSION['mechanic_id']) && isset($_SESSION['mechanic_name'])) {
-    header("location:home.php");
-}
+
 
 if (isset($_POST['btnLogin'])) {
 
@@ -20,7 +18,6 @@ if (isset($_POST['btnLogin'])) {
     if (empty($password)) {
         $error['password'] = " <span class='label label-danger'>Password should be filled!</span>";
     }
-
     if (!empty($mobile) && !empty($password)) {
 
         $sql_query = "SELECT * FROM mechanic WHERE mobile = '" . $mobile . "' AND password = '" . $password . "'";
@@ -31,15 +28,23 @@ if (isset($_POST['btnLogin'])) {
         $num = $db->numRows($res);
 
         if ($num == 1) {
-
-            $_SESSION['mechanic_id'] = $res['id'];
-            $_SESSION['mechanic_name'] = $res['name'];
+            $_SESSION['id'] = '1';
+            $_SESSION['role'] ='admin';
+            $_SESSION['username'] = 'username';
+            $_SESSION['email'] = 'admin@gmail.com';
             $_SESSION['timeout'] = $currentTime + $expired;
+
+            $_SESSION['mechanic_id'] = $res[0]['id'];
+            $_SESSION['mechanic_name'] = $res[0]['name'];
             header("location: home.php");
-            }
+            
         } else {
             $error['failed'] = "<span class='btn btn-danger'>Invalid Mobile or Password!</span>";
         }
+    }
+
+
+        
     }
 ?>
 <div class="col-md-4 col-md-offset-4 " style="margin-top:80px;">

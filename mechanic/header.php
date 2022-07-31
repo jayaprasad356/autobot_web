@@ -1,7 +1,4 @@
 <?php 
-if (!isset($_SESSION['seller_id']) && !isset($_SESSION['seller_name'])) {
-    header("location:index.php");
-}
 include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
@@ -11,7 +8,6 @@ $Id = $_SESSION['seller_id'];
 $sql = "SELECT * FROM seller WHERE id=" . $Id;
 $db->sql($sql);
 $result = $db->getResult();
-$_SESSION['expiry_date'] = $result[0]['valid'];
 $path = 'upload/seller/';
 
 ?>
@@ -110,12 +106,9 @@ $path = 'upload/seller/';
             <a href="home.php" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">
-                    <img src="../img/sminilogo.png"  alt="User Image">
-                    
+                    <h3>AB</h3>
                 </span>
-                <!-- logo for regular state and mobile devices -->
-                <img src="../img/slogo.png"  alt="User Image">
-                
+               
                 <span class="logo-lg">
                 
                     
@@ -134,21 +127,21 @@ $path = 'upload/seller/';
                         
                             <li class="dropdown user user-menu">
                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="images/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <img src="../images/avatar.png" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">Mechanic</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
-                                    <img src="images/avatar.png" class="img-circle" alt="User Image">
+                                    <img src="../images/avatar.png" class="img-circle" alt="User Image">
                                         <p>
-                                            <small><?php echo $res[0]['mobile'] ?></small>
+                                            <small><?php echo $_SESSION['mechanic_name'] ?></small>
                                         </p>
                                     </li>
                                     <li class="user-footer">
-                                        <div class="pull-left">
+                                        <!-- <div class="pull-left">
                                             <a href="profile.php" class="btn btn-primary btn-flat">Profile</a>
-                                        </div>
+                                        </div> -->
                                         <div class="pull-right">
                                             <a href="logout.php" class="btn btn-primary btn-flat">Log out</a>
                                         </div>
@@ -180,11 +173,6 @@ $path = 'upload/seller/';
                     <ul class="treeview-menu">
                         <li><a href="services.php"><i class="fa fa-sliders"></i> Manage Services</a></li>
                     </ul>
-                </li>
-                <li class="treeview">
-                    <a href="help.php">
-                        <i class="fa fa-info" class="active"></i> <span>Help</span>
-                    </a>
                 </li>
                 
               

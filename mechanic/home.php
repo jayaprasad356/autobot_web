@@ -9,10 +9,10 @@ $function = new custom_functions;
 $currentTime = time() + 25200;
 $expired = 900;
 
-if (!isset($_SESSION['seller_id']) && !isset($_SESSION['seller_name'])) {
+if (!isset($_SESSION['mechanic_id']) && !isset($_SESSION['mechanic_name'])) {
     header("location:index.php");
 } else {
-    $ID = $_SESSION['seller_id'];
+    $ID = $_SESSION['mechanic_id'];
 }
 
 // if current time is more than session timeout back to login page

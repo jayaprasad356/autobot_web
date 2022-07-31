@@ -212,7 +212,7 @@ $db->connect();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 
 <script>
-        $('#add_seller_form').validate({
+        $('#add_mechanic_form').validate({
         rules: {
             name: "required",
             mobile: {
@@ -233,4 +233,30 @@ $db->connect();
 
     });
     
+</script>
+<script>
+    $('#add_mechanic_form').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        if ($("#add_mechanic_form").validate().form()) {
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                beforeSend: function() {
+                    $('#submit_btn').html('Please wait..');
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(result) {
+                    $('#result').html(result);
+                    $('#result').show().delay(6000).fadeOut();
+                    $('#submit_btn').html('Submit');
+                    $('#add_mechanic_form')[0].reset();
+                    
+                }
+            });
+        }
+    });
 </script>

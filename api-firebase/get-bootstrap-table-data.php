@@ -416,7 +416,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
 
 
         $tempRow['id'] = $row['id'];
-        $tempRow['bike_name'] = $row['bike_name'];
+        $tempRow['bike_name'] = $row['name'];
         $tempRow['model'] = $row['model'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['service_type'] = $row['service_type'];
