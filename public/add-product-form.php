@@ -123,8 +123,12 @@ if (isset($_POST['btnAdd'])) {
                     <div class="box-body">
                            <div class="row">
                                 <div class="form-group">
+                                <div class="col-md-4">
+                                            <label for="exampleInputEmail1">Product Name</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_name']) ? $error['product_name'] : ''; ?>
+                                            <input type="text" class="form-control" name="product_name" required>
+                                    </div>
                                     <div class='col-md-4'>
-                                        <label for="">category</label>
+                                        <label for="">Category</label> <i class="text-danger asterik">*</i>
                                         <select id='category' name="category" class='form-control' required>
                                         <option value="">Select</option>
                                                 <?php
@@ -137,12 +141,9 @@ if (isset($_POST['btnAdd'])) {
                                             <?php } ?>
                                             </select>
                                     </div>
+
                                     <div class="col-md-4">
-                                            <label for="exampleInputEmail1">Product Name</label><?php echo isset($error['product_name']) ? $error['product_name'] : ''; ?>
-                                            <input type="text" class="form-control" name="product_name" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="exampleInputEmail1">Brand</label><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
+                                        <label for="exampleInputEmail1">Brand</label> <i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
                                         <input type="text" class="form-control" name="brand" required />
                                     </div>
                                 </div>
@@ -151,11 +152,11 @@ if (isset($_POST['btnAdd'])) {
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-4">
-                                            <label for="exampleInputEmail1">Description</label><?php echo isset($error['description']) ? $error['description'] : ''; ?>
+                                            <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
                                             <textarea type="text" class="form-control" rows="5" name="description" required></textarea>
                                     </div>
                                     <div class="col-md-4">
-                                         <label for="exampleInputFile">Image</label><?php echo isset($error['product_image']) ? $error['product_image'] : ''; ?>
+                                         <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_image']) ? $error['product_image'] : ''; ?>
                                         <input type="file" name="product_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="product_image" required/>
                                         <img id="blah" src="#" alt="image" />
                                     </div>

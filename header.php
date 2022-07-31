@@ -177,53 +177,34 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="#">
+                    <a href="slides.php">
                         <i class="fa fa-bullseye"></i>
                         <span>Slides</span>
-                        <i class="fa fa-angle-right pull-right"></i>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="add-slide.php"><i class="fa fa-plus"></i> Add Slide</a></li>
-                        <li><a href="slides.php"><i class="fa fa-sliders"></i> Manage Slides</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-wrench"></i>
+                    <a href="services.php">
+                        <i class="fa fa-bullseye"></i>
                         <span>Services</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="services.php"><i class="fa fa-sliders"></i> Manage Services</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-motorcycle"></i>
+                    <a href="rentals.php">
+                        <i class="fa fa-bullseye"></i>
                         <span>Rentals</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="rentals.php"><i class="fa fa-sliders"></i> Manage Rentals</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
+                    <a href="orders.php">
+                        <i class="fa fa-bullseye"></i>
                         <span>Orders</span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="orders.php"><i class="fa fa-sliders"></i> Manage Orders</a></li>
-                    </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-bell"></i>
+                    <a href="notifications.php">
+                        <i class="fa fa-bullseye"></i>
                         <span>Notifications</span>
-                        <i class="fa fa-angle-right pull-right"></i>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="add-notification.php"><i class="fa fa-plus"></i> Add Notification</a></li>
-                        <li><a href="notifications.php"><i class="fa fa-sliders"></i> Manage Notifications</a></li>
-                    </ul>
                 </li>
               
             </ul>

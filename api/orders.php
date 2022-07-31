@@ -76,9 +76,10 @@ $product_id = $db->escapeString($_POST['product_id']);
 $product_variant_id = $db->escapeString($_POST['product_variant_id']);
 $model = $db->escapeString($_POST['model']);
 $price = $db->escapeString($_POST['price']);
-   
+$customised_tyre_size = (isset($_POST['customised_tyre_size']) && !empty($_POST['customised_tyre_size'])) ? trim($db->escapeString($_POST['customised_tyre_size'])) : "";
+    
 
-$sql = "INSERT INTO orders (`user_id`,`mobile`,`name`,`address`,`pincode`,`product_id`,`product_variant_id`,`model`,`price`,`status`)VALUES('$user_id','$mobile','$name','$address','$pincode','$product_id','$product_variant_id','$model','$price',1)";
+$sql = "INSERT INTO orders (`user_id`,`mobile`,`name`,`address`,`pincode`,`product_id`,`product_variant_id`,`model`,`price`,`status`,`customised_tyre_size`)VALUES('$user_id','$mobile','$name','$address','$pincode','$product_id','$product_variant_id','$model','$price',1,'$customised_tyre_size')";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;
