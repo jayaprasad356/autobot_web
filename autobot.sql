@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2022 at 11:54 PM
+-- Generation Time: Jul 31, 2022 at 12:31 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -45,6 +45,31 @@ INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date
 (2, 'Spare parts', 'upload/images/1658903957.6194.jpg', 1, '2022-07-27 06:39:17', '2022-07-27 05:50:35'),
 (3, 'tyres', 'upload/images/0582-2022-07-27.jpg', 1, '2022-07-29 17:22:45', '2022-07-27 06:41:35'),
 (4, 'Rods', 'upload/images/1659123088.7927.jpg', 0, '2022-07-29 19:31:28', '2022-07-29 18:18:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mechanic`
+--
+
+CREATE TABLE `mechanic` (
+  `id` int(11) NOT NULL,
+  `name` text DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `district` text DEFAULT NULL,
+  `state` text DEFAULT NULL,
+  `pincode` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mechanic`
+--
+
+INSERT INTO `mechanic` (`id`, `name`, `mobile`, `password`, `address`, `district`, `state`, `pincode`) VALUES
+(1, 'Divakar', '7358832695', '1234567890', '2/42, Azhagapuri,R.T.Malai(Po)', 'Karur', 'Tamil Nadu', '621313'),
+(2, 'Jaswanth', '8435728849', '12345', '1,Kontek reet', 'Trichy', 'Assam', '675894');
 
 -- --------------------------------------------------------
 
@@ -264,6 +289,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mechanic`
+--
+ALTER TABLE `mechanic`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `models`
 --
 ALTER TABLE `models`
@@ -326,6 +357,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `mechanic`
+--
+ALTER TABLE `mechanic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `models`
