@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2022 at 12:31 PM
+-- Generation Time: Aug 02, 2022 at 09:08 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -239,6 +239,31 @@ INSERT INTO `services` (`id`, `bike_name`, `model`, `mobile`, `service_type`, `c
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `showroom`
+--
+
+CREATE TABLE `showroom` (
+  `id` int(11) NOT NULL,
+  `showroom_name` text DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `brand` text DEFAULT NULL,
+  `working_hours` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `pincode` text DEFAULT NULL,
+  `gst_tin` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `showroom`
+--
+
+INSERT INTO `showroom` (`id`, `showroom_name`, `mobile`, `password`, `brand`, `working_hours`, `address`, `pincode`, `gst_tin`) VALUES
+(1, 'Bajaj', '7358832695', '123456', 'Yamaha', '9.00AM-12.00PM', 'Trichy', '621313', '23456789');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `slides`
 --
 
@@ -337,6 +362,12 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `showroom`
+--
+ALTER TABLE `showroom`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `slides`
 --
 ALTER TABLE `slides`
@@ -405,6 +436,12 @@ ALTER TABLE `rental`
 --
 ALTER TABLE `services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `showroom`
+--
+ALTER TABLE `showroom`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `slides`
