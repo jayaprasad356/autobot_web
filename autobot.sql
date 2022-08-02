@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 02, 2022 at 09:08 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Host: 127.0.0.1:3306
+-- Generation Time: Aug 02, 2022 at 10:56 AM
+-- Server version: 10.5.13-MariaDB-cll-lve
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `autobot`
+-- Database: `u743445510_autobot`
 --
 
 -- --------------------------------------------------------
@@ -221,7 +221,7 @@ INSERT INTO `rental` (`id`, `vehicle_no`, `vehicle_group`, `model`, `year_of_man
 
 CREATE TABLE `services` (
   `id` int(11) NOT NULL,
-  `bike_name` text DEFAULT NULL,
+  `name` text DEFAULT NULL,
   `model` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
   `service_type` text DEFAULT NULL,
@@ -232,7 +232,7 @@ CREATE TABLE `services` (
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `bike_name`, `model`, `mobile`, `service_type`, `category`) VALUES
+INSERT INTO `services` (`id`, `name`, `model`, `mobile`, `service_type`, `category`) VALUES
 (1, 'Pulsar NS160', '2017', '7358832695', 'Puncture', 'Emergency'),
 (2, 'Yamaha', '2018', '8765757667', 'Breakdown', 'general');
 
@@ -259,7 +259,8 @@ CREATE TABLE `showroom` (
 --
 
 INSERT INTO `showroom` (`id`, `showroom_name`, `mobile`, `password`, `brand`, `working_hours`, `address`, `pincode`, `gst_tin`) VALUES
-(1, 'Bajaj', '7358832695', '123456', 'Yamaha', '9.00AM-12.00PM', 'Trichy', '621313', '23456789');
+(1, 'Bajaj', '7358832695', '123456', 'Yamaha', '9.00AM-12.00PM', 'Trichy', '621313', '23456789'),
+(4, 'Tamil', '9966531336', 'Tamaam', 'TvS', '08:00am - 06:00pm', '9965313369', '610004', '8999999999');
 
 -- --------------------------------------------------------
 
@@ -441,7 +442,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `showroom`
 --
 ALTER TABLE `showroom`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `slides`
