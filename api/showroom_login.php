@@ -32,10 +32,18 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num == 1){
-    $response['success'] = true;
-    $response['message'] = "Logged In Successfully";
-    $response['data'] = $res;
-    print_r(json_encode($response));
+    if($res[0]['status']== 1){
+        $response['success'] = true;
+        $response['message'] = "Logged In Successfully";
+        $response['data'] = $res;
+        print_r(json_encode($response));
+    }
+    else{
+        $response['success'] = false;
+        $response['message'] = "Your account is not activated yet";
+        print_r(json_encode($response));
+    }
+   
 }
 else{
     $response['success'] = false;

@@ -184,7 +184,7 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="services.php">
-                        <i class="fa fa-bullseye"></i>
+                        <i class="fa fa-wrench"></i>
                         <span>Services</span>
                     </a>
                 </li>
@@ -196,7 +196,7 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="orders.php">
-                        <i class="fa fa-bullseye"></i>
+                        <i class="fa fa-shopping-cart"></i>
                         <span>Orders</span>
                     </a>
                 </li>
@@ -204,6 +204,12 @@ $fn = new custom_functions;
                     <a href="notifications.php">
                         <i class="fa fa-bullseye"></i>
                         <span>Notifications</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="showrooms.php">
+                    <i class="fa fa-map"></i>
+                        <span>Showrooms</span>
                     </a>
                 </li>
               

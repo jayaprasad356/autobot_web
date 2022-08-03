@@ -64,6 +64,24 @@ if (empty($_POST['gst_tin'])) {
     print_r(json_encode($response));
     return false;
 }
+if (empty($_POST['account_no'])) {
+    $response['success'] = false;
+    $response['message'] = "Account Number is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+if (empty($_POST['ifsc_code'])) {
+    $response['success'] = false;
+    $response['message'] = "IFSC Code is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+if (empty($_POST['alternate_mobile'])) {
+    $response['success'] = false;
+    $response['message'] = "Alternatre Mobile Number is Empty";
+    print_r(json_encode($response));
+    return false;
+}
 $showroom_name = $db->escapeString($_POST['showroom_name']);
 $mobile = $db->escapeString($_POST['mobile']);
 $brand = $db->escapeString($_POST['brand']);
@@ -72,6 +90,9 @@ $working_hours = $db->escapeString($_POST['working_hours']);
 $address = $db->escapeString($_POST['address']);
 $pincode = $db->escapeString($_POST['pincode']);
 $gst_tin = $db->escapeString($_POST['gst_tin']);
+$account_no = $db->escapeString($_POST['account_no']);
+$ifsc_code = $db->escapeString($_POST['ifsc_code']);
+$alternate_mobile = $db->escapeString($_POST['alternate_mobile']);
 
 
 $sql = "SELECT * FROM showroom WHERE mobile = '$mobile' AND password = '$password'";
@@ -86,7 +107,7 @@ if ($num == 1) {
 }
 else{
     
-    $sql = "INSERT INTO showroom (`showroom_name`,`mobile`,`password`,`brand`,`working_hours`,`address`,`pincode`,`gst_tin`) VALUES ('$showroom_name','$mobile','$password','$brand','$working_hours','$address','$pincode','$gst_tin')";
+    $sql = "INSERT INTO showroom (`showroom_name`,`mobile`,`password`,`brand`,`working_hours`,`address`,`pincode`,`gst_tin`,`account_no`,`ifsc_code`,`alternate_mobile`,status) VALUES ('$showroom_name','$mobile','$password','$brand','$working_hours','$address','$pincode','$gst_tin','$account_no','$ifsc_code','$alternate_mobile',0)";
     $db->sql($sql);
     $sql = "SELECT * FROM showroom WHERE mobile = '$mobile'";
     $db->sql($sql);
