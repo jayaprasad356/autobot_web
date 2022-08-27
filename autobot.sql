@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2022 at 05:53 AM
+-- Generation Time: Aug 28, 2022 at 12:25 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -216,6 +216,61 @@ INSERT INTO `rental` (`id`, `vehicle_no`, `vehicle_group`, `model`, `year_of_man
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `seller`
+--
+
+CREATE TABLE `seller` (
+  `id` int(11) NOT NULL,
+  `name` text CHARACTER SET utf8 DEFAULT NULL,
+  `store_name` text CHARACTER SET utf8 DEFAULT NULL,
+  `slug` varchar(256) DEFAULT NULL,
+  `email` text CHARACTER SET utf8 DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
+  `password` text CHARACTER SET utf8 NOT NULL,
+  `balance` int(50) NOT NULL DEFAULT 0,
+  `store_url` text CHARACTER SET utf8 DEFAULT NULL,
+  `logo` text CHARACTER SET utf8 DEFAULT NULL,
+  `store_description` text CHARACTER SET utf8 DEFAULT NULL,
+  `street` text CHARACTER SET utf8 DEFAULT NULL,
+  `pincode_id` int(11) DEFAULT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `pincode_text` varchar(100) NOT NULL,
+  `city_text` varchar(100) NOT NULL,
+  `state` text CHARACTER SET utf8 DEFAULT NULL,
+  `categories` text CHARACTER SET utf8 DEFAULT NULL,
+  `account_number` text CHARACTER SET utf8 DEFAULT NULL,
+  `bank_ifsc_code` text CHARACTER SET utf8 DEFAULT NULL,
+  `account_name` text CHARACTER SET utf8 DEFAULT NULL,
+  `bank_name` text CHARACTER SET utf8 DEFAULT NULL,
+  `commission` int(11) DEFAULT 0,
+  `status` tinyint(2) NOT NULL DEFAULT 0,
+  `last_updated` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `require_products_approval` tinyint(2) NOT NULL DEFAULT 0,
+  `fcm_id` text CHARACTER SET utf8 DEFAULT NULL,
+  `national_identity_card` text CHARACTER SET utf8 DEFAULT NULL,
+  `address_proof` text CHARACTER SET utf8 DEFAULT NULL,
+  `pan_number` text CHARACTER SET utf8 DEFAULT NULL,
+  `tax_name` text CHARACTER SET utf8 DEFAULT NULL,
+  `tax_number` text CHARACTER SET utf8 DEFAULT NULL,
+  `customer_privacy` tinyint(4) DEFAULT 0,
+  `latitude` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  `longitude` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  `forgot_password_code` varchar(256) DEFAULT NULL,
+  `view_order_otp` tinyint(2) DEFAULT 0,
+  `assign_delivery_boy` tinyint(2) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `seller`
+--
+
+INSERT INTO `seller` (`id`, `name`, `store_name`, `slug`, `email`, `mobile`, `password`, `balance`, `store_url`, `logo`, `store_description`, `street`, `pincode_id`, `city_id`, `pincode_text`, `city_text`, `state`, `categories`, `account_number`, `bank_ifsc_code`, `account_name`, `bank_name`, `commission`, `status`, `last_updated`, `date_created`, `require_products_approval`, `fcm_id`, `national_identity_card`, `address_proof`, `pan_number`, `tax_name`, `tax_number`, `customer_privacy`, `latitude`, `longitude`, `forgot_password_code`, `view_order_otp`, `assign_delivery_boy`) VALUES
+(1, 'Divakar A', 'gold', NULL, 'example@gmail.com', '9876543210', 'e807f1fcf82d132f9bb018ca6738a19f', 0, NULL, '1661624684.1169.jpg', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, NULL, NULL, NULL, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
@@ -285,6 +340,34 @@ CREATE TABLE `slides` (
 INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
 (2, 'shop', 'upload/slides/3595-2022-07-28.jpg', 1),
 (3, 'home', 'upload/slides/0232-2022-07-29.png', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `used_vehicles`
+--
+
+CREATE TABLE `used_vehicles` (
+  `id` int(11) NOT NULL,
+  `vehicle_type` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `brand` text DEFAULT NULL,
+  `category` text NOT NULL,
+  `model` text DEFAULT NULL,
+  `vehicle_no` text DEFAULT NULL,
+  `km_driven` text DEFAULT NULL,
+  `insurance` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `location` text DEFAULT NULL,
+  `image` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `used_vehicles`
+--
+
+INSERT INTO `used_vehicles` (`id`, `vehicle_type`, `type`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`) VALUES
+(1, 'Motorcycle', 'Used', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '400', 'Yes', '50000', 'Madurai', 'upload/vehicles/9736-2022-08-28.jpg');
 
 -- --------------------------------------------------------
 
@@ -360,6 +443,12 @@ ALTER TABLE `rental`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `seller`
+--
+ALTER TABLE `seller`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
@@ -375,6 +464,12 @@ ALTER TABLE `showroom`
 -- Indexes for table `slides`
 --
 ALTER TABLE `slides`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `used_vehicles`
+--
+ALTER TABLE `used_vehicles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -436,6 +531,12 @@ ALTER TABLE `rental`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `seller`
+--
+ALTER TABLE `seller`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
@@ -452,6 +553,12 @@ ALTER TABLE `showroom`
 --
 ALTER TABLE `slides`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `used_vehicles`
+--
+ALTER TABLE `used_vehicles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

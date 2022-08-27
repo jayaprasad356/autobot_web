@@ -4,17 +4,14 @@ $db = new Database();
 $db->connect();
 $db->sql("SET NAMES 'utf8'");
 session_start();
-$auth_username = $db->escapeString($_SESSION["seller_name"]);
-$session_seller_id = $db->escapeString($_SESSION["seller_id"]);
 
 include('../../includes/variables.php');
 include_once('../../includes/custom-functions.php');
 
-include('send-email.php');
 include_once('../../includes/functions.php');
 $function = new functions;
 $fn = new custom_functions;
-$config = $fn->get_configurations();
+
 
 if (isset($_POST['add_seller']) && $_POST['add_seller'] == 1) {
     $name = $db->escapeString($fn->xss_clean($_POST['name']));
@@ -22,7 +19,6 @@ if (isset($_POST['add_seller']) && $_POST['add_seller'] == 1) {
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
 
     $store_name = $db->escapeString($fn->xss_clean($_POST['store_name']));
-    $slug = $function->slugify($db->escapeString($fn->xss_clean($_POST['store_name'])), 'seller');
     $tax_name = $db->escapeString($fn->xss_clean($_POST['tax_name']));
     $tax_number = $db->escapeString($fn->xss_clean($_POST['tax_number']));
     $pan_number = $db->escapeString($fn->xss_clean($_POST['pan_number']));
@@ -97,33 +93,15 @@ if (isset($_POST['add_seller']) && $_POST['add_seller'] == 1) {
             return false;
         }
     }
-    $sql = "INSERT INTO `seller`(`name`, `store_name`, `email`, `mobile`, `password`, `logo`,`commission`,`status`,`national_identity_card`,`address_proof`,`pan_number`,`tax_name`,`tax_number`,`slug`) VALUES ('$name','$store_name','$email', '$mobile', '$password','$filename', '$commission','$status','$national_id_card','$address_proof','$pan_number','$tax_name','$tax_number','$slug')";
+    $sql = "INSERT INTO `seller`(`name`, `store_name`, `email`, `mobile`, `password`, `logo`,`commission`,`status`,`national_identity_card`,`address_proof`,`pan_number`,`tax_name`,`tax_number`) VALUES ('$name','$store_name','$email', '$mobile', '$password','$filename', '$commission','$status','$national_id_card','$address_proof','$pan_number','$tax_name','$tax_number')";
 
     if ($db->sql($sql)) {
         echo '<label class="alert alert-success">Seller Added Successfully!</label>';
 
-        $sql = "SELECT * FROM seller WHERE mobile=" . $mobile;
-        $db->sql($sql);
-        $res = $db->getResult();
+    }
+    else{
+        echo '<label class="alert alert-danger">Failed!</label>';
 
-        $user_data = $fn->get_data($columns = ['name', 'email', 'mobile'], 'id=' . $res[0]['id'], 'seller');
-
-        $sql = "SELECT * FROM admin WHERE role = 'super admin' ";
-        $db->sql($sql);
-        $result = $db->getResult();
-
-        if ($db->numRows($res)) {
-            $to = $result[0]['email'];
-            $subject = "Seller";
-            $message = "Hello, Dear " . ucwords($user_data[0]['name']);
-            $message .= "Thank you for using our services!";
-
-            if (!send_email($to, $subject, $message)) {
-                echo '<label class="alert alert-danger">Email not sent! please try again.</label>';
-            } else {
-                echo '<label class="alert alert-success">Email Send Successfully! Please check the mail!</label>';
-            }
-        }
     }
 }
 

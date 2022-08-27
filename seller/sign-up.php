@@ -96,22 +96,24 @@ $res = $db->getResult();
                             <input type="text" class="form-control" name="pan_number" required>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label for="">National Identity Card</label>
                                     <input type="file" class="form-control" name="national_id_card" required>
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label for="">Address Proof</label>
                                     <input type="file" class="form-control" name="address_proof" id="address_proof" required><br>
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label for="logo">Logo</label>
-                                    <input type="file" name="store_logo" id="store_logo" required /><br>
+                                    <input type="file" class="form-control" name="store_logo" id="store_logo" required /><br>
                                 </div>
                             </div>
                         </div>
@@ -175,8 +177,7 @@ $res = $db->getResult();
                     $('#result').show().delay(6000).fadeOut();
                     $('#submit_btn').html('Submit');
                     $('#add_seller_form')[0].reset();
-                    window.location = "../seller/index.php";
-
+                   
 
                 }
             });

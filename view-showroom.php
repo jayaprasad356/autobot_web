@@ -19,7 +19,7 @@
 	unset($_SESSION['timeout']);
 	$_SESSION['timeout'] = $currentTime + $expired;
 ?>
-<?php include"header.php";?>
+<?php include "header.php";?>
 <html>
 <head>
 <title>View |- Dashboard</title>
@@ -38,4 +38,4 @@
       </div><!-- /.content-wrapper -->
   </body>
 </html>
-<?php include"footer.php";?>
+<?php include "footer.php";?>

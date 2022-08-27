@@ -9,9 +9,8 @@ $db->sql("SET NAMES 'utf8'");
 
 include('../includes/variables.php');
 include_once('../includes/custom-functions.php');
-
 $fn = new custom_functions();
-$config = $fn->get_configurations();
+
 
 ?>
 <!DOCTYPE html>
@@ -150,6 +149,11 @@ $config = $fn->get_configurations();
                     <li class="treeview">
                         <a href="home.php">
                             <i class="fa fa-home" class="active"></i> <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="used_vehicles.php">
+                            <i class="fa fa-motorcycle"></i> <span>Used Vehicles</span>
                         </a>
                     </li>
                    

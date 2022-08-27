@@ -180,7 +180,7 @@ if (isset($_POST['btnCancel'])) { ?>
 										<input type="text" class="form-control" name="description" value="<?php echo $res[0]['description']; ?>">
 									 </div>
 									 <div class="col-md-4">
-									 <label for="exampleInputFile">Image</label>
+									     <label for="exampleInputFile">Image</label>
                                         
                                         <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>

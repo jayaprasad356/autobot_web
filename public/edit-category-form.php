@@ -147,11 +147,3 @@ if (isset($_POST['btnCancel'])) { ?>
 <div class="separator"> </div>
 <?php $db->disconnect(); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-<script>
-	$('#edit_category_form').validate({
-		rules: {
-			name: "required",
-
-		}
-	});
-</script>
