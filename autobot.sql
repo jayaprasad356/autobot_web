@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2022 at 12:25 AM
+-- Generation Time: Aug 28, 2022 at 11:03 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -216,6 +216,54 @@ INSERT INTO `rental` (`id`, `vehicle_no`, `vehicle_group`, `model`, `year_of_man
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rental_orders`
+--
+
+CREATE TABLE `rental_orders` (
+  `id` int(11) NOT NULL,
+  `name` text DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
+  `rental_vehicles_id` text DEFAULT NULL,
+  `start_time` date DEFAULT NULL,
+  `end_time` date DEFAULT NULL,
+  `status` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rental_orders`
+--
+
+INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`) VALUES
+(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rental_vehicles`
+--
+
+CREATE TABLE `rental_vehicles` (
+  `id` int(11) NOT NULL,
+  `category` text DEFAULT NULL,
+  `brand` text DEFAULT NULL,
+  `bike_name` text DEFAULT NULL,
+  `km_charge` text DEFAULT NULL,
+  `minute_charge` text DEFAULT NULL,
+  `location` text DEFAULT NULL,
+  `image` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rental_vehicles`
+--
+
+INSERT INTO `rental_vehicles` (`id`, `category`, `brand`, `bike_name`, `km_charge`, `minute_charge`, `location`, `image`, `status`) VALUES
+(1, 'City Booking', 'KTM', 'Duke 200', 'Rs.30', 'Rs.12', 'Madurai', 'upload/rentals/0069-2022-08-28.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `seller`
 --
 
@@ -367,7 +415,7 @@ CREATE TABLE `used_vehicles` (
 --
 
 INSERT INTO `used_vehicles` (`id`, `vehicle_type`, `type`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`) VALUES
-(1, 'Motorcycle', 'Used', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '400', 'Yes', '50000', 'Madurai', 'upload/vehicles/9736-2022-08-28.jpg');
+(1, 'Motorcycle', 'New', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', 'Rs.215000', 'Trichy', 'upload/vehicles/1661677288.632.jpg');
 
 -- --------------------------------------------------------
 
@@ -440,6 +488,18 @@ ALTER TABLE `product_variant`
 -- Indexes for table `rental`
 --
 ALTER TABLE `rental`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rental_orders`
+--
+ALTER TABLE `rental_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rental_vehicles`
+--
+ALTER TABLE `rental_vehicles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -528,6 +588,18 @@ ALTER TABLE `product_variant`
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rental_orders`
+--
+ALTER TABLE `rental_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rental_vehicles`
+--
+ALTER TABLE `rental_vehicles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

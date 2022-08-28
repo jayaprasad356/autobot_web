@@ -156,6 +156,16 @@ $fn = new custom_functions();
                             <i class="fa fa-motorcycle"></i> <span>Used Vehicles</span>
                         </a>
                     </li>
+                    <li class="treeview">
+                        <a href="rental_vehicles.php">
+                            <i class="fa fa-bus"></i> <span>Rental Vehicles</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="rental_orders.php">
+                            <i class="fa fa-shopping-cart"></i> <span>Rental Orders</span>
+                        </a>
+                    </li>
                    
                 </ul>
             </section>

@@ -9,15 +9,11 @@ $fn = new custom_functions;
 if (isset($_POST['btnAdd'])) {
 
 
-        $vehicle_type = $db->escapeString($_POST['vehicle_type']);
-        $brand = $db->escapeString($_POST['brand']);
         $category = $db->escapeString($_POST['category']);
-        $model = $db->escapeString($_POST['model']);
-        $vehicle_no = $db->escapeString($_POST['vehicle_no']);
-        $km_driven = $db->escapeString($_POST['km_driven']);
-        $type = $db->escapeString($_POST['type']);
-        $insurance = $db->escapeString($_POST['insurance']);
-        $price = $db->escapeString($_POST['price']);
+        $brand = $db->escapeString($_POST['brand']);
+        $bike_name = $db->escapeString($_POST['bike_name']);
+        $km_charge = $db->escapeString($_POST['km_charge']);
+        $minute_charge = $db->escapeString($_POST['minute_charge']);
         $location = $db->escapeString($_POST['location']);
 
 
@@ -36,39 +32,27 @@ if (isset($_POST['btnAdd'])) {
         $extension = end(explode(".", $_FILES["bike_image"]["name"]));
         
 
-        if (empty($vehicle_type)) {
-            $error['vehicle_type'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($category)) {
+            $error['category'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($category)) {
-            $error['category'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($bike_name)) {
+            $error['bike_name'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($model)) {
-            $error['model'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($km_charge)) {
+            $error['km_charge'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($vehicle_no)) {
-            $error['vehicle_no'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($km_driven)) {
-            $error['km_driven'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($type)) {
-            $error['type'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($insurance)) {
-            $error['insurance'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($price)) {
-            $error['price'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($minute_charge)) {
+            $error['minute_charge'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($location)) {
             $error['location'] = " <span class='label label-danger'>Required!</span>";
         }
 
 
-        if (!empty($vehicle_type) && !empty($brand) && !empty($category) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($type) && !empty($insurance) && !empty($price) && !empty($location)   ) {
+        if (!empty($category) && !empty($brand) && !empty($bike_name) && !empty($km_charge) && !empty($minute_charge) && !empty($location)) {
             $result = $fn->validate_image($_FILES["bike_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -76,12 +60,12 @@ if (isset($_POST['btnAdd'])) {
                 $menu_image = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
         
                 // upload new image
-                $upload = move_uploaded_file($_FILES['bike_image']['tmp_name'], '../upload/vehicles/' . $menu_image);
+                $upload = move_uploaded_file($_FILES['bike_image']['tmp_name'], '../upload/rentals/' . $menu_image);
         
                 // insert new data to menu table
-                $upload_image = 'upload/vehicles/' . $menu_image;
+                $upload_image = 'upload/rentals/' . $menu_image;
            
-            $sql_query = "INSERT INTO used_vehicles (vehicle_type,brand,category,model,vehicle_no,km_driven,type,insurance,price,location,image) VALUES ('$vehicle_type','$brand','$category','$model','$vehicle_no','$km_driven','$type','$insurance','$price','$location','$upload_image')";
+            $sql_query = "INSERT INTO rental_vehicles (category,brand,bike_name,km_charge,minute_charge,location,image,status) VALUES ('$category','$brand','$bike_name','$km_charge','$minute_charge','$location','$upload_image',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -91,7 +75,7 @@ if (isset($_POST['btnAdd'])) {
             }
 
             if ($result == 1) {
-                $error['add_vehicle'] = " <section class='content-header'><span class='label label-success'>Vehicle Added Successfully</span></section>";
+                $error['add_vehicle'] = " <section class='content-header'><span class='label label-success'>Rental Vehicle Added Successfully</span></section>";
             } else {
                 $error['add_vehicle'] = " <span class='label label-danger'>Failed!</span>";
             }
@@ -99,7 +83,7 @@ if (isset($_POST['btnAdd'])) {
         }
 ?>
 <section class="content-header">
-    <h1>Add Vehicle <small><a href='used_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Vehicles</a></small></h1>
+    <h1>Add Rental Vehicle <small><a href='rental_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Rental Vehicles</a></small></h1>
 
     <?php echo isset($error['add_vehicle']) ? $error['add_vehicle'] : ''; ?>
     <ol class="breadcrumb">
@@ -114,7 +98,7 @@ if (isset($_POST['btnAdd'])) {
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Add Vehicle</h3>
+                    <h3 class="box-title">Add Vehicle For Rent</h3>
 
                 </div><!-- /.box-header -->
                 <!-- form start -->
@@ -123,21 +107,12 @@ if (isset($_POST['btnAdd'])) {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Vehicle Type</label><?php echo isset($error['vehicle_type']) ? $error['vehicle_type'] : ''; ?>
-                                    <input type="text" class="form-control" name="vehicle_type" required>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Type</label>
-                                <div class="form-group">
-                                    <div id="type" class="btn-group">
-                                        <label  class="btn btn-info" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="New"> New
-                                        </label>
-                                        <label  class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="Used"> Used
-                                        </label>
-                                    </div>
+                                    <label for="exampleInputEmail1"> Category</label>
+                                    <select id="category" name="category" class="form-control">
+                                        <option value="#">Select</option>
+                                        <option  value="City Booking">City Booking</option>
+                                        <option value="Hills Ride">Hills Ride</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -157,51 +132,24 @@ if (isset($_POST['btnAdd'])) {
                                         </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Category</label><?php echo isset($error['category']) ? $error['category'] : ''; ?>
-                                    <input type="text" class="form-control" name="category" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Model</label><?php echo isset($error['model']) ? $error['model'] : ''; ?>
-                                    <input type="number" class="form-control" name="model" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Vehicle Number</label><?php echo isset($error['vehicle_no']) ? $error['vehicle_no'] : ''; ?>
-                                    <input type="text" class="form-control" name="vehicle_no" required>
+                                    <label for="exampleInputEmail1"> Bike Name</label><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                    <input type="text" class="form-control" name="bike_name" required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> KM Driven</label><?php echo isset($error['km_driven']) ? $error['km_driven'] : ''; ?>
-                                    <input type="text" class="form-control" name="km_driven" required>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Insurance</label>
-                                <div class="form-group" >
-                                    <div id="insurance" class="btn-group">
-                                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="insurance" value="Yes"> Yes
-                                        </label>
-                                        <label class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="insurance" value="No"> No
-                                        </label>
-                                    </div>
+                                    <label for="exampleInputEmail1">Price/Km</label><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
+                                    <input type="text" class="form-control" name="km_charge" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Price</label><?php echo isset($error['price']) ? $error['price'] : ''; ?>
-                                    <input type="text" class="form-control" name="price" required>
+                                    <label for="exampleInputEmail1">Price/Minute</label><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
+                                    <input type="text" class="form-control" name="minute_charge" required>
                                 </div>
                             </div>
                         </div>
@@ -245,12 +193,10 @@ if (isset($_POST['btnAdd'])) {
         ignore: [],
         debug: false,
         rules: {
-            vehicle_type: "required",
+            bike_name: "required",
             brand: "required",
-            model: "required",
-            price:"required",
             category:"required",
-            insurance:"required",
+            location:"required",
         }
     });
     $('#btnClear').on('click', function() {

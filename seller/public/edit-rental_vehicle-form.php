@@ -16,52 +16,37 @@ if (isset($_GET['id'])) {
 if (isset($_POST['btnUpdate'])) {
 
 
-        $vehicle_type = $db->escapeString($_POST['vehicle_type']);
-        $brand = $db->escapeString($_POST['brand']);
         $category = $db->escapeString($_POST['category']);
-        $model = $db->escapeString($_POST['model']);
-        $vehicle_no = $db->escapeString($_POST['vehicle_no']);
-        $km_driven = $db->escapeString($_POST['km_driven']);
-        $type = $db->escapeString($_POST['type']);
-        $insurance = $db->escapeString($_POST['insurance']);
-        $price = $db->escapeString($_POST['price']);
+        $brand = $db->escapeString($_POST['brand']);
+        $bike_name = $db->escapeString($_POST['bike_name']);
+        $km_charge = $db->escapeString($_POST['km_charge']);
+        $minute_charge = $db->escapeString($_POST['minute_charge']);
         $location = $db->escapeString($_POST['location']);
+        $status=$db->escapeString($_POST['status']);
 
         
 
-        if (empty($vehicle_type)) {
-            $error['vehicle_type'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($category)) {
+            $error['category'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($category)) {
-            $error['category'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($bike_name)) {
+            $error['bike_name'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($model)) {
-            $error['model'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($km_charge)) {
+            $error['km_charge'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($vehicle_no)) {
-            $error['vehicle_no'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($km_driven)) {
-            $error['km_driven'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($type)) {
-            $error['type'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($insurance)) {
-            $error['insurance'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($price)) {
-            $error['price'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($minute_charge)) {
+            $error['minute_charge'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($location)) {
             $error['location'] = " <span class='label label-danger'>Required!</span>";
         }
 
 
-        if (!empty($vehicle_type) && !empty($brand) && !empty($category) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($type) && !empty($insurance) && !empty($price) && !empty($location)   ) {
+        if (!empty($category) && !empty($brand) && !empty($bike_name) && !empty($km_charge) && !empty($minute_charge) && !empty($location)) {
            
             if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -69,7 +54,7 @@ if (isset($_POST['btnUpdate'])) {
 				$extension = pathinfo($_FILES["image"]["name"])['extension'];
 		
 				$result = $fn->validate_image($_FILES["image"]);
-				$target_path = '../upload/vehicles/';
+				$target_path = '../upload/rentals/';
 				
 				$filename = microtime(true) . '.' . strtolower($extension);
 				$full_path = $target_path . "" . $filename;
@@ -81,12 +66,12 @@ if (isset($_POST['btnUpdate'])) {
 				if (!empty($old_image)) {
 					unlink($old_image);
 				}
-				$upload_image = 'upload/vehicles/' . $filename;
-				$sql = "UPDATE used_vehicles SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
+				$upload_image = 'upload/rentals/' . $filename;
+				$sql = "UPDATE rental_vehicles SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
 				$db->sql($sql);
 			}
            
-            $sql_query = "UPDATE used_vehicles SET vehicle_type='$vehicle_type',brand='$brand',category='$category',model='$model',vehicle_no='$vehicle_no',km_driven='$km_driven',type='$type',insurance='$insurance',price='$price',location='$location',image='$upload_image' WHERE id =  $ID";
+            $sql_query = "UPDATE rental_vehicles SET category='$category',brand='$brand',bike_name='$bike_name',km_charge='$km_charge',minute_charge='$minute_charge',location='$location',image='$upload_image',status='$status' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -105,12 +90,12 @@ if (isset($_POST['btnUpdate'])) {
 // create array variable to store previous data
 $data = array();
 
-$sql_query = "SELECT * FROM used_vehicles WHERE id =$ID";
+$sql_query = "SELECT * FROM rental_vehicles WHERE id =$ID";
 $db->sql($sql_query);
 $res = $db->getResult();
 ?>
 <section class="content-header">
-    <h1>Edit Used Vehicle <small><a href='used_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Vehicles</a></small></h1>
+    <h1>Edit Rental Vehicle <small><a href='reantal_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Vehicles</a></small></h1>
 
     <?php echo isset($error['update_vehicle']) ? $error['update_vehicle'] : ''; ?>
     <ol class="breadcrumb">
@@ -125,7 +110,7 @@ $res = $db->getResult();
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit Vehicle</h3>
+                    <h3 class="box-title">Edit Rental Vehicle</h3>
 
                 </div><!-- /.box-header -->
                 <!-- form start -->
@@ -135,21 +120,12 @@ $res = $db->getResult();
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Vehicle Type</label><?php echo isset($error['vehicle_type']) ? $error['vehicle_type'] : ''; ?>
-                                    <input type="text" class="form-control" name="vehicle_type" value="<?php echo $res[0]['vehicle_type']; ?>">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Type</label>
-                                <div class="form-group">
-                                    <div id="type" class="btn-group">
-                                        <label class="btn btn-info" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="New" <?= ($res[0]['type'] == 'New') ? 'checked' : ''; ?>>New
-                                        </label>
-                                        <label class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="Used" <?= ($res[0]['type'] == 'Used') ? 'checked' : ''; ?>> Used
-                                        </label>
-                                    </div>
+                                    <label for="exampleInputEmail1">Category</label><?php echo isset($error['category']) ? $error['category'] : ''; ?>
+                                    <select id="category" name="category" class="form-control">
+                                        <option value="#">Select</option>
+                                        <option value="City Booking"<?=$res[0]['category'] == 'City Booking' ? ' selected="selected"' : '';?>>City Booking</option>
+                                        <option value="Hills Ride"<?=$res[0]['category'] == 'Hills Ride' ? ' selected="selected"' : '';?>>Hills Ride</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -169,51 +145,24 @@ $res = $db->getResult();
                                         </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Category</label><?php echo isset($error['category']) ? $error['category'] : ''; ?>
-                                    <input type="text" class="form-control" name="category" value="<?php echo $res[0]['category']; ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Model</label><?php echo isset($error['model']) ? $error['model'] : ''; ?>
-                                    <input type="number" class="form-control" name="model" value="<?php echo $res[0]['model']; ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Vehicle Number</label><?php echo isset($error['vehicle_no']) ? $error['vehicle_no'] : ''; ?>
-                                    <input type="text" class="form-control" name="vehicle_no" value="<?php echo $res[0]['vehicle_no']; ?>">
+                                    <label for="exampleInputEmail1"> Bike Name</label><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                    <input type="text" class="form-control" name="bike_name" value="<?php echo $res[0]['bike_name']; ?>">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> KM Driven</label><?php echo isset($error['km_driven']) ? $error['km_driven'] : ''; ?>
-                                    <input type="text" class="form-control" name="km_driven" value="<?php echo $res[0]['km_driven']; ?>">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Insurance</label>
-                                <div class="form-group" >
-                                    <div id="insurance" class="btn-group">
-                                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="insurance" value="Yes" <?= ($res[0]['insurance'] == 'Yes') ? 'checked' : ''; ?>>Yes
-                                        </label>
-                                        <label class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="insurance" value="No"  <?= ($res[0]['insurance'] == 'No') ? 'checked' : ''; ?>> No
-                                        </label>
-                                    </div>
+                                    <label for="exampleInputEmail1">Price/Km</label><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
+                                    <input type="text" class="form-control" name="km_charge" value="<?php echo $res[0]['km_charge']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Price</label><?php echo isset($error['price']) ? $error['price'] : ''; ?>
-                                    <input type="text" class="form-control" name="price" value="<?php echo $res[0]['price']; ?>">
+                                    <label for="exampleInputEmail1">Price/Minute</label><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
+                                    <input type="text" class="form-control" name="minute_charge" value="<?php echo $res[0]['minute_charge']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -230,7 +179,22 @@ $res = $db->getResult();
                                         <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
                                 </div>
-                            </div>
+                            </div>   
+                        </div>
+                        <div class="row">
+                                <div class="form-group">
+                                    <div class='col-md-4'>
+                                            <label class="control-label">Status</label>
+                                            <div id="status" class="btn-group">
+                                                <label class="btn btn-success" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                                    <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
+                                                </label>
+                                                <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                    <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Unavailable
+                                                </label>
+                                            </div>
+                                   </div>
+                                </div>
                         </div>
                     </div>
                   
