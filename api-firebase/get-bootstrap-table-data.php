@@ -275,7 +275,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
 
     foreach ($res as $row) {
 
-        $operate = ' <a href="delete-slide.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+        $operate = ' <a class="text text-danger" href="delete-slide.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
 
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
@@ -287,6 +287,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
 
         }
         $tempRow['status'] = $row['status'];
+        if ($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-success'> Active</p>";
+        else 
+            $tempRow['status'] = "<p class='text text-success'>Inactive</p>";
        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }

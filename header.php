@@ -15,7 +15,7 @@ $fn = new custom_functions;
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/ico" href="<?= 'dist/img/' . $res_logo[0]['value'] ?>">
+        <link rel="icon" type="image/ico" href="dist/img/favicon.png">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -160,7 +160,7 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="users.php">
-                        <i class="fa fa-bullseye"></i>
+                        <i class="fa fa-user"></i>
                         <span>Users</span>
                     </a>
                 </li>
@@ -178,7 +178,7 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="slides.php">
-                        <i class="fa fa-bullseye"></i>
+                        <i class="fa fa-sliders"></i>
                         <span>Slides</span>
                     </a>
                 </li>
@@ -190,7 +190,7 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="rentals.php">
-                        <i class="fa fa-bullseye"></i>
+                        <i class="fa fa-truck"></i>
                         <span>Rentals</span>
                     </a>
                 </li>
@@ -202,7 +202,7 @@ $fn = new custom_functions;
                 </li>
                 <li class="treeview">
                     <a href="notifications.php">
-                        <i class="fa fa-bullseye"></i>
+                        <i class="fa fa-bell"></i>
                         <span>Notifications</span>
                     </a>
                 </li>

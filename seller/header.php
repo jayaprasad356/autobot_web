@@ -114,13 +114,13 @@ $fn = new custom_functions();
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?= DOMAIN_URL . $seller_profile; ?>" class="user-image" alt="User Image">
+                                <img src="../images/avatar.png" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?= $_SESSION['seller_name'] ?></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?= DOMAIN_URL . $seller_profile; ?>" class="img-circle" alt="User Image">
+                                    <img src="../images/avatar.png" class="img-circle" alt="User Image">
                                     <p>
                                        <small> <?= $_SESSION['seller_name'] ?></small>
                                     </p>

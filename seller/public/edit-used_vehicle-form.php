@@ -22,7 +22,6 @@ if (isset($_POST['btnUpdate'])) {
         $model = $db->escapeString($_POST['model']);
         $vehicle_no = $db->escapeString($_POST['vehicle_no']);
         $km_driven = $db->escapeString($_POST['km_driven']);
-        $type = $db->escapeString($_POST['type']);
         $insurance = $db->escapeString($_POST['insurance']);
         $price = $db->escapeString($_POST['price']);
         $location = $db->escapeString($_POST['location']);
@@ -47,9 +46,6 @@ if (isset($_POST['btnUpdate'])) {
         if (empty($km_driven)) {
             $error['km_driven'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($type)) {
-            $error['type'] = " <span class='label label-danger'>Required!</span>";
-        }
         if (empty($insurance)) {
             $error['insurance'] = " <span class='label label-danger'>Required!</span>";
         }
@@ -61,7 +57,7 @@ if (isset($_POST['btnUpdate'])) {
         }
 
 
-        if (!empty($vehicle_type) && !empty($brand) && !empty($category) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($type) && !empty($insurance) && !empty($price) && !empty($location)   ) {
+        if (!empty($vehicle_type) && !empty($brand) && !empty($category) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($insurance) && !empty($price) && !empty($location)   ) {
            
             if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -86,7 +82,7 @@ if (isset($_POST['btnUpdate'])) {
 				$db->sql($sql);
 			}
            
-            $sql_query = "UPDATE used_vehicles SET vehicle_type='$vehicle_type',brand='$brand',category='$category',model='$model',vehicle_no='$vehicle_no',km_driven='$km_driven',type='$type',insurance='$insurance',price='$price',location='$location',image='$upload_image' WHERE id =  $ID";
+            $sql_query = "UPDATE used_vehicles SET vehicle_type='$vehicle_type',brand='$brand',category='$category',model='$model',vehicle_no='$vehicle_no',km_driven='$km_driven',insurance='$insurance',price='$price',location='$location',image='$upload_image' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -137,19 +133,6 @@ $res = $db->getResult();
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> Vehicle Type</label><?php echo isset($error['vehicle_type']) ? $error['vehicle_type'] : ''; ?>
                                     <input type="text" class="form-control" name="vehicle_type" value="<?php echo $res[0]['vehicle_type']; ?>">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Type</label>
-                                <div class="form-group">
-                                    <div id="type" class="btn-group">
-                                        <label class="btn btn-info" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="New" <?= ($res[0]['type'] == 'New') ? 'checked' : ''; ?>>New
-                                        </label>
-                                        <label class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="Used" <?= ($res[0]['type'] == 'Used') ? 'checked' : ''; ?>> Used
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">

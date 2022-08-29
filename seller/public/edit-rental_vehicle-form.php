@@ -95,7 +95,7 @@ $db->sql($sql_query);
 $res = $db->getResult();
 ?>
 <section class="content-header">
-    <h1>Edit Rental Vehicle <small><a href='reantal_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Vehicles</a></small></h1>
+    <h1>Edit Rental Vehicle <small><a href='rental_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Vehicles</a></small></h1>
 
     <?php echo isset($error['update_vehicle']) ? $error['update_vehicle'] : ''; ?>
     <ol class="breadcrumb">

@@ -93,23 +93,77 @@ $res = $db->getResult();
                                 </td>
                             </tr>
                         </table>
-                
     
                     </div><!-- /.box-body -->
-                <div class="box-footer clearfix">
-                        <?php
-                        if($res [0]['status'] !='2'){?>
-                            <a href="update-rental_orders.php?id=<?php echo $res[0]['id'] ?>"><button class="btn btn-primary">Update</button></a> 
-                        <?php
-                        }
-                        ?>
-                    
+                    <?php
+                    $ID = $_SESSION['seller_id'];
+                    $order_id = $_GET['id'];
+
+                    if (isset($_POST['btnUpdate'])) {
                         
+                        $seller_id = $ID;
+                        $status = $db->escapeString($_POST['status']);    
                     
-                </div>
+                            $sql = "UPDATE rental_orders SET `status` = '$status' WHERE id = '" . $order_id . "'";
+                            $db->sql($sql);
+                            $order_result = $db->getResult();
+                            if (!empty($order_result)) {
+                                $order_result = 0;
+                            } else {
+                                $order_result = 1;
+                            }
+                            if ($order_result == 1 ) {
+                                $error['add_menu'] = "<section class='content-header'>
+                                                                    <span id='success' class='label label-success'>Updated Successfully</span>
+                                                                    
+                                                                     </section>";
+                            } else {
+                                $error['add_menu'] = " <span class='label label-danger'>Failed</span>";
+                            }
+                    
+                    }
+                    $sql_query = "SELECT status FROM rental_orders WHERE id = '" . $order_id . "'";
+                    $db->sql($sql_query);
+                    
+                    $res = $db->getResult();
+                    
+                    ?>
+                    <section class="content-header">
+                        <?php echo isset($error['add_menu']) ? $error['add_menu'] : ''; ?>
+                    </section>
+                <form id='add_product_form' method="post" enctype="multipart/form-data">
+                
+                    
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="form-group" >
+                                <label for="exampleInputEmail1">Status</label><?php echo isset($error['status']) ? $error['status'] : ''; ?>
+                                <select name="status" class="form-control" required>
+                                <option value="0" <?php if ($res[0]['status'] == "0") {echo "selected";} ?>>Booked</option>
+                                <option value="1" <?php if ($res[0]['status'] == "1") {echo "selected";} ?>>Confirmed</option>         
+                                <option value="2" <?php if ($res[0]['status'] == "2") {echo "selected";} ?>>Completed</option>                                                                            
+                                </select>
+                            </div>
+                       </div>
+                    </div>
+                    <div class="box-footer">
+                        <input type="submit" class="btn-primary btn" value="Update" name="btnUpdate" />
+                        <!--<div  id="res"></div>-->
+                    </div>
+                </form>
             </div><!--box--->
 
             </div>
         </div>
 </section>
 <div class="separator"> </div>
+<script>
+    if ($("#success").text() == "Updated Successfully")
+    {
+        setTimeout(showpanel, 1000);
+        
+    }
+    function showpanel() {     
+        window.location.replace("rental_orders.php");
+ }
+</script>

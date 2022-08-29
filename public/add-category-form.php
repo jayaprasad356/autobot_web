@@ -91,15 +91,15 @@ if (isset($_POST['btnAdd'])) {
                 <form name="add_category" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1"> Name</label><?php echo isset($error['name']) ? $error['name'] : ''; ?>
+                            <label for="exampleInputEmail1"> Name</label><i class="text-danger asterik">*</i><?php echo isset($error['name']) ? $error['name'] : ''; ?>
                             <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Image</label><?php echo isset($error['category_image']) ? $error['category_image'] : ''; ?>
+                            <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i><?php echo isset($error['category_image']) ? $error['category_image'] : ''; ?>
                             <input type="file" name="category_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="category_image" />
                         </div>
                         <div class="form-group">
-                            <img id="blah" src="#" alt="image" />
+                            <img id="blah" src="#" alt="" />
 
                         </div>
                     </div>
@@ -108,7 +108,7 @@ if (isset($_POST['btnAdd'])) {
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary" name="btnAdd">Add</button>
-                        <input type="reset" class="btn-warning btn" value="Clear" />
+                        <input type="reset"  onClick="refreshPage()" class="btn-warning btn" value="Clear" />
                     </div>
 
                 </form>
@@ -134,5 +134,11 @@ if (isset($_POST['btnAdd'])) {
                 reader.readAsDataURL(input.files[0]);
             }
         }
+</script>
+<!--code for page clear-->
+<script>
+    function refreshPage(){
+    window.location.reload();
+} 
 </script>
 <?php $db->disconnect(); ?>

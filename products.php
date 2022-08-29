@@ -23,7 +23,7 @@
 <?php include"header.php";?>
 <html>
 <head>
-<title>Autobot</title>
+<title>Products | - Dashboard</title>
 </head>
 </body>
       <!-- Content Wrapper. Contains page content -->

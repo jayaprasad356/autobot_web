@@ -55,7 +55,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE vehicle_type like '%" . $search . "%' OR model like '%" . $search . "%' OR category like '%" . $search . "%' OR type like '%" . $search . "%' OR price like '%" . $search . "%'";
+        $where .= "WHERE vehicle_type like '%" . $search . "%' OR model like '%" . $search . "%' OR category like '%" . $search . "%' OR price like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -87,7 +87,6 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
         $operate = ' <a href="edit-used_vehicle.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['vehicle_type'] = $row['vehicle_type'];
-        $tempRow['type'] = $row['type'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['category'] = $row['category'];
         $tempRow['model'] = $row['model'];

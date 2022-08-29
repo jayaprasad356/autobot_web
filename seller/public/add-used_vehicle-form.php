@@ -15,7 +15,6 @@ if (isset($_POST['btnAdd'])) {
         $model = $db->escapeString($_POST['model']);
         $vehicle_no = $db->escapeString($_POST['vehicle_no']);
         $km_driven = $db->escapeString($_POST['km_driven']);
-        $type = $db->escapeString($_POST['type']);
         $insurance = $db->escapeString($_POST['insurance']);
         $price = $db->escapeString($_POST['price']);
         $location = $db->escapeString($_POST['location']);
@@ -54,9 +53,6 @@ if (isset($_POST['btnAdd'])) {
         if (empty($km_driven)) {
             $error['km_driven'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($type)) {
-            $error['type'] = " <span class='label label-danger'>Required!</span>";
-        }
         if (empty($insurance)) {
             $error['insurance'] = " <span class='label label-danger'>Required!</span>";
         }
@@ -68,7 +64,7 @@ if (isset($_POST['btnAdd'])) {
         }
 
 
-        if (!empty($vehicle_type) && !empty($brand) && !empty($category) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($type) && !empty($insurance) && !empty($price) && !empty($location)   ) {
+        if (!empty($vehicle_type) && !empty($brand) && !empty($category) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($insurance) && !empty($price) && !empty($location)) {
             $result = $fn->validate_image($_FILES["bike_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -81,7 +77,7 @@ if (isset($_POST['btnAdd'])) {
                 // insert new data to menu table
                 $upload_image = 'upload/vehicles/' . $menu_image;
            
-            $sql_query = "INSERT INTO used_vehicles (vehicle_type,brand,category,model,vehicle_no,km_driven,type,insurance,price,location,image) VALUES ('$vehicle_type','$brand','$category','$model','$vehicle_no','$km_driven','$type','$insurance','$price','$location','$upload_image')";
+            $sql_query = "INSERT INTO used_vehicles (vehicle_type,brand,category,model,vehicle_no,km_driven,insurance,price,location,image) VALUES ('$vehicle_type','$brand','$category','$model','$vehicle_no','$km_driven','$insurance','$price','$location','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -125,19 +121,6 @@ if (isset($_POST['btnAdd'])) {
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> Vehicle Type</label><?php echo isset($error['vehicle_type']) ? $error['vehicle_type'] : ''; ?>
                                     <input type="text" class="form-control" name="vehicle_type" required>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Type</label>
-                                <div class="form-group">
-                                    <div id="type" class="btn-group">
-                                        <label  class="btn btn-info" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="New"> New
-                                        </label>
-                                        <label  class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="type" value="Used"> Used
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">

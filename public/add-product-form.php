@@ -89,9 +89,7 @@ if (isset($_POST['btnAdd'])) {
                 }
                 
                 $error['add_product'] = "<section class='content-header'>
-                                                <span class='label label-success'>Product Added Successfully</span>
-                                                <h4><small><a  href='products.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Products</a></small></h4>
-                                                 </section>";
+                                                <span class='label label-success'>Product Added Successfully</span> </section>";
             } else {
                 $error['add_product'] = " <span class='label label-danger'>Failed</span>";
             }
@@ -158,7 +156,7 @@ if (isset($_POST['btnAdd'])) {
                                     <div class="col-md-4">
                                          <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_image']) ? $error['product_image'] : ''; ?>
                                         <input type="file" name="product_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="product_image" required/>
-                                        <img id="blah" src="#" alt="image" />
+                                        <img id="blah" src="#" alt="" />
                                     </div>
 
                                  </div>
@@ -206,7 +204,7 @@ if (isset($_POST['btnAdd'])) {
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary" name="btnAdd">Add</button>
-                        <input type="reset" class="btn-warning btn" value="Clear" />
+                        <input type="reset" onClick="refreshPage()" class="btn-warning btn" value="Clear" />
                     </div>
 
                 </form>
@@ -282,4 +280,12 @@ if (isset($_POST['btnAdd'])) {
         })
     });
 </script>
+
+<!--code for page clear-->
+<script>
+    function refreshPage(){
+    window.location.reload();
+} 
+</script>
+
 <?php $db->disconnect(); ?>

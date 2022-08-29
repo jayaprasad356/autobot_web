@@ -25,7 +25,6 @@
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
                                     <th data-field="vehicle_type" data-sortable="true">Vehicle Type</th>
-                                    <th data-field="type" data-sortable="true">Type</th>
                                     <th data-field="brand" data-sortable="true">Brand</th>
                                     <th data-field="category" data-sortable="true">Category</th>
                                     <th data-field="model" data-sortable="true">Model</th>

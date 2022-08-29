@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2022 at 11:03 AM
+-- Generation Time: Aug 29, 2022 at 10:12 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -234,7 +234,7 @@ CREATE TABLE `rental_orders` (
 --
 
 INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`) VALUES
-(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '0');
+(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '2');
 
 -- --------------------------------------------------------
 
@@ -398,7 +398,6 @@ INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
 CREATE TABLE `used_vehicles` (
   `id` int(11) NOT NULL,
   `vehicle_type` text DEFAULT NULL,
-  `type` text DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `category` text NOT NULL,
   `model` text DEFAULT NULL,
@@ -414,8 +413,8 @@ CREATE TABLE `used_vehicles` (
 -- Dumping data for table `used_vehicles`
 --
 
-INSERT INTO `used_vehicles` (`id`, `vehicle_type`, `type`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`) VALUES
-(1, 'Motorcycle', 'New', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', 'Rs.215000', 'Trichy', 'upload/vehicles/1661677288.632.jpg');
+INSERT INTO `used_vehicles` (`id`, `vehicle_type`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`) VALUES
+(1, 'Motorcycle', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', 'Rs.215000', 'Trichy', 'upload/vehicles/1661757497.0878.jpg');
 
 -- --------------------------------------------------------
 
