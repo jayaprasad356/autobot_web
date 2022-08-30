@@ -83,7 +83,7 @@ if (isset($_POST['btnAdd'])) {
         }
 ?>
 <section class="content-header">
-    <h1>Add Rental Vehicle <small><a href='rental_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Rental Vehicles</a></small></h1>
+    <h1>Add Vehicle For Rent<small><a href='rental_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Rental Vehicles</a></small></h1>
 
     <?php echo isset($error['add_vehicle']) ? $error['add_vehicle'] : ''; ?>
     <ol class="breadcrumb">
@@ -98,7 +98,6 @@ if (isset($_POST['btnAdd'])) {
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Add Vehicle For Rent</h3>
 
                 </div><!-- /.box-header -->
                 <!-- form start -->
@@ -107,7 +106,7 @@ if (isset($_POST['btnAdd'])) {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Category</label>
+                                    <label for="exampleInputEmail1"> Category</label><i class="text-danger asterik">*</i>
                                     <select id="category" name="category" class="form-control">
                                         <option value="#">Select</option>
                                         <option  value="City Booking">City Booking</option>
@@ -117,7 +116,7 @@ if (isset($_POST['btnAdd'])) {
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                        <label for="exampleInputEmail1">Brand</label>
+                                        <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i>
                                         <select id='brand' name="brand" class='form-control' required>
                                                 <option value="none">Select</option>
                                                             <?php
@@ -134,7 +133,7 @@ if (isset($_POST['btnAdd'])) {
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Bike Name</label><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                    <label for="exampleInputEmail1"> Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
                                     <input type="text" class="form-control" name="bike_name" required>
                                 </div>
                             </div>
@@ -142,13 +141,13 @@ if (isset($_POST['btnAdd'])) {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Price/Km</label><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
+                                    <label for="exampleInputEmail1">Price/Km</label><i class="text-danger asterik">*</i><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
                                     <input type="text" class="form-control" name="km_charge" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Price/Minute</label><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
+                                    <label for="exampleInputEmail1">Price/Minute</label><i class="text-danger asterik">*</i><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
                                     <input type="text" class="form-control" name="minute_charge" required>
                                 </div>
                             </div>
@@ -156,17 +155,17 @@ if (isset($_POST['btnAdd'])) {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Location</label><?php echo isset($error['location']) ? $error['location'] : ''; ?>
+                                    <label for="exampleInputEmail1">Location</label><i class="text-danger asterik">*</i><?php echo isset($error['location']) ? $error['location'] : ''; ?>
                                     <input type="text" class="form-control" name="location" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Image</label><?php echo isset($error['bike_image']) ? $error['bike_image'] : ''; ?>
+                                    <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_image']) ? $error['bike_image'] : ''; ?>
                                     <input type="file" name="bike_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="bike_image" />
                                 </div>
                                 <div class="form-group">
-                                    <img id="blah" src="#" alt="image" />
+                                    <img id="blah" src="#" alt="" />
 
                                 </div>
                             </div>

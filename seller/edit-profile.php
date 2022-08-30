@@ -85,13 +85,13 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Name</label>
+                                            <label for="">Name</label><i class="text-danger asterik">*</i>
                                             <input type="text" class="form-control" name="name" id="name" value="<?= $res[0]['name']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Email</label>
+                                            <label for="">Email</label><i class="text-danger asterik">*</i>
                                             <input type="email" class="form-control" name="email" id="email" value="<?= $res[0]['email']; ?>" required>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Mobile</label>
+                                            <label for="">Mobile</label><i class="text-danger asterik">*</i>
                                             <input type="number" class="form-control" name="mobile" id="mobile" value="<?= $res[0]['mobile']; ?>" required readonly>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Old Password :</label><small>( Leave it blank for no change )</small>
+                                            <label for="">Old Password :</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
                                             <input type="password" class="form-control" name="old_password" id="old_password" />
                                         </div>
                                     </div>
@@ -121,13 +121,13 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">New Password</label><small>( Leave it blank for no change )</small>
+                                            <label for="">New Password</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
                                             <input type="password" class="form-control" name="password" id="password">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Confirm Password</label>
+                                            <label for="">Confirm Password</label><i class="text-danger asterik">*</i>
                                             <input type="password" class="form-control" name="confirm_password" id="confirm_password">
                                         </div>
                                     </div>
@@ -135,21 +135,21 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputFile">Logo</label>
+                                            <label for="exampleInputFile">Logo</label><i class="text-danger asterik">*</i>
                                             <input type="file" name="store_logo" id="store_logo">
                                             <p class="help-block"><img src="<?php echo DOMAIN_URL . 'upload/seller/' . $res[0]['logo']; ?>" style="max-width:100%" /></p>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputFile">National Identity Card</label>
+                                            <label for="exampleInputFile">National Identity Card</label><i class="text-danger asterik">*</i>
                                             <input type="file" name="national_id_card" id="national_id_card">
                                             <p class="help-block"><img src="<?php echo DOMAIN_URL . 'upload/seller/' . $res[0]['national_identity_card']; ?>" style="max-width:100%" /></p>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="exampleInputFile">Address Proof</label>
+                                            <label for="exampleInputFile">Address Proof</label><i class="text-danger asterik">*</i>
                                             <input type="file" name="address_proof" id="address_proof">
                                             <p class="help-block"><img src="<?php echo DOMAIN_URL . 'upload/seller/' . $res[0]['address_proof']; ?>" style="max-width:100%" /></p>
                                         </div>
@@ -251,13 +251,13 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Tax Name</label>
+                                            <label for="">Tax Name</label><i class="text-danger asterik">*</i>
                                             <input type="text" class="form-control" name="tax_name" value="<?= $res[0]['tax_name']; ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Tax Number</label>
+                                            <label for="">Tax Number</label><i class="text-danger asterik">*</i>
                                             <input type="text" class="form-control" name="tax_number" value="<?= $res[0]['tax_number']; ?>" required>
                                         </div>
                                     </div>
@@ -311,7 +311,7 @@ include "header.php"; ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Status</label>
+                                    <label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
 
                                     <div id="status" class="btn-group">
                                         <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">

@@ -23,8 +23,7 @@ $_SESSION['timeout'] = $currentTime + $expired;
 <?php include "header.php";?>
 <html>
 <head>
-<title>Autobot-Vehicles For Rent</title>
-</head>
+<title>Rental Vehicles | - Dashboard</title></head>
 </body>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">

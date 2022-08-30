@@ -110,7 +110,6 @@ $res = $db->getResult();
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Edit Rental Vehicle</h3>
 
                 </div><!-- /.box-header -->
                 <!-- form start -->
@@ -120,7 +119,7 @@ $res = $db->getResult();
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Category</label><?php echo isset($error['category']) ? $error['category'] : ''; ?>
+                                    <label for="exampleInputEmail1">Category</label><i class="text-danger asterik">*</i><?php echo isset($error['category']) ? $error['category'] : ''; ?>
                                     <select id="category" name="category" class="form-control">
                                         <option value="#">Select</option>
                                         <option value="City Booking"<?=$res[0]['category'] == 'City Booking' ? ' selected="selected"' : '';?>>City Booking</option>
@@ -130,7 +129,7 @@ $res = $db->getResult();
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                        <label for="exampleInputEmail1">Brand</label>
+                                        <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i>
                                         <select id='brand' name="brand" class='form-control' required>
                                                 <option value="none">Select</option>
                                                             <?php
@@ -147,7 +146,7 @@ $res = $db->getResult();
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Bike Name</label><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                    <label for="exampleInputEmail1"> Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
                                     <input type="text" class="form-control" name="bike_name" value="<?php echo $res[0]['bike_name']; ?>">
                                 </div>
                             </div>
@@ -155,13 +154,13 @@ $res = $db->getResult();
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Price/Km</label><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
+                                    <label for="exampleInputEmail1">Price/Km</label><i class="text-danger asterik">*</i><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
                                     <input type="text" class="form-control" name="km_charge" value="<?php echo $res[0]['km_charge']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Price/Minute</label><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
+                                    <label for="exampleInputEmail1">Price/Minute</label><i class="text-danger asterik">*</i><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
                                     <input type="text" class="form-control" name="minute_charge" value="<?php echo $res[0]['minute_charge']; ?>">
                                 </div>
                             </div>
@@ -169,33 +168,33 @@ $res = $db->getResult();
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Location</label><?php echo isset($error['location']) ? $error['location'] : ''; ?>
+                                    <label for="exampleInputEmail1">Location</label><i class="text-danger asterik">*</i><?php echo isset($error['location']) ? $error['location'] : ''; ?>
                                     <input type="text" class="form-control" name="location" value="<?php echo $res[0]['location']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-									     <label for="exampleInputFile">Image</label>
+									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
                                         <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
                                 </div>
                             </div>   
                         </div>
                         <div class="row">
+                            <div class='col-md-4'>
                                 <div class="form-group">
-                                    <div class='col-md-4'>
-                                            <label class="control-label">Status</label>
-                                            <div id="status" class="btn-group">
-                                                <label class="btn btn-success" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
-                                                </label>
-                                                <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Unavailable
-                                                </label>
-                                            </div>
-                                   </div>
+                                    <label>Status</label><i class="text-danger asterik">*</i><br>
+                                    <div id="status" class="btn-group">
+                                        <label class="btn btn-success" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
+                                        </label>
+                                        <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Unavailable
+                                        </label>
+                                    </div>
                                 </div>
-                        </div>
+                            </div>
+                </div>
                     </div>
                   
                     <!-- /.box-body -->

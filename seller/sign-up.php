@@ -60,51 +60,51 @@ $res = $db->getResult();
                     <input type="hidden" id="add_seller" name="add_seller" required="" value="1" aria-required="true">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="">Name</label>
-                            <input type="text" class="form-control" name="name">
+                            <label for="">Name</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="email" class="form-control" name="email">
+                            <label for="">Email</label><i class="text-danger asterik">*</i>
+                            <input type="email" class="form-control" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Mobile</label>
-                            <input type="number" class="form-control" name="mobile">
+                            <label for="">Mobile</label><i class="text-danger asterik">*</i>
+                            <input type="number" class="form-control" name="mobile" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Password</label>
-                            <input type="password" class="form-control" name="password" id="password">
+                            <label for="">Password</label><i class="text-danger asterik">*</i>
+                            <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Confirm Password</label>
-                            <input type="password" class="form-control" name="confirm_password">
+                            <label for="">Confirm Password</label><i class="text-danger asterik">*</i>
+                            <input type="password" class="form-control" name="confirm_password" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Store Name</label>
+                            <label for="">Store Name</label><i class="text-danger asterik">*</i>
                             <input type="text" class="form-control" name="store_name" id="store_name" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Tax Name</label>
+                            <label for="">Tax Name</label><i class="text-danger asterik">*</i>
                             <input type="text" class="form-control" name="tax_name" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Tax Number</label>
+                            <label for="">Tax Number</label><i class="text-danger asterik">*</i>
                             <input type="text" class="form-control" name="tax_number" required>
                         </div>
                         <div class="form-group">
-                            <label for="">PAN Number</label>
+                            <label for="">PAN Number</label><i class="text-danger asterik">*</i>
                             <input type="text" class="form-control" name="pan_number" required>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <div class="form-group">
-                                    <label for="">National Identity Card</label>
+                                    <label for="">National Identity Card</label><i class="text-danger asterik">*</i>
                                     <input type="file" class="form-control" name="national_id_card" required>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <div class="form-group">
-                                    <label for="">Address Proof</label>
+                                    <label for="">Address Proof</label><i class="text-danger asterik">*</i>
                                     <input type="file" class="form-control" name="address_proof" id="address_proof" required><br>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@ $res = $db->getResult();
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <div class="form-group">
-                                    <label for="logo">Logo</label>
+                                    <label for="logo">Logo</label><i class="text-danger asterik">*</i>
                                     <input type="file" class="form-control" name="store_logo" id="store_logo" required /><br>
                                 </div>
                             </div>

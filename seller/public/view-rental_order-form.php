@@ -137,7 +137,7 @@ $res = $db->getResult();
                     <div class="box-body">
                         <div class="col-md-6">
                             <div class="form-group" >
-                                <label for="exampleInputEmail1">Status</label><?php echo isset($error['status']) ? $error['status'] : ''; ?>
+                                <label for="exampleInputEmail1">Status</label><i class="text-danger asterik">*</i><?php echo isset($error['status']) ? $error['status'] : ''; ?>
                                 <select name="status" class="form-control" required>
                                 <option value="0" <?php if ($res[0]['status'] == "0") {echo "selected";} ?>>Booked</option>
                                 <option value="1" <?php if ($res[0]['status'] == "1") {echo "selected";} ?>>Confirmed</option>         
