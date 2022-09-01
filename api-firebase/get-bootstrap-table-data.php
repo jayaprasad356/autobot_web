@@ -298,6 +298,64 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
     print_r(json_encode($bulkData));
 }
 
+if (isset($_GET['table']) && $_GET['table'] == 'deliver_pincodes') {
+
+    $offset = 0;
+    $limit = 10;
+    $sort = 'id';
+    $order = 'DESC';
+    $where = '';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= "WHERE pincode like '%" . $search . "%'" ;
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+
+    }
+    $sql = "SELECT COUNT(`id`) as total FROM `deliver_pincodes` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+    $sql = "SELECT * FROM `deliver_pincodes`". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        $operate = ' <a href="delete-pincode.php?id=' . $row['id'] .'"  class="btn btn-xs btn-danger"><i class="fa fa-trash"></i>Delete</a>';
+
+        $tempRow['id'] = $row['id'];
+        $tempRow['pincode'] = $row['pincode'];
+       $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
 if (isset($_GET['table']) && $_GET['table'] == 'orders') {
 
     $offset = 0;

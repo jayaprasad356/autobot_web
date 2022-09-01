@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2022 at 10:12 AM
+-- Generation Time: Sep 02, 2022 at 12:14 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -45,6 +45,24 @@ INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date
 (2, 'Spare parts', 'upload/images/1658903957.6194.jpg', 1, '2022-07-27 06:39:17', '2022-07-27 05:50:35'),
 (3, 'tyres', 'upload/images/0582-2022-07-27.jpg', 1, '2022-07-29 17:22:45', '2022-07-27 06:41:35'),
 (4, 'Rods', 'upload/images/1659123088.7927.jpg', 0, '2022-07-29 19:31:28', '2022-07-29 18:18:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deliver_pincodes`
+--
+
+CREATE TABLE `deliver_pincodes` (
+  `id` int(11) NOT NULL,
+  `pincode` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `deliver_pincodes`
+--
+
+INSERT INTO `deliver_pincodes` (`id`, `pincode`) VALUES
+(2, '621313');
 
 -- --------------------------------------------------------
 
@@ -234,7 +252,7 @@ CREATE TABLE `rental_orders` (
 --
 
 INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`) VALUES
-(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '2');
+(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '1');
 
 -- --------------------------------------------------------
 
@@ -448,6 +466,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `deliver_pincodes`
+--
+ALTER TABLE `deliver_pincodes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mechanic`
 --
 ALTER TABLE `mechanic`
@@ -546,6 +570,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `deliver_pincodes`
+--
+ALTER TABLE `deliver_pincodes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mechanic`

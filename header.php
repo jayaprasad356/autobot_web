@@ -195,6 +195,16 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-location-arrow"></i>
+                        <span>Deliver Pincodes</span>
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="pincodes.php"><i class="fa fa-sliders"></i> Manage Pincodes</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
                     <a href="orders.php">
                         <i class="fa fa-shopping-cart"></i>
                         <span>Orders</span>
