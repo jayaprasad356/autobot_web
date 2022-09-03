@@ -52,16 +52,12 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['bike_name'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Price/Km</th>
-                                <td><?php echo $res[0]['km_charge'] ?></td>
+                                <th style="width: 200px">Price/hour</th>
+                                <td><?php echo $res[0]['price_per_hour'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Price/Minute</th>
-                                <td><?php echo $res[0]['minute_charge'] ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">Location</th>
-                                <td><?php echo $res[0]['location']; ?></td>
+                                <th style="width: 200px">Pincode</th>
+                                <td><?php echo $res[0]['pincode'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Start Date</th>

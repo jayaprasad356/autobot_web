@@ -27,9 +27,8 @@
                                     <th data-field="category" data-sortable="true">Category</th>
                                     <th data-field="brand" data-sortable="true">Brand</th>
                                     <th data-field="bike_name" data-sortable="true">Bike Name</th>
-                                    <th data-field="km_charge" data-sortable="true">Charges/km</th>
-                                    <th data-field="minute_charge" data-sortable="true">Charge/minute</th>
-                                    <th data-field="location" data-sortable="true">Location</th>
+                                    <th data-field="price_per_hour" data-sortable="true">Price/hour</th>
+                                    <th data-field="pincode" data-sortable="true">Pincode</th>
                                     <th data-field="image">Image</th>
                                     <th data-field="status" data-sortable="true">Status</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>   

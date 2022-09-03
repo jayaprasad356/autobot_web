@@ -161,9 +161,8 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
         $tempRow['category'] = $row['category'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['bike_name'] = $row['bike_name'];
-        $tempRow['km_charge'] = $row['km_charge'];
-        $tempRow['minute_charge'] = $row['minute_charge'];
-        $tempRow['location'] = $row['location'];
+        $tempRow['price_per_hour'] = $row['price_per_hour'];
+        $tempRow['pincode'] = $row['pincode'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
 

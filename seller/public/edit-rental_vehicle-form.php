@@ -19,9 +19,8 @@ if (isset($_POST['btnUpdate'])) {
         $category = $db->escapeString($_POST['category']);
         $brand = $db->escapeString($_POST['brand']);
         $bike_name = $db->escapeString($_POST['bike_name']);
-        $km_charge = $db->escapeString($_POST['km_charge']);
-        $minute_charge = $db->escapeString($_POST['minute_charge']);
-        $location = $db->escapeString($_POST['location']);
+        $price_per_hour = $db->escapeString($_POST['price_per_hour']);
+        $pincode = $db->escapeString($_POST['pincode']);
         $status=$db->escapeString($_POST['status']);
 
         
@@ -35,18 +34,15 @@ if (isset($_POST['btnUpdate'])) {
         if (empty($bike_name)) {
             $error['bike_name'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($km_charge)) {
-            $error['km_charge'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($price_per_hour)) {
+            $error['price_per_hour'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($minute_charge)) {
-            $error['minute_charge'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($location)) {
-            $error['location'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($pincode)) {
+            $error['pincode'] = " <span class='label label-danger'>Required!</span>";
         }
 
 
-        if (!empty($category) && !empty($brand) && !empty($bike_name) && !empty($km_charge) && !empty($minute_charge) && !empty($location)) {
+        if (!empty($category) && !empty($brand) && !empty($bike_name) && !empty($price_per_hour) && !empty($pincode)) {
            
             if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -71,7 +67,7 @@ if (isset($_POST['btnUpdate'])) {
 				$db->sql($sql);
 			}
            
-            $sql_query = "UPDATE rental_vehicles SET category='$category',brand='$brand',bike_name='$bike_name',km_charge='$km_charge',minute_charge='$minute_charge',location='$location',image='$upload_image',status='$status' WHERE id =  $ID";
+            $sql_query = "UPDATE rental_vehicles SET category='$category',brand='$brand',bike_name='$bike_name',price_per_hour='$price_per_hour',pincode='$pincode',image='$upload_image',status='$status' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -154,24 +150,20 @@ $res = $db->getResult();
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Price/Km</label><i class="text-danger asterik">*</i><?php echo isset($error['km_charge']) ? $error['km_charge'] : ''; ?>
-                                    <input type="text" class="form-control" name="km_charge" value="<?php echo $res[0]['km_charge']; ?>">
+                                    <label for="exampleInputEmail1">Price/hour</label><i class="text-danger asterik">*</i><?php echo isset($error['price_per_hour']) ? $error['price_per_hour'] : ''; ?>
+                                    <input type="text" class="form-control" name="price_per_hour" value="<?php echo $res[0]['price_per_hour']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Price/Minute</label><i class="text-danger asterik">*</i><?php echo isset($error['minute_charge']) ? $error['minute_charge'] : ''; ?>
-                                    <input type="text" class="form-control" name="minute_charge" value="<?php echo $res[0]['minute_charge']; ?>">
+                                    <label for="exampleInputEmail1">Pincode</label><i class="text-danger asterik">*</i><?php echo isset($error['pincode']) ? $error['pincode'] : ''; ?>
+                                    <input type="text" class="form-control" name="pincode" value="<?php echo $res[0]['pincode']; ?>">
                                 </div>
                             </div>
+                          
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Location</label><i class="text-danger asterik">*</i><?php echo isset($error['location']) ? $error['location'] : ''; ?>
-                                    <input type="text" class="form-control" name="location" value="<?php echo $res[0]['location']; ?>">
-                                </div>
-                            </div>
+                           
                             <div class="col-md-4">
                                 <div class="form-group">
 									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
@@ -179,8 +171,6 @@ $res = $db->getResult();
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
                                 </div>
                             </div>   
-                        </div>
-                        <div class="row">
                             <div class='col-md-4'>
                                 <div class="form-group">
                                     <label>Status</label><i class="text-danger asterik">*</i><br>
@@ -194,7 +184,7 @@ $res = $db->getResult();
                                     </div>
                                 </div>
                             </div>
-                </div>
+                         </div>
                     </div>
                   
                     <!-- /.box-body -->
