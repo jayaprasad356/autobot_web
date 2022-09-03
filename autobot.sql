@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2022 at 09:17 AM
+-- Generation Time: Sep 03, 2022 at 12:36 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -414,7 +414,7 @@ INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
 
 CREATE TABLE `used_vehicles` (
   `id` int(11) NOT NULL,
-  `vehicle_type` text DEFAULT NULL,
+  `seller_id` int(11) DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `category` text NOT NULL,
   `model` text DEFAULT NULL,
@@ -423,15 +423,20 @@ CREATE TABLE `used_vehicles` (
   `insurance` text DEFAULT NULL,
   `price` text DEFAULT NULL,
   `location` text DEFAULT NULL,
-  `image` text DEFAULT NULL
+  `image` text DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  `year` int(4) DEFAULT NULL,
+  `fuel` varchar(255) DEFAULT NULL,
+  `owner` int(111) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `used_vehicles`
 --
 
-INSERT INTO `used_vehicles` (`id`, `vehicle_type`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`) VALUES
-(1, 'Motorcycle', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', '21000', 'Trichy', 'upload/vehicles/1661757497.0878.jpg');
+INSERT INTO `used_vehicles` (`id`, `seller_id`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`, `color`, `year`, `fuel`, `owner`) VALUES
+(1, 1, 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', '21000', 'Trichy', 'upload/vehicles/1661757497.0878.jpg', 'red', 2020, 'petrol', 2),
+(2, 1, 'Yamaha', 'edefef', '23232', 'tn45fdfdfd', 'ggfgfg', 'Yes', '2500', 'gfg', 'upload/vehicles/2248-2022-09-03.jpg', 'black', 2022, 'diesel', 2);
 
 -- --------------------------------------------------------
 
@@ -658,7 +663,7 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT for table `used_vehicles`
 --
 ALTER TABLE `used_vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
