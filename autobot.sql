@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2022 at 12:14 AM
+-- Generation Time: Sep 03, 2022 at 09:17 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -265,9 +265,8 @@ CREATE TABLE `rental_vehicles` (
   `category` text DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `bike_name` text DEFAULT NULL,
-  `km_charge` text DEFAULT NULL,
-  `minute_charge` text DEFAULT NULL,
-  `location` text DEFAULT NULL,
+  `price_per_hour` int(11) DEFAULT NULL,
+  `pincode` varchar(255) DEFAULT NULL,
   `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -276,8 +275,8 @@ CREATE TABLE `rental_vehicles` (
 -- Dumping data for table `rental_vehicles`
 --
 
-INSERT INTO `rental_vehicles` (`id`, `category`, `brand`, `bike_name`, `km_charge`, `minute_charge`, `location`, `image`, `status`) VALUES
-(1, 'City Booking', 'KTM', 'Duke 200', 'Rs.30', 'Rs.12', 'Madurai', 'upload/rentals/0069-2022-08-28.jpg', 1);
+INSERT INTO `rental_vehicles` (`id`, `category`, `brand`, `bike_name`, `price_per_hour`, `pincode`, `image`, `status`) VALUES
+(1, 'City Booking', 'KTM', 'Duke 200', 40, '621313', 'upload/rentals/0069-2022-08-28.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -432,7 +431,7 @@ CREATE TABLE `used_vehicles` (
 --
 
 INSERT INTO `used_vehicles` (`id`, `vehicle_type`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`) VALUES
-(1, 'Motorcycle', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', 'Rs.215000', 'Trichy', 'upload/vehicles/1661757497.0878.jpg');
+(1, 'Motorcycle', 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', '21000', 'Trichy', 'upload/vehicles/1661757497.0878.jpg');
 
 -- --------------------------------------------------------
 
