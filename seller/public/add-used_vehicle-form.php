@@ -4,6 +4,8 @@ $function = new functions;
 include_once('../includes/custom-functions.php');
 $fn = new custom_functions;
 
+$seller_id = $_SESSION['seller_id'];
+
 ?>
 <?php
 if (isset($_POST['btnAdd'])) {
@@ -77,7 +79,7 @@ if (isset($_POST['btnAdd'])) {
                 // insert new data to menu table
                 $upload_image = 'upload/vehicles/' . $menu_image;
            
-            $sql_query = "INSERT INTO used_vehicles (vehicle_type,brand,category,model,vehicle_no,km_driven,insurance,price,location,image) VALUES ('$vehicle_type','$brand','$category','$model','$vehicle_no','$km_driven','$insurance','$price','$location','$upload_image')";
+            $sql_query = "INSERT INTO used_vehicles (seller_id,vehicle_type,brand,category,model,vehicle_no,km_driven,insurance,price,location,image) VALUES ('$seller_id','$vehicle_type','$brand','$category','$model','$vehicle_no','$km_driven','$insurance','$price','$location','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {

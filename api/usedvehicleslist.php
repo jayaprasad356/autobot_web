@@ -12,14 +12,14 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$sql = "SELECT * FROM `used_vehicles`";
+$sql = "SELECT * FROM `used_vehicles`,`seller` WHERE used_vehicles.seller_id = seller.id";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1) {
     foreach ($res as $row) {
         $temp['id'] = $row['id'];
-        $temp['vehicle_type'] = $row['vehicle_type'];
+        $temp['mobile'] = $row['mobile'];
         $temp['brand'] = $row['brand'];
         $temp['category'] = $row['category'];
         $temp['model'] = $row['model'];
@@ -28,6 +28,10 @@ if ($num >= 1) {
         $temp['insurance'] = $row['insurance'];
         $temp['price'] = $row['price'];
         $temp['location'] = $row['location'];
+        $temp['color'] = $row['color'];
+        $temp['year'] = $row['year'];
+        $temp['fuel'] = $row['fuel'];
+        $temp['owner'] = $row['owner'];
         $temp['image'] = DOMAIN_URL . $row['image'];
         $rows[] = $temp;
         
