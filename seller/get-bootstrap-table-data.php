@@ -55,7 +55,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE vehicle_type like '%" . $search . "%' OR model like '%" . $search . "%' OR category like '%" . $search . "%' OR price like '%" . $search . "%'";
+        $where .= "WHERE bike_name like '%" . $search . "%' OR model like '%" . $search . "%' OR location like '%" . $search . "%' OR price like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -86,15 +86,17 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
 
         $operate = ' <a href="edit-used_vehicle.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
-        $tempRow['vehicle_type'] = $row['vehicle_type'];
         $tempRow['brand'] = $row['brand'];
-        $tempRow['category'] = $row['category'];
+        $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['model'] = $row['model'];
         $tempRow['vehicle_no'] = $row['vehicle_no'];
         $tempRow['km_driven'] = $row['km_driven'];
         $tempRow['insurance'] = $row['insurance'];
         $tempRow['price'] = $row['price'];
         $tempRow['location'] = $row['location'];
+        $tempRow['color'] = $row['color'];
+        $tempRow['fuel'] = $row['fuel'];
+        $tempRow['owner'] = $row['owner'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
 
@@ -235,6 +237,73 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $tempRow['rental_vehicles_id'] = $row['rental_vehicles_id'];
         $tempRow['start_time'] = $row['start_time'];
         $tempRow['end_time'] = $row['end_time'];
+        if ($row['status'] == 0)
+            $tempRow['status'] = "<p class='text text-info'>Booked</p>";
+        else if($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
+        else
+            $tempRow['status'] = "<p class='text text-danger'>Completed</p>";
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+if (isset($_GET['table']) && $_GET['table'] == 'used_vehicle_orders') {
+
+    $offset = 0;
+    $limit = 10;
+    $sort = 'id';
+    $order = 'DESC';
+    $where = '';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= "WHERE user_id like '%" . $search . "%' OR status like '%" . $search . "%' OR used_vehicles_id like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+
+    }
+    $sql = "SELECT COUNT(`id`) as total FROM `used_vehicle_orders` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+    $sql = "SELECT * FROM `used_vehicle_orders` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $db->sql($sql);
+    $res = $db->getResult();
+
+        
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        $operate = '<a href="view-used_vehicle_order.php?id=' . $row['id'] . '" class="label label-primary" title="View">View</a>';
+        $operate .= '<a href="edit-used_vehicle_order.php?id=' . $row['id'] . '" class="fa fa-edit">Edit</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['user_id'] = $row['user_id'];
+        $tempRow['used_vehicles_id'] = $row['used_vehicles_id'];
+        $tempRow['price'] = $row['price'];
+        $tempRow['description'] = $row['description'];
         if ($row['status'] == 0)
             $tempRow['status'] = "<p class='text text-info'>Booked</p>";
         else if($row['status'] == 1)

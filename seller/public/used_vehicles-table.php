@@ -24,15 +24,17 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
-                                    <th data-field="vehicle_type" data-sortable="true">Vehicle Type</th>
                                     <th data-field="brand" data-sortable="true">Brand</th>
-                                    <th data-field="category" data-sortable="true">Category</th>
+                                    <th data-field="bike_name" data-sortable="true">Bike Name</th>
                                     <th data-field="model" data-sortable="true">Model</th>
                                     <th data-field="vehicle_no" data-sortable="true">Vehicle Number</th>
                                     <th data-field="km_driven" data-sortable="true">Km Driven</th>
                                     <th data-field="insurance" data-sortable="true">Insurance</th>
                                     <th data-field="price" data-sortable="true">Price</th>
                                     <th data-field="location" data-sortable="true">Location</th>
+                                    <th data-field="color" data-sortable="true">Color</th>
+                                    <th data-field="fuel" data-sortable="true">Fuel</th>
+                                    <th data-field="owner" data-sortable="true">Owner</th>
                                     <th data-field="image">Image</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>   
                                 </tr>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2022 at 12:36 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Sep 04, 2022 at 12:27 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -252,7 +252,7 @@ CREATE TABLE `rental_orders` (
 --
 
 INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`) VALUES
-(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '1');
+(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '2');
 
 -- --------------------------------------------------------
 
@@ -416,7 +416,7 @@ CREATE TABLE `used_vehicles` (
   `id` int(11) NOT NULL,
   `seller_id` int(11) DEFAULT NULL,
   `brand` text DEFAULT NULL,
-  `category` text NOT NULL,
+  `bike_name` text NOT NULL,
   `model` text DEFAULT NULL,
   `vehicle_no` text DEFAULT NULL,
   `km_driven` text DEFAULT NULL,
@@ -425,7 +425,6 @@ CREATE TABLE `used_vehicles` (
   `location` text DEFAULT NULL,
   `image` text DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
-  `year` int(4) DEFAULT NULL,
   `fuel` varchar(255) DEFAULT NULL,
   `owner` int(111) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -434,9 +433,30 @@ CREATE TABLE `used_vehicles` (
 -- Dumping data for table `used_vehicles`
 --
 
-INSERT INTO `used_vehicles` (`id`, `seller_id`, `brand`, `category`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`, `color`, `year`, `fuel`, `owner`) VALUES
-(1, 1, 'KTM', 'KTM RC200', '2022', 'TN55SG8778', '6778', 'No', '21000', 'Trichy', 'upload/vehicles/1661757497.0878.jpg', 'red', 2020, 'petrol', 2),
-(2, 1, 'Yamaha', 'edefef', '23232', 'tn45fdfdfd', 'ggfgfg', 'Yes', '2500', 'gfg', 'upload/vehicles/2248-2022-09-03.jpg', 'black', 2022, 'diesel', 2);
+INSERT INTO `used_vehicles` (`id`, `seller_id`, `brand`, `bike_name`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`, `color`, `fuel`, `owner`) VALUES
+(1, 1, 'KTM', 'KTM RC200', '2022', 'YN65AJ6789', '3400', 'Yes', '220000', 'Karur', 'upload/vehicles/1662277842.6152.jpg', 'Orange', 'Petrol', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `used_vehicle_orders`
+--
+
+CREATE TABLE `used_vehicle_orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `used_vehicles_id` int(11) DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `used_vehicle_orders`
+--
+
+INSERT INTO `used_vehicle_orders` (`id`, `user_id`, `used_vehicles_id`, `price`, `description`, `status`) VALUES
+(1, 2, 1, '50000', 'Hi Vehicle', 1);
 
 -- --------------------------------------------------------
 
@@ -560,6 +580,12 @@ ALTER TABLE `used_vehicles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `used_vehicle_orders`
+--
+ALTER TABLE `used_vehicle_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -663,7 +689,13 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT for table `used_vehicles`
 --
 ALTER TABLE `used_vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `used_vehicle_orders`
+--
+ALTER TABLE `used_vehicle_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
