@@ -201,7 +201,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE mobile like '%" . $search . "%' OR status like '%" . $search . "%' OR start_time like '%" . $search . "%'";
+        $where .= "AND mobile like '%" . $search . "%' OR status like '%" . $search . "%' OR start_time like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -217,7 +217,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `rental_orders` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT *,rental_orders.id AS id,rental_orders.status AS status FROM `rental_orders`,`users` WHERE rental_orders.user_id = users.id ". $where;
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -234,15 +234,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['mobile'] = $row['mobile'];
-        $tempRow['rental_vehicles_id'] = $row['rental_vehicles_id'];
+        $tempRow['rental_vehicle_id'] = $row['rental_vehicle_id'];
         $tempRow['start_time'] = $row['start_time'];
         $tempRow['end_time'] = $row['end_time'];
-        if ($row['status'] == 0)
-            $tempRow['status'] = "<p class='text text-info'>Booked</p>";
-        else if($row['status'] == 1)
-            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
-        else
-            $tempRow['status'] = "<p class='text text-danger'>Completed</p>";
+        $tempRow['status'] = $row['status'];
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }

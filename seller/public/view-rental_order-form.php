@@ -6,7 +6,13 @@ include_once('../includes/custom-functions.php');
 $fn = new custom_functions;
 // session_start();
 $order_id = $_GET['id'];
-$sql = "SELECT * FROM rental_vehicles,rental_orders WHERE rental_orders.rental_vehicles_id=rental_vehicles.id  AND rental_orders.id = $order_id";
+
+if (isset($_POST['btnUpdate'])) {
+    $status = $db->escapeString(($_POST['status']));
+    $sql = "UPDATE rental_orders SET `status`='" . $status . "' WHERE `id`=" . $order_id;
+    $db->sql($sql);
+}
+$sql = "SELECT *,rental_orders.status AS status FROM rental_vehicles,rental_orders,users WHERE rental_orders.rental_vehicle_id=rental_vehicles.id AND rental_orders.user_id = users.id  AND rental_orders.id = $order_id";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
@@ -91,39 +97,6 @@ $res = $db->getResult();
                         </table>
     
                     </div><!-- /.box-body -->
-                    <?php
-                    $ID = $_SESSION['seller_id'];
-                    $order_id = $_GET['id'];
-
-                    if (isset($_POST['btnUpdate'])) {
-                        
-                        $seller_id = $ID;
-                        $status = $db->escapeString($_POST['status']);    
-                    
-                            $sql = "UPDATE rental_orders SET `status` = '$status' WHERE id = '" . $order_id . "'";
-                            $db->sql($sql);
-                            $order_result = $db->getResult();
-                            if (!empty($order_result)) {
-                                $order_result = 0;
-                            } else {
-                                $order_result = 1;
-                            }
-                            if ($order_result == 1 ) {
-                                $error['add_menu'] = "<section class='content-header'>
-                                                                    <span id='success' class='label label-success'>Updated Successfully</span>
-                                                                    
-                                                                     </section>";
-                            } else {
-                                $error['add_menu'] = " <span class='label label-danger'>Failed</span>";
-                            }
-                    
-                    }
-                    $sql_query = "SELECT status FROM rental_orders WHERE id = '" . $order_id . "'";
-                    $db->sql($sql_query);
-                    
-                    $res = $db->getResult();
-                    
-                    ?>
                     <section class="content-header">
                         <?php echo isset($error['add_menu']) ? $error['add_menu'] : ''; ?>
                     </section>
@@ -135,9 +108,9 @@ $res = $db->getResult();
                             <div class="form-group" >
                                 <label for="exampleInputEmail1">Status</label><i class="text-danger asterik">*</i><?php echo isset($error['status']) ? $error['status'] : ''; ?>
                                 <select name="status" class="form-control" required>
-                                <option value="0" <?php if ($res[0]['status'] == "0") {echo "selected";} ?>>Booked</option>
-                                <option value="1" <?php if ($res[0]['status'] == "1") {echo "selected";} ?>>Confirmed</option>         
-                                <option value="2" <?php if ($res[0]['status'] == "2") {echo "selected";} ?>>Completed</option>                                                                            
+                                <option value="Booked"<?=$res[0]['status'] == 'Booked' ? ' selected="selected"' : '';?>>Booked</option>
+                                <option value="Completed"<?=$res[0]['status'] == 'Completed' ? ' selected="selected"' : '';?>>Completed</option>
+                                <option value="Cancelled"<?=$res[0]['status'] == 'Cancelled' ? ' selected="selected"' : '';?>>Cancelled</option>                                                                          
                                 </select>
                             </div>
                        </div>

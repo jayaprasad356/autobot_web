@@ -95,8 +95,19 @@ if (isset($_POST['btnAdd'])) {
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                        <label for="exampleInputEmail1">Used Vehicle Id</label><i class="text-danger asterik">*</i>
-                                        <input type="number" class="form-control" name="used_vehicles_id" required>
+                                    <label for="exampleInputEmail1">Used Vehicle Id</label><i class="text-danger asterik">*</i>
+                                        <select id='used_vehicles_id' name="used_vehicles_id" class='form-control' required>
+                                                <option value="">Select</option>
+                                                            <?php
+                                                            $sql = "SELECT * FROM `used_vehicles`";
+                                                            $db->sql($sql);
+
+                                                            $result = $db->getResult();
+                                                            foreach ($result as $value) {
+                                                            ?>
+                                                                <option value='<?= $value['id'] ?>'><?= $value['bike_name'] ?></option>
+                                                            <?php } ?>
+                                        </select>
                                 </div>
                             </div>
                         </div>
@@ -117,10 +128,10 @@ if (isset($_POST['btnAdd'])) {
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Status</label><i class="text-danger asterik">*</i><?php echo isset($error['status']) ? $error['status'] : ''; ?>
                                     <select id="status" name="status" class="form-control">
-                                        <option value="#">Select</option>
-                                        <option  value="0">Booked</option>
-                                        <option value="1">Confirmed</option>
-                                        <option value="2">Completed</option>
+                                        <option value="">Select</option>
+                                        <option  value="1">Booked</option>
+                                        <option value="2">Confirmed</option>
+                                        <option value="3">Completed</option>
                                     </select>
                                 </div>
                             </div>

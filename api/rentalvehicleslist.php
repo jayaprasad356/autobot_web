@@ -14,7 +14,8 @@ $db->connect();
 
 $hours = (isset($_POST['hours'])) ? $db->escapeString($_POST['hours']) : "0";
 $pincode = (isset($_POST['pincode'])) ? $db->escapeString($_POST['pincode']) : "";   
-$sql = "SELECT * FROM `rental_vehicles` WHERE pincode = '$pincode'";
+$category = (isset($_POST['category'])) ? $db->escapeString($_POST['category']) : "";   
+$sql = "SELECT * FROM `rental_vehicles` WHERE pincode = '$pincode' AND category = '$category'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
@@ -27,6 +28,8 @@ if ($num >= 1) {
         $temp['price_per_hour'] = $row['price_per_hour'];
         $temp['image'] = DOMAIN_URL . $row['image'];
         $temp['total_price'] = $hours * $row['price_per_hour'];
+
+        
         $rows[] = $temp;
         
     }

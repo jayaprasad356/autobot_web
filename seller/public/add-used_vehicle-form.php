@@ -129,7 +129,7 @@ if (isset($_POST['btnAdd'])) {
                                 <div class="form-group">
                                         <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i>
                                         <select id='brand' name="brand" class='form-control' required>
-                                                <option value="none">Select</option>
+                                                <option value="">Select</option>
                                                             <?php
                                                             $sql = "SELECT * FROM `models`";
                                                             $db->sql($sql);

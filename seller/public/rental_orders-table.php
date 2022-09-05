@@ -23,7 +23,7 @@
                                     <th data-field="id" data-sortable="true">ID</th>
                                     <th data-field="name" data-sortable="true">Name</th>
                                     <th data-field="mobile" data-sortable="true">Mobile</th>
-                                    <th data-field="rental_vehicles_id" data-sortable="true">Vehile Id</th>
+                                    <th data-field="rental_vehicle_id" data-sortable="true">Vehile Id</th>
                                     <th data-field="start_time" data-sortable="true">Start Time</th>
                                     <th data-field="end_time" data-sortable="true">End Time</th>
                                     <th data-field="status" data-sortable="true">Status</th>
