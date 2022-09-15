@@ -22,19 +22,19 @@
 	
 ?>
 
-<?php include"header.php";?>
+<?php include "header.php";?>
 <html>
 <head>
-<title>Add Product | - Dashboard</title>
+<title>Add Rental Category | - Dashboard</title>
 </head>
 </body>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
 		<?php
-			include('public/add-product-form.php'); 
+			include('public/add-rental_category-form.php'); 
 		?>
       </div><!-- /.content-wrapper -->
   </body>
 </html>
-<?php include"footer.php";?>
+<?php include "footer.php";?>
     	

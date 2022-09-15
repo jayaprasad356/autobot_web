@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2022 at 12:27 PM
+-- Generation Time: Sep 15, 2022 at 10:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -230,6 +230,28 @@ CREATE TABLE `rental` (
 
 INSERT INTO `rental` (`id`, `vehicle_no`, `vehicle_group`, `model`, `year_of_manufacture`) VALUES
 (1, 'TN65AJ8940', 'Bajaj', 'Pulsar 150', '2020');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rental_category`
+--
+
+CREATE TABLE `rental_category` (
+  `id` int(11) NOT NULL,
+  `brand` text DEFAULT NULL,
+  `bike_name` text DEFAULT NULL,
+  `cc` text DEFAULT NULL,
+  `hills_price` text DEFAULT NULL,
+  `normal_price` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rental_category`
+--
+
+INSERT INTO `rental_category` (`id`, `brand`, `bike_name`, `cc`, `hills_price`, `normal_price`) VALUES
+(1, 'KTM', 'Duke 200', '160', '450', '600');
 
 -- --------------------------------------------------------
 
@@ -538,6 +560,12 @@ ALTER TABLE `rental`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rental_category`
+--
+ALTER TABLE `rental_category`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `rental_orders`
 --
 ALTER TABLE `rental_orders`
@@ -647,6 +675,12 @@ ALTER TABLE `product_variant`
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rental_category`
+--
+ALTER TABLE `rental_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

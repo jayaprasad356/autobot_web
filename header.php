@@ -189,6 +189,12 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="rental_categories.php">
+                        <i class="fa fa-bullseye"></i>
+                        <span>Rental Category</span>
+                    </a>
+                </li>
+                <li class="treeview">
                     <a href="rentals.php">
                         <i class="fa fa-truck"></i>
                         <span>Rentals</span>
