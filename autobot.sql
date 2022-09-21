@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2022 at 10:30 AM
+-- Generation Time: Sep 21, 2022 at 09:12 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -251,7 +251,8 @@ CREATE TABLE `rental_category` (
 --
 
 INSERT INTO `rental_category` (`id`, `brand`, `bike_name`, `cc`, `hills_price`, `normal_price`) VALUES
-(1, 'KTM', 'Duke 200', '160', '450', '600');
+(1, 'KTM', 'Duke 200', '160', '450', '600'),
+(2, 'Hero Honda', 'Delux', '350', '200', '160');
 
 -- --------------------------------------------------------
 
@@ -284,10 +285,7 @@ INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `star
 
 CREATE TABLE `rental_vehicles` (
   `id` int(11) NOT NULL,
-  `category` text DEFAULT NULL,
-  `brand` text DEFAULT NULL,
-  `bike_name` text DEFAULT NULL,
-  `price_per_hour` int(11) DEFAULT NULL,
+  `rental_category_id` int(11) DEFAULT NULL,
   `pincode` varchar(255) DEFAULT NULL,
   `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
@@ -297,8 +295,8 @@ CREATE TABLE `rental_vehicles` (
 -- Dumping data for table `rental_vehicles`
 --
 
-INSERT INTO `rental_vehicles` (`id`, `category`, `brand`, `bike_name`, `price_per_hour`, `pincode`, `image`, `status`) VALUES
-(1, 'City Booking', 'KTM', 'Duke 200', 40, '621313', 'upload/rentals/0069-2022-08-28.jpg', 1);
+INSERT INTO `rental_vehicles` (`id`, `rental_category_id`, `pincode`, `image`, `status`) VALUES
+(1, 2, '675894', 'upload/rentals/1663736961.0766.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -377,35 +375,6 @@ CREATE TABLE `services` (
 INSERT INTO `services` (`id`, `name`, `model`, `mobile`, `service_type`, `category`) VALUES
 (1, 'Pulsar NS160', '2017', '7358832695', 'Puncture', 'Emergency'),
 (2, 'Yamaha', '2018', '8765757667', 'Breakdown', 'general');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `showroom`
---
-
-CREATE TABLE `showroom` (
-  `id` int(11) NOT NULL,
-  `showroom_name` text DEFAULT NULL,
-  `mobile` text DEFAULT NULL,
-  `password` text DEFAULT NULL,
-  `alternate_mobile` text DEFAULT NULL,
-  `brand` text DEFAULT NULL,
-  `working_hours` text DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `pincode` text DEFAULT NULL,
-  `gst_tin` text DEFAULT NULL,
-  `account_no` text DEFAULT NULL,
-  `ifsc_code` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `showroom`
---
-
-INSERT INTO `showroom` (`id`, `showroom_name`, `mobile`, `password`, `alternate_mobile`, `brand`, `working_hours`, `address`, `pincode`, `gst_tin`, `account_no`, `ifsc_code`, `status`) VALUES
-(1, 'Yamaha', '8428225519', '1234567890', '7358832695', 'yamaha-fz', '9.00AM-8.00PM', 'Karur', '620008', '12345', '54321', 'SBI124', 0);
 
 -- --------------------------------------------------------
 
@@ -590,12 +559,6 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `showroom`
---
-ALTER TABLE `showroom`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `slides`
 --
 ALTER TABLE `slides`
@@ -681,7 +644,7 @@ ALTER TABLE `rental`
 -- AUTO_INCREMENT for table `rental_category`
 --
 ALTER TABLE `rental_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rental_orders`
@@ -706,12 +669,6 @@ ALTER TABLE `seller`
 --
 ALTER TABLE `services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `showroom`
---
-ALTER TABLE `showroom`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `slides`

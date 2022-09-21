@@ -160,10 +160,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
 
         $operate = ' <a href="edit-rental_vehicle.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
-        $tempRow['category'] = $row['category'];
-        $tempRow['brand'] = $row['brand'];
-        $tempRow['bike_name'] = $row['bike_name'];
-        $tempRow['price_per_hour'] = $row['price_per_hour'];
+        $tempRow['rental_category_id'] = $row['rental_category_id'];
         $tempRow['pincode'] = $row['pincode'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
@@ -217,7 +214,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT *,rental_orders.id AS id,rental_orders.status AS status FROM `rental_orders`,`users` WHERE rental_orders.user_id = users.id ". $where;
+    $sql = "SELECT * FROM rental_orders ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -234,7 +231,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['mobile'] = $row['mobile'];
-        $tempRow['rental_vehicle_id'] = $row['rental_vehicle_id'];
+        $tempRow['rental_vehicles_id'] = $row['rental_vehicles_id'];
         $tempRow['start_time'] = $row['start_time'];
         $tempRow['end_time'] = $row['end_time'];
         $tempRow['status'] = $row['status'];

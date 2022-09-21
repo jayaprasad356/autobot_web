@@ -12,7 +12,7 @@ if (isset($_POST['btnUpdate'])) {
     $sql = "UPDATE rental_orders SET `status`='" . $status . "' WHERE `id`=" . $order_id;
     $db->sql($sql);
 }
-$sql = "SELECT *,rental_orders.status AS status FROM rental_vehicles,rental_orders,users WHERE rental_orders.rental_vehicle_id=rental_vehicles.id AND rental_orders.user_id = users.id  AND rental_orders.id = $order_id";
+$sql = "SELECT *,rental_orders.status AS status,rental_orders.id AS id FROM rental_vehicles,rental_orders,rental_category WHERE rental_orders.rental_vehicles_id=rental_vehicles.id AND rental_vehicles.rental_category_id=rental_category.id AND rental_orders.id = $order_id";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
@@ -46,10 +46,6 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['mobile'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Category</th>
-                                <td><?php echo $res[0]['category'] ?></td>
-                            </tr>
-                            <tr>
                                 <th style="width: 200px"> Brand</th>
                                 <td><?php echo $res[0]['brand'] ?></td>
                             </tr>
@@ -58,8 +54,16 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['bike_name'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Price/hour</th>
-                                <td><?php echo $res[0]['price_per_hour'] ?></td>
+                                <th style="width: 200px">CC</th>
+                                <td><?php echo $res[0]['cc'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Hills Price</th>
+                                <td><?php echo $res[0]['hills_price'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Normal Price</th>
+                                <td><?php echo $res[0]['normal_price'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Pincode</th>
@@ -108,9 +112,9 @@ $res = $db->getResult();
                             <div class="form-group" >
                                 <label for="exampleInputEmail1">Status</label><i class="text-danger asterik">*</i><?php echo isset($error['status']) ? $error['status'] : ''; ?>
                                 <select name="status" class="form-control" required>
-                                <option value="Booked"<?=$res[0]['status'] == 'Booked' ? ' selected="selected"' : '';?>>Booked</option>
-                                <option value="Completed"<?=$res[0]['status'] == 'Completed' ? ' selected="selected"' : '';?>>Completed</option>
-                                <option value="Cancelled"<?=$res[0]['status'] == 'Cancelled' ? ' selected="selected"' : '';?>>Cancelled</option>                                                                          
+                                <option value="0"<?=$res[0]['status'] == '0' ? ' selected="selected"' : '';?>>Booked</option>
+                                <option value="1"<?=$res[0]['status'] == '1' ? ' selected="selected"' : '';?>>Confirmed</option>
+                                <option value="2"<?=$res[0]['status'] == '2' ? ' selected="selected"' : '';?>>Completed</option>                                                                          
                                 </select>
                             </div>
                        </div>
