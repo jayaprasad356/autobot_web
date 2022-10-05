@@ -214,7 +214,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM rental_orders ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT *,rental_orders.id AS id,rental_orders.status AS status FROM rental_orders,users WHERE rental_orders.user_id = users.id  ";
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -231,9 +231,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['mobile'] = $row['mobile'];
-        $tempRow['rental_vehicles_id'] = $row['rental_vehicles_id'];
-        $tempRow['start_time'] = $row['start_time'];
-        $tempRow['end_time'] = $row['end_time'];
+        $tempRow['rental_vehicle_id'] = $row['rental_vehicle_id'];
+        $tempRow['start_date'] = $row['start_date'];
+        $tempRow['end_date'] = $row['end_date'];
         $tempRow['status'] = $row['status'];
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;

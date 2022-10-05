@@ -12,24 +12,20 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$hours = (isset($_POST['hours'])) ? $db->escapeString($_POST['hours']) : "0";
-$pincode = (isset($_POST['pincode'])) ? $db->escapeString($_POST['pincode']) : "";   
-$category = (isset($_POST['category'])) ? $db->escapeString($_POST['category']) : "";   
-$sql = "SELECT * FROM `rental_vehicles` WHERE pincode = '$pincode' AND category = '$category'";
+$days = (isset($_POST['days'])) ? $db->escapeString($_POST['days']) : "0";
+$pincode = (isset($_POST['pincode'])) ? $db->escapeString($_POST['pincode']) : "";     
+$sql = "SELECT *,rv.id AS id FROM `rental_vehicles` rv,`rental_category` rc WHERE rv.rental_category_id = rc.id AND rv.pincode = '$pincode'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1) {
     foreach ($res as $row) {
         $temp['id'] = $row['id'];
-        $temp['category'] = $row['category'];
         $temp['brand'] = $row['brand'];
         $temp['bike_name'] = $row['bike_name'];
-        $temp['price_per_hour'] = $row['price_per_hour'];
+        $temp['hills_price'] = $days * $row['hills_price'];
+        $temp['normal_price'] = $days * $row['normal_price'];
         $temp['image'] = DOMAIN_URL . $row['image'];
-        $temp['total_price'] = $hours * $row['price_per_hour'];
-
-        
         $rows[] = $temp;
         
     }

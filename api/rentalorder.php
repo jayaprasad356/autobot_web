@@ -49,28 +49,14 @@ if (empty($_POST['end_date'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['start_time'])) {
-    $response['success'] = false;
-    $response['message'] = "Start Time is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-if (empty($_POST['end_time'])) {
-    $response['success'] = false;
-    $response['message'] = "End Time is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 $user_id = $db->escapeString($_POST['user_id']);
 $rental_vehicle_id = $db->escapeString($_POST['rental_vehicle_id']);
 $bike_name = $db->escapeString($_POST['bike_name']);
 $price = $db->escapeString($_POST['price']);
 $start_date = $db->escapeString($_POST['start_date']);
 $end_date = $db->escapeString($_POST['end_date']);
-$start_time = $db->escapeString($_POST['start_time']);
-$end_time = $db->escapeString($_POST['end_time']);
 
-$sql = "INSERT INTO rental_orders (`user_id`,`rental_vehicle_id`,`bike_name`,`price`,`start_date`,`end_date`,`start_time`,`end_time`,`status`)VALUES('$user_id','$rental_vehicle_id','$bike_name','$price','$start_date','$end_date','$start_time','$end_time','2')";
+$sql = "INSERT INTO rental_orders (`user_id`,`rental_vehicle_id`,`bike_name`,`price`,`start_date`,`end_date`,`status`)VALUES('$user_id','$rental_vehicle_id','$bike_name','$price','$start_date','$end_date','0')";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;

@@ -12,7 +12,7 @@ if (isset($_POST['btnUpdate'])) {
     $sql = "UPDATE rental_orders SET `status`='" . $status . "' WHERE `id`=" . $order_id;
     $db->sql($sql);
 }
-$sql = "SELECT *,rental_orders.status AS status,rental_orders.id AS id FROM rental_vehicles,rental_orders,rental_category WHERE rental_orders.rental_vehicles_id=rental_vehicles.id AND rental_vehicles.rental_category_id=rental_category.id AND rental_orders.id = $order_id";
+$sql = "SELECT *,rental_orders.status AS status,rental_orders.id AS id FROM users,rental_orders WHERE rental_orders.user_id=users.id AND rental_orders.id = $order_id";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
@@ -45,37 +45,37 @@ $res = $db->getResult();
                                 <th style="width: 200px">Mobile</th>
                                 <td><?php echo $res[0]['mobile'] ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th style="width: 200px"> Brand</th>
                                 <td><?php echo $res[0]['brand'] ?></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th style="width: 200px">Bike Name</th>
                                 <td><?php echo $res[0]['bike_name'] ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th style="width: 200px">CC</th>
                                 <td><?php echo $res[0]['cc'] ?></td>
-                            </tr>
+                            </tr> -->
                             <tr>
-                                <th style="width: 200px">Hills Price</th>
-                                <td><?php echo $res[0]['hills_price'] ?></td>
+                                <th style="width: 200px">Price</th>
+                                <td><?php echo $res[0]['price'] ?></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <th style="width: 200px">Normal Price</th>
                                 <td><?php echo $res[0]['normal_price'] ?></td>
-                            </tr>
-                            <tr>
+                            </tr> -->
+                            <!-- <tr>
                                 <th style="width: 200px">Pincode</th>
                                 <td><?php echo $res[0]['pincode'] ?></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th style="width: 200px">Start Date</th>
-                                <td><?php echo $res[0]['start_time']; ?></td>
+                                <td><?php echo $res[0]['start_date']; ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">End Date</th>
-                                <td><?php echo $res[0]['end_time']; ?></td>
+                                <td><?php echo $res[0]['end_date']; ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Status</th>
