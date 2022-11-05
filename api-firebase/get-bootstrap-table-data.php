@@ -722,4 +722,273 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_category') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+
+//new bikes table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'bikes') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= "WHERE bike_name like '%" . $search . "%' OR id like '%" . $search . "%' OR brand like '%" . $search . "%' OR cc like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $sql = "SELECT COUNT(`id`) as total FROM `bikes` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+   
+    $sql = "SELECT * FROM bikes " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        
+        $operate = ' <a href="edit-bike.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['bike_name'] = $row['bike_name'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['cc'] = $row['cc'];
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//bike service table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'bike_services') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= "WHERE bs.type like '%" . $search . "%' OR bs.id like '%" . $search . "%' OR b.bike_name like '%" . $search . "%' OR bs.price like '%" . $search . "%' OR b.brand like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $join = "LEFT JOIN `bikes` b ON bs.bike_id = b.id";
+
+    $sql = "SELECT COUNT(bs.id) as total FROM `bike_services` bs $join " . $where . "";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+   
+    $sql = "SELECT bs.id AS id,bs.*,b.bike_name,b.brand FROM `bike_services` bs $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit"; 
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        
+        $operate = ' <a href="edit-bike_service.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['bike_name'] = $row['bike_name'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['type'] = $row['type'];
+        $tempRow['price'] = $row['price'];
+        if($row['status']== '1'){
+            $tempRow['status'] = '<p class="text text-info">Booked</p>';
+        }elseif($row['status']== '2'){
+            $tempRow['status'] = '<p class="text text-success">Completed</p>';
+        }
+        else{
+            $tempRow['status'] = '<p class="text text-danger">Cancelled</p>';
+        }
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//puncture services table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'puncture_services') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= "WHERE bs.id like '%" . $search . "%' OR b.bike_name like '%" . $search . "%' OR bs.status like '%" . $search . "%' OR b.brand like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $join = "LEFT JOIN `bikes` b ON bs.bike_id = b.id";
+
+    $sql = "SELECT COUNT(bs.id) as total FROM `puncture_services` bs $join " . $where . "";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+   
+    $sql = "SELECT bs.id AS id,bs.*,b.bike_name,b.brand FROM `puncture_services` bs $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit"; 
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        
+        $operate = ' <a href="edit-puncture_service.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['bike_name'] = $row['bike_name'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['front_tube_less'] = $row['front_tube_less'];
+        $tempRow['front_tube_tyre'] = $row['front_tube_tyre'];
+        $tempRow['rear_tube_less'] = $row['rear_tube_less'];
+        $tempRow['rear_tube_tyre'] = $row['rear_tube_tyre'];
+        if($row['status']== '1'){
+            $tempRow['status'] = '<p class="text text-info">Booked</p>';
+        }elseif($row['status']== '2'){
+            $tempRow['status'] = '<p class="text text-success">Completed</p>';
+        }
+        else{
+            $tempRow['status'] = '<p class="text text-danger">Cancelled</p>';
+        }
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//tyre products table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'tyre_products') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= "WHERE brand like '%" . $search . "%' OR id like '%" . $search . "%' OR wheel like '%" . $search . "%' OR pattern like '%" . $search . "%' OR tyre_type like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $sql = "SELECT COUNT(`id`) as total FROM `tyre_products` ";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+   
+    $sql = "SELECT * FROM tyre_products " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+
+        
+        $operate = ' <a href="edit-tyre_product.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['size'] = $row['size'];
+        $tempRow['wheel'] = $row['wheel'];
+        $tempRow['pattern'] = $row['pattern'];
+        $tempRow['tyre_type'] = $row['tyre_type'];
+        $tempRow['amount'] = $row['amount'];
+        $tempRow['delivery_charges'] = $row['delivery_charges'];
+        $tempRow['fitting_charges'] = $row['fitting_charges'];
+        $tempRow['actual_price'] = $row['actual_price'];
+        $tempRow['final_price'] = $row['final_price'];
+        if ($row['status'] == 0)
+        $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
+        else
+        $tempRow['status'] = "<label class='label label-success'>Available</label>";
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 $db->disconnect();

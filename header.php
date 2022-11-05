@@ -94,6 +94,11 @@ $fn = new custom_functions;
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css" integrity="sha256-tBxlolRHP9uMsEFKVk+hk//ekOlXOixLKvye5W2WR5c=" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js" integrity="sha256-CtKylYan+AJuoH8jrMht1+1PMhMqrKnB8K5g012WN5I=" crossorigin="anonymous"></script>
+
+      <!--styling input -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 
 <body class="hold-transition skin-blue fixed sidebar-mini">
@@ -201,6 +206,30 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="bikes.php">
+                    <i class="fa fa-motorcycle"></i>
+                        <span>New Bikes</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="bike_services.php">
+                    <i class="fa fa-wrench"></i>
+                        <span>Bike Services</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="puncture_services.php">
+                    <i class="fa fa-circle"></i>
+                        <span>Puncture Servics</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="tyre_products.php">
+                    <i class="fa fa-cube"></i>
+                        <span>Tyre Products</span>
+                    </a>
+                </li>
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-location-arrow"></i>
                         <span>Deliver Pincodes</span>
@@ -222,12 +251,6 @@ $fn = new custom_functions;
                         <span>Notifications</span>
                     </a>
                 </li>
-                <!-- <li class="treeview">
-                    <a href="showrooms.php">
-                    <i class="fa fa-map"></i>
-                        <span>Showrooms</span>
-                    </a>
-                </li> -->
               
             </ul>
             </section>

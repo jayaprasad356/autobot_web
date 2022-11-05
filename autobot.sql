@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2022 at 09:12 AM
+-- Generation Time: Nov 05, 2022 at 12:26 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,48 @@ SET time_zone = "+00:00";
 --
 -- Database: `autobot`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bikes`
+--
+
+CREATE TABLE `bikes` (
+  `id` int(11) NOT NULL,
+  `bike_name` text DEFAULT NULL,
+  `brand` text DEFAULT NULL,
+  `cc` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bikes`
+--
+
+INSERT INTO `bikes` (`id`, `bike_name`, `brand`, `cc`) VALUES
+(1, 'Pulasar NS 160', 'Bajaj', '150 CC'),
+(2, 'Yamaha R15 V4M', 'Yamaha', '200 CC');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bike_services`
+--
+
+CREATE TABLE `bike_services` (
+  `id` int(11) NOT NULL,
+  `bike_id` int(11) DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `price` text DEFAULT '0',
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bike_services`
+--
+
+INSERT INTO `bike_services` (`id`, `bike_id`, `type`, `price`, `status`) VALUES
+(1, 1, 'General', '600', 1);
 
 -- --------------------------------------------------------
 
@@ -213,6 +255,29 @@ INSERT INTO `product_variant` (`id`, `product_id`, `model`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `puncture_services`
+--
+
+CREATE TABLE `puncture_services` (
+  `id` int(11) NOT NULL,
+  `bike_id` int(11) DEFAULT NULL,
+  `front_tube_less` int(200) DEFAULT 0,
+  `front_tube_tyre` int(200) DEFAULT 0,
+  `rear_tube_less` int(200) DEFAULT 0,
+  `rear_tube_tyre` int(200) DEFAULT 0,
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `puncture_services`
+--
+
+INSERT INTO `puncture_services` (`id`, `bike_id`, `front_tube_less`, `front_tube_tyre`, `rear_tube_less`, `rear_tube_tyre`, `status`) VALUES
+(1, 2, 2500, 1850, 4867, 3600, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rental`
 --
 
@@ -400,6 +465,34 @@ INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tyre_products`
+--
+
+CREATE TABLE `tyre_products` (
+  `id` int(11) NOT NULL,
+  `brand` text DEFAULT NULL,
+  `size` int(200) DEFAULT 0,
+  `wheel` text DEFAULT NULL,
+  `pattern` text DEFAULT NULL,
+  `tyre_type` text DEFAULT NULL,
+  `amount` int(200) DEFAULT 0,
+  `delivery_charges` int(200) DEFAULT 0,
+  `fitting_charges` int(200) DEFAULT 0,
+  `actual_price` int(200) DEFAULT 0,
+  `final_price` int(200) DEFAULT 0,
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tyre_products`
+--
+
+INSERT INTO `tyre_products` (`id`, `brand`, `size`, `wheel`, `pattern`, `tyre_type`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
+(1, 'CEAT', 15, 'Front tyre', 'S-pattern', 'Tube', 500, 45, 160, 450, 400, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `used_vehicles`
 --
 
@@ -475,6 +568,18 @@ INSERT INTO `users` (`id`, `name`, `mobile`, `status`) VALUES
 --
 
 --
+-- Indexes for table `bikes`
+--
+ALTER TABLE `bikes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bike_services`
+--
+ALTER TABLE `bike_services`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -523,6 +628,12 @@ ALTER TABLE `product_variant`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `puncture_services`
+--
+ALTER TABLE `puncture_services`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `rental`
 --
 ALTER TABLE `rental`
@@ -565,6 +676,12 @@ ALTER TABLE `slides`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tyre_products`
+--
+ALTER TABLE `tyre_products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `used_vehicles`
 --
 ALTER TABLE `used_vehicles`
@@ -585,6 +702,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `bikes`
+--
+ALTER TABLE `bikes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `bike_services`
+--
+ALTER TABLE `bike_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -635,6 +764,12 @@ ALTER TABLE `product_variant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `puncture_services`
+--
+ALTER TABLE `puncture_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `rental`
 --
 ALTER TABLE `rental`
@@ -675,6 +810,12 @@ ALTER TABLE `services`
 --
 ALTER TABLE `slides`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tyre_products`
+--
+ALTER TABLE `tyre_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `used_vehicles`
