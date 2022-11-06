@@ -47,19 +47,19 @@ include "header.php";
                     <div class="small-box bg-aqua">
                         <div class="inner">
                             <h3><?php
-                            $sql = "SELECT * FROM users";
+                            $sql = "SELECT * FROM bikes";
                             $db->sql($sql);
                             $res = $db->getResult();
                             $num = $db->numRows($res);
                             echo $num;
                              ?></h3>
-                            <p>Users</p>
+                            <p>New Bikes</p>
                         </div>
                         <div class="icon"><i class="fa fa-user"></i></div>
-                        <a href="users.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="bikes.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-xs-6">
+                <!-- <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
                         <h3><?php
@@ -74,21 +74,21 @@ include "header.php";
                         <div class="icon"><i class="fa fa-shopping-cart"></i></div>
                         <a href="categories.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-green">
                         <div class="inner">
                         <h3><?php
-                            $sql = "SELECT * FROM products";
+                            $sql = "SELECT * FROM tyre_products";
                             $db->sql($sql);
                             $res = $db->getResult();
                             $num = $db->numRows($res);
                             echo $num;
                              ?></h3>
-                            <p>Products</p>
+                            <p>Tyre Products</p>
                         </div>
                         <div class="icon"><i class="fa fa-cubes"></i></div>
-                        <a href="products.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="tyre_products.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- <div class="col-lg-3 col-xs-6">
