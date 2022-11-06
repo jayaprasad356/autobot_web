@@ -55,7 +55,7 @@ include "header.php";
                              ?></h3>
                             <p>New Bikes</p>
                         </div>
-                        <div class="icon"><i class="fa fa-user"></i></div>
+                        <div class="icon"><i class="fa fa-motorcycle"></i></div>
                         <a href="bikes.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>

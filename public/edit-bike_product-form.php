@@ -21,18 +21,17 @@ if (isset($_POST['btnEdit'])) {
 	$size = $db->escapeString($_POST['size']);
 	$tyre_type = (isset($_POST['tyre_type']) && !empty($_POST['tyre_type'])) ? trim($db->escapeString($fn->xss_clean($_POST['tyre_type']))) : "";
 	$wheel = (isset($_POST['wheel']) && !empty($_POST['wheel'])) ? trim($db->escapeString($fn->xss_clean($_POST['wheel']))) : "";
-	$status = $db->escapeString($_POST['status']);
 	$error = array();
 		
 
 		if (!empty($bike_id) && !empty($type) && !empty($size)) 
 		{  
 			if($type=='Tyre'){
-                $sql_query = "UPDATE bike_product_size SET bike_id='$bike_id',type='$type',size='$size',wheel='$wheel',tyre_type='$tyre_type',status='$status' WHERE id=$ID";
+                $sql_query = "UPDATE bike_product_size SET bike_id='$bike_id',type='$type',size='$size',wheel='$wheel',tyre_type='$tyre_type' WHERE id=$ID";
                 $db->sql($sql_query);
             }
             elseif($type=='Puncture'){
-                $sql_query = "UPDATE bike_product_size SET bike_id='$bike_id',type='$type',size='$size',wheel='',tyre_type='',status='$status' WHERE id=$ID";
+                $sql_query = "UPDATE bike_product_size SET bike_id='$bike_id',type='$type',size='$size',wheel='',tyre_type='' WHERE id=$ID";
                 $db->sql($sql_query);
             }
              $update_result = $db->getResult();
@@ -142,18 +141,6 @@ if (isset($_POST['btnCancel'])) { ?>
                                     </select>
                                 </div>
 							<?php } ?>
-									
-							<div class='form-group'>
-                                        <label class="control-label">Status</label> <i class="text-danger asterik">*</i>
-                                        <div id="status" class="form-group">
-                                            <label class="btn btn-danger" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
-                                                <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-Available
-                                            </label>
-                                            <label class="btn btn-success" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
-                                            </label>
-                                        </div>
-						    </div>
 						</div><!-- /.box-body -->
                        
 					<div class="box-footer">

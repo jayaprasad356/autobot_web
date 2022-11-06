@@ -33,7 +33,7 @@
                                     <th  data-field="fitting_charges" data-sortable="true">Fitting Charges</th>
                                     <th  data-field="actual_price" data-sortable="true">Actual Price</th>
                                     <th  data-field="final_price" data-sortable="true">Final Price</th>
-                                    <th  data-field="status" data-sortable="true">Status</th>
+                                    <th  data-field="status" data-sortable="true">Stock</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>
                                 </tr>
                             </thead>

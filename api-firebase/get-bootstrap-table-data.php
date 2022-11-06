@@ -770,6 +770,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'bikes') {
 
         
         $operate = ' <a href="edit-bike.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-bike.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
@@ -831,6 +832,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'bike_services') {
 
         
         $operate = ' <a href="edit-bike_service.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-bike_service.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
@@ -901,6 +903,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'puncture_services') {
 
         
         $operate = ' <a href="edit-puncture_service.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-puncture_service.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
@@ -970,6 +973,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'tyre_products') {
 
         
         $operate = ' <a href="edit-tyre_product.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-tyre_product.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['size'] = $row['size'];
@@ -1042,6 +1046,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'bike_products') {
 
         
         $operate = ' <a href="edit-bike_product.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-bike_product.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
@@ -1049,10 +1054,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'bike_products') {
         $tempRow['size'] = $row['size'];
         $tempRow['wheel'] = $row['wheel'];
         $tempRow['tyre_type'] = $row['tyre_type'];
-        if ($row['status'] == 0)
-        $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
-        else
-        $tempRow['status'] = "<label class='label label-success'>Available</label>";
+        // if ($row['status'] == 0)
+        // $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
+        // else
+        // $tempRow['status'] = "<label class='label label-success'>Available</label>";
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }

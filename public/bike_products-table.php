@@ -29,7 +29,6 @@
                                     <th  data-field="size" data-sortable="true">Size</th>
                                     <th  data-field="wheel" data-sortable="true">Wheel</th>
                                     <th  data-field="tyre_type" data-sortable="true">Tyre Type</th>
-                                    <th  data-field="status" data-sortable="true">Status</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>
                                 </tr>
                             </thead>

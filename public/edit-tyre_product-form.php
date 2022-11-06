@@ -149,7 +149,7 @@ if (isset($_POST['btnCancel'])) { ?>
                                         <input type="number" class="form-control" name="final_price" value="<?php echo $res[0]['final_price']; ?>">
                                     </div>
 									<div class='col-md-4'>
-                                        <label class="control-label">Status</label> <i class="text-danger asterik">*</i>
+                                        <label class="control-label">Stock</label> <i class="text-danger asterik">*</i>
                                         <div id="status" class="form-group">
                                             <label class="btn btn-danger" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
                                                 <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-Available
