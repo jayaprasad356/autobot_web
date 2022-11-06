@@ -163,7 +163,7 @@ $fn = new custom_functions;
                         <i class="fa fa-home" class="active"></i> <span>Home</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="users.php">
                         <i class="fa fa-user"></i>
                         <span>Users</span>
@@ -186,14 +186,14 @@ $fn = new custom_functions;
                         <i class="fa fa-sliders"></i>
                         <span>Slides</span>
                     </a>
-                </li>
+                </li> -->
                 <!-- <li class="treeview">
                     <a href="services.php">
                         <i class="fa fa-wrench"></i>
                         <span>Services</span>
                     </a>
                 </li> -->
-                <li class="treeview">
+                <!-- <li class="treeview">
                     <a href="rental_categories.php">
                         <i class="fa fa-bullseye"></i>
                         <span>Rental Category</span>
@@ -204,7 +204,7 @@ $fn = new custom_functions;
                         <i class="fa fa-truck"></i>
                         <span>Rentals</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="treeview">
                     <a href="bikes.php">
                     <i class="fa fa-motorcycle"></i>
@@ -230,6 +230,12 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="bike_products.php">
+                    <i class="fa fa-thumb-tack"></i>
+                         <span>Bike Product Size</span>
+                    </a>
+                </li>
+                <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-location-arrow"></i>
                         <span>Deliver Pincodes</span>
@@ -250,7 +256,7 @@ $fn = new custom_functions;
                         <i class="fa fa-bell"></i>
                         <span>Notifications</span>
                     </a>
-                </li>
+                </li> -->
               
             </ul>
             </section>

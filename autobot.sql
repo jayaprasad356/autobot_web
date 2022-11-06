@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2022 at 12:26 PM
+-- Generation Time: Nov 06, 2022 at 09:52 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -41,6 +41,29 @@ CREATE TABLE `bikes` (
 INSERT INTO `bikes` (`id`, `bike_name`, `brand`, `cc`) VALUES
 (1, 'Pulasar NS 160', 'Bajaj', '150 CC'),
 (2, 'Yamaha R15 V4M', 'Yamaha', '200 CC');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bike_product_size`
+--
+
+CREATE TABLE `bike_product_size` (
+  `id` int(11) NOT NULL,
+  `bike_id` int(11) DEFAULT 0,
+  `type` text DEFAULT NULL,
+  `size` int(200) DEFAULT 0,
+  `wheel` text DEFAULT NULL,
+  `tyre_type` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bike_product_size`
+--
+
+INSERT INTO `bike_product_size` (`id`, `bike_id`, `type`, `size`, `wheel`, `tyre_type`, `status`) VALUES
+(1, 2, 'Puncture', 90, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -574,6 +597,12 @@ ALTER TABLE `bikes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `bike_product_size`
+--
+ALTER TABLE `bike_product_size`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `bike_services`
 --
 ALTER TABLE `bike_services`
@@ -708,6 +737,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bikes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `bike_product_size`
+--
+ALTER TABLE `bike_product_size`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bike_services`
