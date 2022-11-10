@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2022 at 09:52 AM
+-- Generation Time: Nov 10, 2022 at 11:17 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `autobot`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `batteries`
+--
+
+CREATE TABLE `batteries` (
+  `id` int(11) NOT NULL,
+  `brand` text DEFAULT NULL,
+  `warranty` text DEFAULT NULL,
+  `amount` text DEFAULT NULL,
+  `delivery_charges` text DEFAULT NULL,
+  `fitting_charges` text DEFAULT NULL,
+  `actual_price` text DEFAULT NULL,
+  `final_price` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `batteries`
+--
+
+INSERT INTO `batteries` (`id`, `brand`, `warranty`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
+(1, 'Excel', '2', '1500', '50', '100', '1699', '1400', 1);
 
 -- --------------------------------------------------------
 
@@ -591,6 +616,12 @@ INSERT INTO `users` (`id`, `name`, `mobile`, `status`) VALUES
 --
 
 --
+-- Indexes for table `batteries`
+--
+ALTER TABLE `batteries`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `bikes`
 --
 ALTER TABLE `bikes`
@@ -731,6 +762,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `batteries`
+--
+ALTER TABLE `batteries`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bikes`

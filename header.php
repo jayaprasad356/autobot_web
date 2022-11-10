@@ -235,6 +235,12 @@ $fn = new custom_functions;
                          <span>Bike Product Size</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="batteries.php">
+                    <i class="fa fa-battery-full"></i>
+                         <span>Batteries</span>
+                    </a>
+                </li>
                 <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-location-arrow"></i>
