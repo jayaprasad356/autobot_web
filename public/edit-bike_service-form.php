@@ -114,9 +114,9 @@ if (isset($_POST['btnCancel'])) { ?>
 							<div class="form-group">
 							       <label for="">Status</label> <i class="text-danger asterik">*</i>
                                     <select id="status" name="status" class="form-control">
-									   <option value="1"<?=$res[0]['status'] == '1' ? ' selected="selected"' : '';?>>Booked</option>
-                                        <option value="2"<?=$res[0]['status'] == '2' ? ' selected="selected"' : '';?>>Completed</option>
-                                        <option value="0"<?=$res[0]['status'] == '0' ? ' selected="selected"' : '';?> >Cancelled</option>
+									   <option value="0"<?=$res[0]['status'] == '0' ? ' selected="selected"' : '';?>>Booked</option>
+                                        <option value="1"<?=$res[0]['status'] == '1' ? ' selected="selected"' : '';?>>Completed</option>
+                                        <option value="2"<?=$res[0]['status'] == '2' ? ' selected="selected"' : '';?> >Cancelled</option>
                                     </select>
 
 							</div>

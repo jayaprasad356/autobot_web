@@ -27,11 +27,11 @@ if (isset($_POST['btnAdd'])) {
        if (!empty($bike_id) && !empty($type)) 
        {   
             if($type=='General'){
-                $sql_query = "INSERT INTO bike_services (bike_id,type,price,status)VALUES('$bike_id','$type','$price',1)";
+                $sql_query = "INSERT INTO bike_services (bike_id,type,price,status)VALUES('$bike_id','$type','$price',0)";
                 $db->sql($sql_query);
             }
             elseif($type=='Emergency'){
-                $sql_query = "INSERT INTO bike_services (bike_id,type,status)VALUES('$bike_id','$type',1)";
+                $sql_query = "INSERT INTO bike_services (bike_id,type,status)VALUES('$bike_id','$type',0)";
                 $db->sql($sql_query);
             }
             $result = $db->getResult();

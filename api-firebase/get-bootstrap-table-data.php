@@ -838,9 +838,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'bike_services') {
         $tempRow['brand'] = $row['brand'];
         $tempRow['type'] = $row['type'];
         $tempRow['price'] = $row['price'];
-        if($row['status']== '1'){
+        if($row['status']== '0'){
             $tempRow['status'] = '<p class="text text-info">Booked</p>';
-        }elseif($row['status']== '2'){
+        }elseif($row['status']== '1'){
             $tempRow['status'] = '<p class="text text-success">Completed</p>';
         }
         else{
