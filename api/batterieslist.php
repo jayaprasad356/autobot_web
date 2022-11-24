@@ -12,6 +12,9 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
+$tyre_type = $db->escapeString($_POST['tyre_type']);
+$wheel = $db->escapeString($_POST['wheel']);
+
 $sql = "SELECT * FROM `batteries`";
 $db->sql($sql);
 $res = $db->getResult();
