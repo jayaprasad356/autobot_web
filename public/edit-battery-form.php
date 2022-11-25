@@ -18,6 +18,7 @@ if (isset($_POST['btnEdit'])) {
 
 	      $error = array();
 		  $brand = $db->escapeString(($_POST['brand']));
+          $type = $db->escapeString(($_POST['type']));
 		  $warranty = $db->escapeString($_POST['warranty']);
 		  $amount = $db->escapeString($_POST['amount']);
 		  $delivery_charges = $db->escapeString($_POST['delivery_charges']);
@@ -26,9 +27,9 @@ if (isset($_POST['btnEdit'])) {
 		  $final_price = $db->escapeString($_POST['final_price']);
 		  $status = $db->escapeString($_POST['status']);
 
-		  if (!empty($brand) && !empty($warranty) &&!empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price)&& !empty($final_price)) 
+		  if (!empty($brand) && !empty($type) && !empty($warranty) &&!empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price)&& !empty($final_price)) 
        {   
-				$sql_query = "UPDATE batteries SET brand='$brand',warranty='$warranty',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
+				$sql_query = "UPDATE batteries SET brand='$brand',type='$type',warranty='$warranty',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
 				$db->sql($sql_query);
 				$update_result = $db->getResult();
 				if (!empty($update_result)) {
@@ -89,47 +90,60 @@ if (isset($_POST['btnCancel'])) { ?>
                                         <input type="text" class="form-control" name="brand" value="<?php echo $res[0]['brand']; ?>">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="exampleInputEmail1">warranty</label><i class="text-danger asterik">*</i><?php echo isset($error['warranty']) ? $error['warranty'] : ''; ?>
-                                        <input type="number" class="form-control" name="warranty" value="<?php echo $res[0]['warranty']; ?>">
+                                        <label for="">Type</label> <i class="text-danger asterik">*</i>
+										<select id="type" name="type" class="form-control">
+										    <option value="">select</option>
+											<option value="Self start"<?=$res[0]['type'] == 'Self start' ? ' selected="selected"' : '';?>>Self start</option>
+											<option value="Non-Self start"<?=$res[0]['type'] == 'Non-Self start' ? ' selected="selected"' : '';?> >Non-Self start</option>
+										</select>
                                     </div>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">warranty</label><i class="text-danger asterik">*</i><?php echo isset($error['warranty']) ? $error['warranty'] : ''; ?>
+                                        <input type="number" class="form-control" name="warranty" value="<?php echo $res[0]['warranty']; ?>">
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Amount</label><i class="text-danger asterik">*</i><?php echo isset($error['amount']) ? $error['amount'] : ''; ?>
                                         <input type="number" class="form-control" name="amount" value="<?php echo $res[0]['amount']; ?>">
                                     </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Delivery Charges</label><i class="text-danger asterik">*</i><?php echo isset($error['delivery_charges']) ? $error['delivery_charges'] : ''; ?>
                                         <input type="number" class="form-control" name="delivery_charges" value="<?php echo $res[0]['delivery_charges']; ?>">
                                     </div> 
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group">
                                     <div class="col-md-6">
                                         <label for="exampleInputEmail1">Fitting Charges</label><i class="text-danger asterik">*</i><?php echo isset($error['fitting_charges']) ? $error['fitting_charges'] : ''; ?>
                                         <input type="number" class="form-control" name="fitting_charges" value="<?php echo $res[0]['fitting_charges']; ?>">
                                     </div>
-									<div class="col-md-6">
-                                        <label for="exampleInputEmail1">Actual Price</label><i class="text-danger asterik">*</i><?php echo isset($error['actual_price']) ? $error['actual_price'] : ''; ?>
-                                        <input type="number" class="form-control" name="actual_price" value="<?php echo $res[0]['actual_price']; ?>">
-                                    </div> 
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="form-group">
                                     <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Actual Price</label><i class="text-danger asterik">*</i><?php echo isset($error['actual_price']) ? $error['actual_price'] : ''; ?>
+                                        <input type="number" class="form-control" name="actual_price" value="<?php echo $res[0]['actual_price']; ?>">
+                                    </div> 
+                                    <div class="col-md-6">
                                         <label for="exampleInputEmail1">Final Price</label><i class="text-danger asterik">*</i><?php echo isset($error['final_price']) ? $error['final_price'] : ''; ?>
                                         <input type="number" class="form-control" name="final_price" value="<?php echo $res[0]['final_price']; ?>">
                                     </div>
-									<div class='col-md-6'>
-                                        <label class="control-label">Stock</label> <i class="text-danger asterik">*</i>
-                                        <div id="status" class="form-group">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                   <div class='col-md-6'>
+                                        <label class="control-label">Stock</label> <i class="text-danger asterik">*</i><br>
+                                        <div id="status" class="btn-group">
                                             <label class="btn btn-danger" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
                                                 <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-Available
                                             </label>

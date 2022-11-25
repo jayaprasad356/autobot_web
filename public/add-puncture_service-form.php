@@ -13,34 +13,30 @@ $res = $db->getResult();
 if (isset($_POST['btnAdd'])) {
 
         $bike_id = $db->escapeString(($_POST['bike_id']));
-        $front_tube_less = $db->escapeString($_POST['front_tube_less']);
-        $front_tube_tyre = $db->escapeString($_POST['front_tube_tyre']);
-        $rear_tube_less = $db->escapeString($_POST['rear_tube_less']);
-        $rear_tube_tyre = $db->escapeString($_POST['rear_tube_tyre']);
+        $tyre_type = $db->escapeString($_POST['tyre_type']);
+        $wheel = $db->escapeString($_POST['wheel']);
+        $price = $db->escapeString($_POST['price']);
 
         
         if (empty($bike_id)) {
             $error['bike_id'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($front_tube_less)) {
-            $error['front_tube_less'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($tyre_type)) {
+            $error['tyre_type'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($front_tube_tyre)) {
-            $error['front_tube_tyre'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($wheel)) {
+            $error['wheel'] = " <span class='label label-danger'>Required!</span>";
         } 
-         if (empty($rear_tube_less)) {
-            $error['rear_tube_less'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($rear_tube_tyre)) {
-            $error['rear_tube_tyre'] = " <span class='label label-danger'>Required!</span>";
+         if (empty($price)) {
+            $error['price'] = " <span class='label label-danger'>Required!</span>";
         }
        
-       if (!empty($bike_id) && !empty($front_tube_less) && !empty($front_tube_tyre)&& !empty($rear_tube_less)&& !empty($rear_tube_tyre)) 
+       if (!empty($bike_id) && !empty($tyre_type) && !empty($wheel)&& !empty($price)) 
        {   
            
-                $sql_query = "INSERT INTO puncture_services (bike_id,front_tube_less,front_tube_tyre,rear_tube_less,rear_tube_tyre,status)VALUES('$bike_id','$front_tube_less','$front_tube_tyre','$rear_tube_less','$rear_tube_tyre',1)";
-                $db->sql($sql_query);
-                $result = $db->getResult();
+            $sql_query = "INSERT INTO puncture_services (bike_id,tyre_type,wheel,price,status)VALUES('$bike_id','$tyre_type','$wheel','$price',1)";
+            $db->sql($sql_query);
+            $result = $db->getResult();
             if (!empty($result)) {
                 $result = 0;
             } else {
@@ -98,30 +94,31 @@ if (isset($_POST['btnAdd'])) {
                         <br>
                         <div class="row">
                             <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Front Tubeless Price</label><i class="text-danger asterik">*</i><?php echo isset($error['front_tube_less']) ? $error['front_tube_less'] : ''; ?>
-                                        <input type="number" class="form-control" name="front_tube_less" required>
+                                    <div class="col-md-4">
+                                         <label class="control-label">Tyre Type</label> <i class="text-danger asterik">*</i><br>
+                                          <div id="status" class="btn-group">
+                                            <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="tyre_type" value="Tube-tyre">Tube Tyre
+                                            </label>
+                                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="tyre_type" value="Tubeless-tyre"> Tubeless Tyre
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Front Tube Price</label><i class="text-danger asterik">*</i><?php echo isset($error['front_tube_tyre']) ? $error['front_tube_tyre'] : ''; ?>
-                                        <input type="number" class="form-control" name="front_tube_tyre" required>
+                                    <div class="col-md-4">
+                                        <label for="">Wheel</label> <i class="text-danger asterik">*</i>
+                                            <select id="wheel" name="wheel" class="form-control">
+                                                <option value="">--select--</option>
+                                                <option value="Front">Front</option>
+                                                <option value="Rear">Rear</option>
+                                            </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Price</label><i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
+                                        <input type="number" class="form-control" name="price" required>
                                     </div>
                             </div>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Rear Tubeless Price</label><i class="text-danger asterik">*</i><?php echo isset($error['rear_tube_less']) ? $error['rear_tube_less'] : ''; ?>
-                                        <input type="number" class="form-control" name="rear_tube_less" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Rear Tube Price</label><i class="text-danger asterik">*</i><?php echo isset($error['rear_tube_tyre']) ? $error['rear_tube_tyre'] : ''; ?>
-                                        <input type="number" class="form-control" name="rear_tube_tyre" required>
-                                    </div>
-                            </div>
-                        </div>
-
                     </div>
                     <!-- /.box-body -->
 
@@ -146,10 +143,10 @@ if (isset($_POST['btnAdd'])) {
         debug: false,
         rules: {
             bike_id: "required",
-            rear_tube_less: "required",
+            price: "required",
             rear_tube_tyre: "required",
-            front_tube_less: "required",
-            front_tube_tyre: "required",
+            tyre_type: "required",
+            wheel: "required",
         }
     });
     $('#btnClear').on('click', function() {

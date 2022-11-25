@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2022 at 11:17 AM
+-- Generation Time: Nov 25, 2022 at 09:11 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `batteries` (
   `id` int(11) NOT NULL,
   `brand` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
   `warranty` text DEFAULT NULL,
   `amount` text DEFAULT NULL,
   `delivery_charges` text DEFAULT NULL,
@@ -43,8 +44,31 @@ CREATE TABLE `batteries` (
 -- Dumping data for table `batteries`
 --
 
-INSERT INTO `batteries` (`id`, `brand`, `warranty`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
-(1, 'Excel', '2', '1500', '50', '100', '1699', '1400', 1);
+INSERT INTO `batteries` (`id`, `brand`, `type`, `warranty`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
+(1, 'Excel', 'Self start', '2', '1500', '50', '100', '1699', '1400', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `battery_bookings`
+--
+
+CREATE TABLE `battery_bookings` (
+  `id` int(11) NOT NULL,
+  `bike_name` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `product_id` int(11) DEFAULT 0,
+  `name` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `size` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `battery_bookings`
+--
+
+INSERT INTO `battery_bookings` (`id`, `bike_name`, `type`, `product_id`, `name`, `price`, `size`) VALUES
+(1, 'Duke 200', 'Self start', 1, 'Excel', '1426', '10');
 
 -- --------------------------------------------------------
 
@@ -110,6 +134,30 @@ CREATE TABLE `bike_services` (
 
 INSERT INTO `bike_services` (`id`, `bike_id`, `type`, `price`, `status`) VALUES
 (1, 1, 'General', '600', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `booked_services`
+--
+
+CREATE TABLE `booked_services` (
+  `id` int(11) NOT NULL,
+  `bike_name` text DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `booked_services`
+--
+
+INSERT INTO `booked_services` (`id`, `bike_name`, `date`, `time`, `type`, `price`, `status`) VALUES
+(1, 'Yamaha R15 v3', '2022-11-25', '10:26:00', 'Emergency', '', 0),
+(2, 'Pulsar NS160', '2022-01-12', '09:45:20', 'General', '1500', 0);
 
 -- --------------------------------------------------------
 
@@ -309,10 +357,9 @@ INSERT INTO `product_variant` (`id`, `product_id`, `model`, `price`) VALUES
 CREATE TABLE `puncture_services` (
   `id` int(11) NOT NULL,
   `bike_id` int(11) DEFAULT NULL,
-  `front_tube_less` int(200) DEFAULT 0,
-  `front_tube_tyre` int(200) DEFAULT 0,
-  `rear_tube_less` int(200) DEFAULT 0,
-  `rear_tube_tyre` int(200) DEFAULT 0,
+  `tyre_type` text DEFAULT NULL,
+  `wheel` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -320,8 +367,8 @@ CREATE TABLE `puncture_services` (
 -- Dumping data for table `puncture_services`
 --
 
-INSERT INTO `puncture_services` (`id`, `bike_id`, `front_tube_less`, `front_tube_tyre`, `rear_tube_less`, `rear_tube_tyre`, `status`) VALUES
-(1, 2, 2500, 1850, 4867, 3600, 1);
+INSERT INTO `puncture_services` (`id`, `bike_id`, `tyre_type`, `wheel`, `price`, `status`) VALUES
+(1, 2, 'Tubeless-tyre', 'Rear', '1450', 1);
 
 -- --------------------------------------------------------
 
@@ -513,6 +560,52 @@ INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tyreproduct_bookings`
+--
+
+CREATE TABLE `tyreproduct_bookings` (
+  `id` int(11) NOT NULL,
+  `bike_name` text DEFAULT NULL,
+  `tyre_type` text DEFAULT NULL,
+  `wheel` text DEFAULT NULL,
+  `product_id` int(11) DEFAULT 0,
+  `price` text DEFAULT NULL,
+  `name` text DEFAULT NULL,
+  `size` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tyreproduct_bookings`
+--
+
+INSERT INTO `tyreproduct_bookings` (`id`, `bike_name`, `tyre_type`, `wheel`, `product_id`, `price`, `name`, `size`, `status`) VALUES
+(1, 'Hero Honda', 'Tube tyre', 'Front', 1, '1200', 'Miechlin', '24', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tyrepuncture_bookings`
+--
+
+CREATE TABLE `tyrepuncture_bookings` (
+  `id` int(11) NOT NULL,
+  `bike_name` text DEFAULT NULL,
+  `tyre_type` text DEFAULT NULL,
+  `wheel` text DEFAULT NULL,
+  `price` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tyrepuncture_bookings`
+--
+
+INSERT INTO `tyrepuncture_bookings` (`id`, `bike_name`, `tyre_type`, `wheel`, `price`) VALUES
+(1, 'TVS', 'Tube-tyre', 'Front', '449');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tyre_products`
 --
 
@@ -622,6 +715,12 @@ ALTER TABLE `batteries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `battery_bookings`
+--
+ALTER TABLE `battery_bookings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `bikes`
 --
 ALTER TABLE `bikes`
@@ -637,6 +736,12 @@ ALTER TABLE `bike_product_size`
 -- Indexes for table `bike_services`
 --
 ALTER TABLE `bike_services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `booked_services`
+--
+ALTER TABLE `booked_services`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -736,6 +841,18 @@ ALTER TABLE `slides`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tyreproduct_bookings`
+--
+ALTER TABLE `tyreproduct_bookings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tyrepuncture_bookings`
+--
+ALTER TABLE `tyrepuncture_bookings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tyre_products`
 --
 ALTER TABLE `tyre_products`
@@ -770,6 +887,12 @@ ALTER TABLE `batteries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `battery_bookings`
+--
+ALTER TABLE `battery_bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `bikes`
 --
 ALTER TABLE `bikes`
@@ -786,6 +909,12 @@ ALTER TABLE `bike_product_size`
 --
 ALTER TABLE `bike_services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `booked_services`
+--
+ALTER TABLE `booked_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -882,6 +1011,18 @@ ALTER TABLE `services`
 --
 ALTER TABLE `slides`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tyreproduct_bookings`
+--
+ALTER TABLE `tyreproduct_bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tyrepuncture_bookings`
+--
+ALTER TABLE `tyrepuncture_bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tyre_products`

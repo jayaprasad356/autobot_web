@@ -25,10 +25,9 @@
                                     <th  data-field="id" data-sortable="true">ID</th>
                                     <th data-field="bike_name" data-sortable="true">Bike Name</th>
                                     <th data-field="brand" data-sortable="true">Brand</th>
-                                    <th  data-field="front_tube_less" data-sortable="true">Front Tubeless Price</th>
-                                    <th  data-field="front_tube_tyre" data-sortable="true">Front Tube Price</th>
-                                    <th  data-field="rear_tube_less" data-sortable="true">Rear Tubeless Price</th>
-                                    <th  data-field="rear_tube_tyre" data-sortable="true">Rear Tube Price</th>
+                                    <th  data-field="tyre_type" data-sortable="true">Tyre Type</th>
+                                    <th  data-field="wheel" data-sortable="true">Wheel</th>
+                                    <th  data-field="price" data-sortable="true">Price</th>
                                     <th  data-field="status" data-sortable="true">Status</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>
                                 </tr>

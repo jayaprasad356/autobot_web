@@ -13,6 +13,7 @@ $res = $db->getResult();
 if (isset($_POST['btnAdd'])) {
 
         $brand = $db->escapeString(($_POST['brand']));
+        $type = $db->escapeString($_POST['type']);
         $warranty = $db->escapeString($_POST['warranty']);
         $amount = $db->escapeString($_POST['amount']);
         $delivery_charges = $db->escapeString($_POST['delivery_charges']);
@@ -23,6 +24,9 @@ if (isset($_POST['btnAdd'])) {
         
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
+        }      
+        if (empty($type)) {
+            $error['type'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($warranty)) {
             $error['warranty'] = " <span class='label label-danger'>Required!</span>";
@@ -43,10 +47,10 @@ if (isset($_POST['btnAdd'])) {
             $error['final_price'] = " <span class='label label-danger'>Required!</span>";
         }
        
-       if (!empty($brand) && !empty($warranty) && !empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price) && !empty($final_price)) 
+       if (!empty($brand) && !empty($type) && !empty($warranty) && !empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price) && !empty($final_price)) 
        {   
            
-            $sql_query = "INSERT INTO `batteries` (brand,warranty,amount,delivery_charges,fitting_charges,actual_price,final_price,status)VALUES('$brand','$warranty','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price',1)";
+            $sql_query = "INSERT INTO `batteries` (brand,type,warranty,amount,delivery_charges,fitting_charges,actual_price,final_price,status)VALUES('$brand','$type','$warranty','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -90,6 +94,14 @@ if (isset($_POST['btnAdd'])) {
                                    <div class="col-md-6">
                                         <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
                                         <input type="text" class="form-control" name="brand" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Type</label> <i class="text-danger asterik">*</i>
+										<select id="type" name="type" class="form-control">
+										    <option value="">select</option>
+											<option value="Self start">Self start</option>
+											<option value="Non-Self start">Non-Self start</option>
+										</select>
                                     </div>
                             </div>
                         </div>

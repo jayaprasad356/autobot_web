@@ -907,10 +907,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'puncture_services') {
         $tempRow['id'] = $row['id'];
         $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
-        $tempRow['front_tube_less'] = $row['front_tube_less'];
-        $tempRow['front_tube_tyre'] = $row['front_tube_tyre'];
-        $tempRow['rear_tube_less'] = $row['rear_tube_less'];
-        $tempRow['rear_tube_tyre'] = $row['rear_tube_tyre'];
+        $tempRow['tyre_type'] = $row['tyre_type'];
+        $tempRow['wheel'] = $row['wheel'];
+        $tempRow['price'] = $row['price'];
         if($row['status']== '1'){
             $tempRow['status'] = '<p class="text text-info">Booked</p>';
         }elseif($row['status']== '2'){
@@ -1115,6 +1114,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'batteries') {
         $operate .= ' <a class="text text-danger" href="delete-battery.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['brand'] = $row['brand'];
+        $tempRow['type'] = $row['type'];
         $tempRow['warranty'] = $row['warranty'];
         $tempRow['amount'] = $row['amount'];
         $tempRow['delivery_charges'] = $row['delivery_charges'];

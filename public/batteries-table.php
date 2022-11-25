@@ -24,6 +24,7 @@
                                     
                                     <th  data-field="id" data-sortable="true">ID</th>
                                     <th  data-field="brand" data-sortable="true">Brand</th>
+                                    <th  data-field="type" data-sortable="true">Type</th>
                                     <th  data-field="amount" data-sortable="true">Amount</th>
                                     <th  data-field="warranty" data-sortable="true">Warranty</th>
                                     <th  data-field="delivery_charges" data-sortable="true">Delivery Charges</th>

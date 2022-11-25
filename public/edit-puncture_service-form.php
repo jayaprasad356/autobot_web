@@ -18,15 +18,14 @@ if (isset($_POST['btnEdit'])) {
 
 	      $error = array();
 		  $bike_id = $db->escapeString(($_POST['bike_id']));
-		  $front_tube_less = $db->escapeString($_POST['front_tube_less']);
-		  $front_tube_tyre = $db->escapeString($_POST['front_tube_tyre']);
-		  $rear_tube_less = $db->escapeString($_POST['rear_tube_less']);
-		  $rear_tube_tyre = $db->escapeString($_POST['rear_tube_tyre']);
+		  $tyre_type = $db->escapeString($_POST['tyre_type']);
+		  $wheel = $db->escapeString($_POST['wheel']);
+		  $price = $db->escapeString($_POST['price']);
 		  $status = $db->escapeString($_POST['status']);
 
-		  if (!empty($bike_id) && !empty($front_tube_less) && !empty($front_tube_tyre)&& !empty($rear_tube_less)&& !empty($rear_tube_tyre)) 
+		  if (!empty($bike_id) && !empty($tyre_type) && !empty($wheel)&& !empty($price)) 
           {  
-				$sql_query = "UPDATE puncture_services SET bike_id='$bike_id',front_tube_less='$front_tube_less',front_tube_tyre='$front_tube_tyre',rear_tube_less='$rear_tube_less',rear_tube_tyre='$rear_tube_tyre',status='$status' WHERE id=$ID";
+				$sql_query = "UPDATE puncture_services SET bike_id='$bike_id',tyre_type='$tyre_type',wheel='$wheel',price='$price',status='$status' WHERE id=$ID";
 				$db->sql($sql_query);
 				$update_result = $db->getResult();
 				if (!empty($update_result)) {
@@ -101,30 +100,32 @@ if (isset($_POST['btnCancel'])) { ?>
 						<br>
 						<div class="row">
                             <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Front Tubeless Price</label><i class="text-danger asterik">*</i><?php echo isset($error['front_tube_less']) ? $error['front_tube_less'] : ''; ?>
-                                        <input type="number" class="form-control" name="front_tube_less"  value="<?php echo $res[0]['front_tube_less']; ?>">
+                                    <div class="col-md-4">
+									    <label class="control-label">Tyre Type</label> <i class="text-danger asterik">*</i><br>
+                                        <div id="tyre_type" class="btn-group">
+                                            <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="tyre_type" value="Tube-tyre" <?= ($res[0]['tyre_type'] == "Tube-tyre") ? 'checked' : ''; ?>>Tube Tyre
+                                            </label>
+                                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="tyre_type" value="Tubeless-tyre" <?= ($res[0]['tyre_type'] == "Tubeless-tyre") ? 'checked' : ''; ?>> Tubeless Tyre
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Front Tube Price</label><i class="text-danger asterik">*</i><?php echo isset($error['front_tube_tyre']) ? $error['front_tube_tyre'] : ''; ?>
-                                        <input type="number" class="form-control" name="front_tube_tyre"  value="<?php echo $res[0]['front_tube_tyre']; ?>">
+                                    <div class="col-md-4">
+									    <label for="">Wheel</label> <i class="text-danger asterik">*</i>
+										<select id="wheel" name="wheel" class="form-control">
+										    <option value="">select</option>
+											<option value="Front"<?=$res[0]['wheel'] == 'Front' ? ' selected="selected"' : '';?>>Front</option>
+											<option value="Rear"<?=$res[0]['wheel'] == 'Rear' ? ' selected="selected"' : '';?> >Rear</option>
+										</select>
+                                    </div>
+									<div class="col-md-4">
+                                        <label for="exampleInputEmail1">Price</label><i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
+                                        <input type="number" class="form-control" name="price"  value="<?php echo $res[0]['price']; ?>">
                                     </div>
                             </div>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Rear Tubeless Price</label><i class="text-danger asterik">*</i><?php echo isset($error['rear_tube_less']) ? $error['rear_tube_less'] : ''; ?>
-                                        <input type="number" class="form-control" name="rear_tube_less"  value="<?php echo $res[0]['rear_tube_less']; ?>">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="exampleInputEmail1">Rear Tube Price</label><i class="text-danger asterik">*</i><?php echo isset($error['rear_tube_tyre']) ? $error['rear_tube_tyre'] : ''; ?>
-                                        <input type="number" class="form-control" name="rear_tube_tyre"  value="<?php echo $res[0]['rear_tube_tyre']; ?>">
-                                    </div>
-                            </div>
-                        </div>
-						<br>
+                         <br>
 						<div class="row">
 							<div class="form-group">
 								<div class="col-md-6">
@@ -136,7 +137,6 @@ if (isset($_POST['btnCancel'])) { ?>
 										</select>
 								</div>
 							</div>
-
 						</div>
 
 					</div>
