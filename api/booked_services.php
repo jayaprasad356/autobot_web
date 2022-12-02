@@ -52,23 +52,11 @@ $time = $db->escapeString($_POST['time']);
 $type = $db->escapeString($_POST['type']);
 $price = $db->escapeString($_POST['price']);
 
-if($_POST['type']=="General"){
-    $sql = "INSERT INTO booked_services (`bike_name`,`date`,`type`,`time`,`price`,status) VALUES ('$bike_name','$date','$type','$time','$price',0)";
-    $db->sql($sql);
-    $res = $db->getResult();
-    $response['success'] = true;
-    $response['message'] = "Service Booked Successfully";
-    print_r(json_encode($response));
-}
-else{
-    $sql = "INSERT INTO booked_services (`bike_name`,`date`,`type`,`time`,`price`,status) VALUES ('$bike_name','$date','$type','$time','',0)";
-    $db->sql($sql);
-    $res = $db->getResult();
-    $response['success'] = true;
-    $response['message'] = "Service Booked Successfully";
-    print_r(json_encode($response));
-}
-
-
+$sql = "INSERT INTO booked_services (`bike_name`,`date`,`type`,`time`,`price`,status) VALUES ('$bike_name','$date','$type','$time','$price',0)";
+$db->sql($sql);
+$res = $db->getResult();
+$response['success'] = true;
+$response['message'] = "Service Booked Successfully";
+print_r(json_encode($response));
 
 ?>
