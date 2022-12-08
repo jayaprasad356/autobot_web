@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2022 at 09:11 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Dec 08, 2022 at 06:16 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -539,6 +539,32 @@ INSERT INTO `services` (`id`, `name`, `model`, `mobile`, `service_type`, `catego
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `showrooms`
+--
+
+CREATE TABLE `showrooms` (
+  `id` int(11) NOT NULL,
+  `store_name` varchar(255) DEFAULT NULL,
+  `email_id` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `latitude` varchar(255) DEFAULT NULL,
+  `longitude` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `showrooms`
+--
+
+INSERT INTO `showrooms` (`id`, `store_name`, `email_id`, `mobile`, `password`, `address`, `brand`, `latitude`, `longitude`) VALUES
+(1, 'Hyundai', 'hyundai@gmail.com', '32535436', '34643636', '23242424', '3636346346', '4364363', '346346'),
+(4, 'dfdf', 'fdfd', '1234', '234', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `slides`
 --
 
@@ -835,6 +861,12 @@ ALTER TABLE `services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `showrooms`
+--
+ALTER TABLE `showrooms`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `slides`
 --
 ALTER TABLE `slides`
@@ -1005,6 +1037,12 @@ ALTER TABLE `seller`
 --
 ALTER TABLE `services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `showrooms`
+--
+ALTER TABLE `showrooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `slides`
