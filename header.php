@@ -241,6 +241,12 @@ $fn = new custom_functions;
                          <span>Batteries</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="showrooms.php">
+                    <i class="fa fa-circle"></i>
+                         <span>Showrooms</span>
+                    </a>
+                </li>
                 <!-- <li class="treeview">
                     <a href="#">
                         <i class="fa fa-location-arrow"></i>

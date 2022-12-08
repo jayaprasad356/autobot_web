@@ -601,13 +601,12 @@ if (isset($_GET['table']) && $_GET['table'] == 'notifications') {
 $bulkData['rows'] = $rows;
 print_r(json_encode($bulkData));
 }
-if (isset($_GET['table']) && $_GET['table'] == 'showroom') {
-
+if (isset($_GET['table']) && $_GET['table'] == 'showrooms') {
     $offset = 0;
     $limit = 10;
+    $where = '';
     $sort = 'id';
     $order = 'DESC';
-    $where = '';
     if (isset($_GET['offset']))
         $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
     if (isset($_GET['limit']))
@@ -620,7 +619,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'showroom') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE showroom_name like '%" . $search . "%' OR brand like '%" . $search . "%'OR pincode like '%" . $search . "%'";
+        $where .= "WHERE name like '%" . $search . "%' OR mobile like '%" . $search . "%' OR address like '%" . $search . "%' ";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -629,38 +628,37 @@ if (isset($_GET['table']) && $_GET['table'] == 'showroom') {
     if (isset($_GET['order'])){
         $order = $db->escapeString($_GET['order']);
 
-    }
-    $sql = "SELECT COUNT(`id`) as total FROM `showroom` ";
+    }        
+    $sql = "SELECT COUNT(`id`) as total FROM `showrooms`" . $where;
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `showroom` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT * FROM showrooms ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
-        
     $bulkData = array();
     $bulkData['total'] = $total;
-    
+
     $rows = array();
     $tempRow = array();
-
     foreach ($res as $row) {
 
-        $operate= '<a href="edit-showroom.php?id=' . $row['id'] . '" ><i class="fa fa-edit" ></i>Edit</a>';
-        $operate .= '<a href="view-showroom.php?id=' . $row['id'] . '" class="btn btn-primary btn-xs" style="margin-left:5px;!important">View</a>';
+        $operate = ' <a href="edit-showrooms.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
-        $tempRow['showroom_name'] = $row['showroom_name'];
+        $tempRow['store_name'] = $row['store_name'];
+        $tempRow['email_id'] = $row['email_id'];
         $tempRow['mobile'] = $row['mobile'];
-        $tempRow['brand'] = $row['brand'];
-        $tempRow['working_hours'] = $row['working_hours'];
+        $tempRow['password'] = $row['password'];
         $tempRow['address'] = $row['address'];
-        $tempRow['pincode'] = $row['pincode'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['latitude'] = $row['latitude'];
+        $tempRow['longitude'] = $row['longitude'];
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
-    }
+        }
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }

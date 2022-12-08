@@ -57,13 +57,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
         $where .= "WHERE bike_name like '%" . $search . "%' OR model like '%" . $search . "%' OR location like '%" . $search . "%' OR price like '%" . $search . "%'";
     }
-    if (isset($_GET['sort'])){
+    if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
-
     }
-    if (isset($_GET['order'])){
+    if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
-
     }
     $sql = "SELECT COUNT(`id`) as total FROM `used_vehicles` ";
     $db->sql($sql);
@@ -71,14 +69,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `used_vehicles` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT * FROM `used_vehicles` " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
-        
+
     $bulkData = array();
     $bulkData['total'] = $total;
-    
+
     $rows = array();
     $tempRow = array();
 
@@ -97,12 +95,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
         $tempRow['color'] = $row['color'];
         $tempRow['fuel'] = $row['fuel'];
         $tempRow['owner'] = $row['owner'];
-        if(!empty($row['image'])){
+        if (!empty($row['image'])) {
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
-
-        }else{
+        } else {
             $tempRow['image'] = 'No Image';
-
         }
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
@@ -131,13 +127,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
         $where .= "WHERE category like '%" . $search . "%' OR brand like '%" . $search . "%' OR bike_name like '%" . $search . "%'";
     }
-    if (isset($_GET['sort'])){
+    if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
-
     }
-    if (isset($_GET['order'])){
+    if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
-
     }
     $sql = "SELECT COUNT(`id`) as total FROM `rental_vehicles` ";
     $db->sql($sql);
@@ -145,14 +139,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `rental_vehicles` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT * FROM `rental_vehicles` " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
-        
+
     $bulkData = array();
     $bulkData['total'] = $total;
-    
+
     $rows = array();
     $tempRow = array();
 
@@ -162,12 +156,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
         $tempRow['id'] = $row['id'];
         $tempRow['rental_category_id'] = $row['rental_category_id'];
         $tempRow['pincode'] = $row['pincode'];
-        if(!empty($row['image'])){
+        if (!empty($row['image'])) {
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
-
-        }else{
+        } else {
             $tempRow['image'] = 'No Image';
-
         }
         if ($row['status'] == 1)
             $tempRow['status'] = "<p class='text text-success'>Available</p>";
@@ -200,13 +192,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
         $where .= "AND mobile like '%" . $search . "%' OR status like '%" . $search . "%' OR start_time like '%" . $search . "%'";
     }
-    if (isset($_GET['sort'])){
+    if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
-
     }
-    if (isset($_GET['order'])){
+    if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
-
     }
     $sql = "SELECT COUNT(`id`) as total FROM `rental_orders` ";
     $db->sql($sql);
@@ -218,10 +208,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
     $db->sql($sql);
     $res = $db->getResult();
 
-        
+
     $bulkData = array();
     $bulkData['total'] = $total;
-    
+
     $rows = array();
     $tempRow = array();
 
@@ -262,13 +252,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicle_orders') {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
         $where .= "WHERE user_id like '%" . $search . "%' OR status like '%" . $search . "%' OR used_vehicles_id like '%" . $search . "%'";
     }
-    if (isset($_GET['sort'])){
+    if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
-
     }
-    if (isset($_GET['order'])){
+    if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
-
     }
     $sql = "SELECT COUNT(`id`) as total FROM `used_vehicle_orders` ";
     $db->sql($sql);
@@ -276,14 +264,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicle_orders') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `used_vehicle_orders` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT * FROM `used_vehicle_orders` " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
-        
+
     $bulkData = array();
     $bulkData['total'] = $total;
-    
+
     $rows = array();
     $tempRow = array();
 
@@ -298,7 +286,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicle_orders') {
         $tempRow['description'] = $row['description'];
         if ($row['status'] == 0)
             $tempRow['status'] = "<p class='text text-info'>Booked</p>";
-        else if($row['status'] == 1)
+        else if ($row['status'] == 1)
             $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
         else
             $tempRow['status'] = "<p class='text text-danger'>Completed</p>";
@@ -329,13 +317,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
         $where .= "WHERE service_type like '%" . $search . "%' OR category like '%" . $search . "%'OR bike_name like '%" . $search . "%'";
     }
-    if (isset($_GET['sort'])){
+    if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
-
     }
-    if (isset($_GET['order'])){
+    if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
-
     }
     $sql = "SELECT COUNT(`id`) as total FROM `services` ";
     $db->sql($sql);
@@ -343,14 +329,14 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `services` ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT * FROM `services` " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
     $db->sql($sql);
     $res = $db->getResult();
 
-        
+
     $bulkData = array();
     $bulkData['total'] = $total;
-    
+
     $rows = array();
     $tempRow = array();
 
@@ -362,10 +348,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'services') {
         $tempRow['model'] = $row['model'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['service_type'] = $row['service_type'];
-    $tempRow['category'] = $row['category'];
+        $tempRow['category'] = $row['category'];
         $rows[] = $tempRow;
     }
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+
 $db->disconnect();

@@ -29,7 +29,7 @@
 </body>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <?php include('public/edit-showroom-form.php'); ?>
+        <?php include('public/edit-showrooms-form.php'); ?>
       </div><!-- /.content-wrapper -->
   </body>
 </html>
