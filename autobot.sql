@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2022 at 06:16 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Dec 12, 2022 at 08:20 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `autobot`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `name` text DEFAULT NULL,
+  `role` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 1,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `role`, `email`, `password`, `status`, `date_created`) VALUES
+(1, 'Sanjay', 'Super Admin', 'sanjay3412@gamil.com', 'Sanjay56@199', 1, '2022-12-12 05:42:44');
 
 -- --------------------------------------------------------
 
@@ -735,6 +758,12 @@ INSERT INTO `users` (`id`, `name`, `mobile`, `status`) VALUES
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `batteries`
 --
 ALTER TABLE `batteries`
@@ -911,6 +940,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `batteries`
