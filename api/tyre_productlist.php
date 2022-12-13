@@ -32,6 +32,7 @@ if ($num >= 1) {
         $temp['fitting_charges'] = $row['fitting_charges'];
         $temp['actual_price'] = $row['actual_price'];
         $temp['final_price'] = $row['final_price'];
+        $temp['image'] = DOMAIN_URL . $row['image'];
         $temp['status'] = $row['status'];
         if($row['status']==1){
             $temp['status'] ='Available';

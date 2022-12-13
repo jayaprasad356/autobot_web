@@ -11,9 +11,14 @@ $db->connect();
 		exit(0);
 	}
 	$data = array();
-
-	$sql_query = "DELETE  FROM tyre_products WHERE id =" . $ID;
+	$sql_query = "SELECT *  FROM tyre_products WHERE id =" . $ID;
 	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:tyre_products.php");
+	$target_path = "".$res[0]['image'];
+			if(unlink($target_path)){	
+					$sql_query = "DELETE  FROM tyre_products WHERE id =" . $ID;
+					$db->sql($sql_query);
+					$res = $db->getResult();
+					header("location:tyre_products.php");
+			}
 ?>

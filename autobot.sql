@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2022 at 08:20 AM
+-- Generation Time: Dec 13, 2022 at 10:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -205,7 +205,8 @@ INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date
 (1, 'Oil', 'upload/images/1658903944.2566.jpg', 1, '2022-07-27 07:23:27', '2022-07-27 05:49:11'),
 (2, 'Spare parts', 'upload/images/1658903957.6194.jpg', 1, '2022-07-27 06:39:17', '2022-07-27 05:50:35'),
 (3, 'tyres', 'upload/images/0582-2022-07-27.jpg', 1, '2022-07-29 17:22:45', '2022-07-27 06:41:35'),
-(4, 'Rods', 'upload/images/1659123088.7927.jpg', 0, '2022-07-29 19:31:28', '2022-07-29 18:18:36');
+(4, 'Rods', 'upload/images/1659123088.7927.jpg', 1, '2022-12-13 06:13:22', '2022-07-29 18:18:36'),
+(5, 'others', NULL, 1, '2022-12-13 05:57:28', '2022-12-13 05:57:02');
 
 -- --------------------------------------------------------
 
@@ -333,18 +334,21 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `product_name` text DEFAULT NULL,
   `brand` text DEFAULT NULL,
+  `model` text DEFAULT NULL,
+  `price` text DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `image` text DEFAULT NULL
+  `image` text DEFAULT NULL,
+  `ratings` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `description`, `image`) VALUES
-(1, 1, 'Engine Oil', 'Racer', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg'),
-(6, 2, 'Handle Miror', 'jace', 'cdsce', 'upload/products/1659119349.1368.jpg'),
-(8, 3, 'Front tyre', 'MRF', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg');
+INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `model`, `price`, `description`, `image`, `ratings`) VALUES
+(1, 5, 'Engine Oil', 'Racer', '', '', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333),
+(6, 2, 'Handle Miror', 'jace', NULL, NULL, 'cdsce', 'upload/products/1659119349.1368.jpg', NULL),
+(8, 3, 'Front tyre', 'MRF', 'Splender', '600', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -392,6 +396,31 @@ CREATE TABLE `puncture_services` (
 
 INSERT INTO `puncture_services` (`id`, `bike_id`, `tyre_type`, `wheel`, `price`, `status`) VALUES
 (1, 2, 'Tubeless-tyre', 'Rear', '1450', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ratings`
+--
+
+CREATE TABLE `ratings` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `ratings` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `ratings`) VALUES
+(1, 1, 1, 5),
+(2, 1, 1, 5),
+(3, 1, 1, 5),
+(4, 1, 1, 5),
+(5, 1, 1, 3),
+(6, 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -670,6 +699,7 @@ CREATE TABLE `tyre_products` (
   `fitting_charges` int(200) DEFAULT 0,
   `actual_price` int(200) DEFAULT 0,
   `final_price` int(200) DEFAULT 0,
+  `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -677,8 +707,8 @@ CREATE TABLE `tyre_products` (
 -- Dumping data for table `tyre_products`
 --
 
-INSERT INTO `tyre_products` (`id`, `brand`, `size`, `wheel`, `pattern`, `tyre_type`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
-(1, 'CEAT', 15, 'Front tyre', 'S-pattern', 'Tube', 500, 45, 160, 450, 400, 1);
+INSERT INTO `tyre_products` (`id`, `brand`, `size`, `wheel`, `pattern`, `tyre_type`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `image`, `status`) VALUES
+(1, 'CEAT', 25, 'Front tyre', 'S-pattern', 'Tube', 5000, 50, 200, 5000, 2699, 'upload/images/9181-2022-12-13.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -688,7 +718,7 @@ INSERT INTO `tyre_products` (`id`, `brand`, `size`, `wheel`, `pattern`, `tyre_ty
 
 CREATE TABLE `used_vehicles` (
   `id` int(11) NOT NULL,
-  `seller_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `bike_name` text NOT NULL,
   `model` text DEFAULT NULL,
@@ -707,8 +737,8 @@ CREATE TABLE `used_vehicles` (
 -- Dumping data for table `used_vehicles`
 --
 
-INSERT INTO `used_vehicles` (`id`, `seller_id`, `brand`, `bike_name`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`, `color`, `fuel`, `owner`) VALUES
-(1, 1, 'KTM', 'KTM RC200', '2022', 'YN65AJ6789', '3400', 'Yes', '220000', 'Karur', 'upload/vehicles/1662277842.6152.jpg', 'Orange', 'Petrol', 2);
+INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`, `color`, `fuel`, `owner`) VALUES
+(1, 2, 'Yamaha', 'R15 V3M', '2022', 'TN67FG7636', '5000', 'yes', '222000', 'Kattur,Trichy', '1670921154.1206.jpg', 'blue', 'petrol', 2);
 
 -- --------------------------------------------------------
 
@@ -854,6 +884,12 @@ ALTER TABLE `puncture_services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ratings`
+--
+ALTER TABLE `ratings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `rental`
 --
 ALTER TABLE `rental`
@@ -987,7 +1023,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `deliver_pincodes`
@@ -1036,6 +1072,12 @@ ALTER TABLE `product_variant`
 --
 ALTER TABLE `puncture_services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ratings`
+--
+ALTER TABLE `ratings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `rental`

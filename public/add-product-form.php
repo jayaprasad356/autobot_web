@@ -16,7 +16,9 @@ if (isset($_POST['btnAdd'])) {
         $product_name = $db->escapeString($_POST['product_name']);
         $brand = $db->escapeString($_POST['brand']);
         $description = $db->escapeString($_POST['description']);
-        
+        $model = $db->escapeString($_POST['model']);
+        $price = $db->escapeString($_POST['price']);
+
         // get image info
         $menu_image = $db->escapeString($_FILES['product_image']['name']);
         $image_error = $db->escapeString($_FILES['product_image']['error']);
@@ -60,7 +62,7 @@ if (isset($_POST['btnAdd'])) {
 
             
            
-            $sql_query = "INSERT INTO products (category_id,product_name,brand,description,image)VALUES('$category','$product_name','$brand','$description','$upload_image')";
+            $sql_query = "INSERT INTO products (category_id,product_name,brand,description,model,price,image)VALUES('$category','$product_name','$brand','$description','$model','$price','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -70,23 +72,23 @@ if (isset($_POST['btnAdd'])) {
             }
 
             if ($result == 1) {
-                $sql = "SELECT id FROM products ORDER BY id DESC LIMIT 1";
-                $db->sql($sql);
-                $res = $db->getResult();
-                $product_id = $res[0]['id'];
-                for ($i = 0; $i < count($_POST['model']); $i++) {
+                // $sql = "SELECT id FROM products ORDER BY id DESC LIMIT 1";
+                // $db->sql($sql);
+                // $res = $db->getResult();
+                // $product_id = $res[0]['id'];
+                // for ($i = 0; $i < count($_POST['model']); $i++) {
     
-                    $model = $db->escapeString(($_POST['model'][$i]));
-                    $price = $db->escapeString(($_POST['price'][$i]));
-                    $sql = "INSERT INTO product_variant (product_id,model,price) VALUES('$product_id','$model','$price')";
-                    $db->sql($sql);
-                    $product_variant_result = $db->getResult();
-                }
-                if (!empty($product_variant_result)) {
-                    $product_variant_result = 0;
-                } else {
-                    $product_variant_result = 1;
-                }
+                //     $model = $db->escapeString(($_POST['model'][$i]));
+                //     $price = $db->escapeString(($_POST['price'][$i]));
+                //     $sql = "INSERT INTO product_variant (product_id,model,price) VALUES('$product_id','$model','$price')";
+                //     $db->sql($sql);
+                //     $product_variant_result = $db->getResult();
+                // }
+                // if (!empty($product_variant_result)) {
+                //     $product_variant_result = 0;
+                // } else {
+                //     $product_variant_result = 1;
+                // }
                 
                 $error['add_product'] = "<section class='content-header'>
                                                 <span class='label label-success'>Product Added Successfully</span> </section>";
@@ -146,12 +148,25 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                                 </div>
                             </div>
-                            <hr>
+                            <br>
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Model</label> <i class="text-danger asterik">*</i><?php echo isset($error['model']) ? $error['model'] : ''; ?>
+                                        <input type="text" class="form-control" name="model" required />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Price</label> <i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
+                                        <input type="text" class="form-control" name="price" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-6">
                                             <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
-                                            <textarea type="text" class="form-control" rows="5" name="description" required></textarea>
+                                            <textarea type="text" class="form-control" rows="3" name="description" required></textarea>
                                     </div>
                                     <div class="col-md-4">
                                          <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['product_image']) ? $error['product_image'] : ''; ?>
@@ -161,8 +176,7 @@ if (isset($_POST['btnAdd'])) {
 
                                  </div>
                             </div>
-                            <hr>
-                            <div id="packate_div"  >
+                            <!-- <div id="packate_div"  >
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group packate_div">
@@ -195,7 +209,7 @@ if (isset($_POST['btnAdd'])) {
                                 <div id="variations">
                                 </div>
                             </div>
-                        <hr>
+                        <hr> -->
 
          
                     </div>

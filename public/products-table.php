@@ -23,9 +23,11 @@
                                 <tr>
                                     
                                     <th  data-field="id" data-sortable="true">ID</th>
-                                    <th data-field="category_id" data-sortable="true">Category Id</th>
+                                    <th data-field="category_name" data-sortable="true">Category Name</th>
                                     <th  data-field="product_name" data-sortable="true">Product Name</th>
                                     <th  data-field="brand" data-sortable="true"> Brand</th>
+                                    <th  data-field="model" data-sortable="true">Model</th>
+                                    <th  data-field="price" data-sortable="true">Price</th>
                                     <th  data-field="description" data-sortable="true">Description</th>
                                     <th data-field="image">Image</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>

@@ -23,6 +23,20 @@ if (isset($_POST['btnAdd'])) {
         $actual_price = $db->escapeString($_POST['actual_price']);
         $final_price = $db->escapeString($_POST['final_price']);
 
+         // get image info
+         $menu_image = $db->escapeString($_FILES['tyre_image']['name']);
+         $image_error = $db->escapeString($_FILES['tyre_image']['error']);
+         $image_type = $db->escapeString($_FILES['tyre_image']['type']);
+ 
+         // create array variable to handle error
+         $error = array();
+             // common image file extensions
+         $allowedExts = array("gif", "jpeg", "jpg", "png");
+ 
+         // get image file extension
+         error_reporting(E_ERROR | E_PARSE);
+         $extension = end(explode(".", $_FILES["tyre_image"]["name"]));
+
         
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
@@ -57,8 +71,20 @@ if (isset($_POST['btnAdd'])) {
        
        if (!empty($brand) && !empty($size) && !empty($wheel)&& !empty($pattern)&& !empty($tyre_type)&&!empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price)&& !empty($final_price)) 
        {   
+                $result = $fn->validate_image($_FILES["tyre_image"]);
+                // create random image file name
+                $string = '0123456789';
+                $file = preg_replace("/\s+/", "_", $_FILES['tyre_image']['name']);
+                $menu_image = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
+
+                // upload new image
+                $upload = move_uploaded_file($_FILES['tyre_image']['tmp_name'], 'upload/images/' . $menu_image);
+
+                // insert new data to menu table
+                $upload_image = 'upload/images/' . $menu_image;
+
            
-            $sql_query = "INSERT INTO tyre_products (brand,size,wheel,pattern,tyre_type,amount,delivery_charges,fitting_charges,actual_price,final_price,status)VALUES('$brand','$size','$wheel','$pattern','$tyre_type','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price',1)";
+            $sql_query = "INSERT INTO tyre_products (brand,size,wheel,pattern,tyre_type,amount,delivery_charges,fitting_charges,actual_price,final_price,image,status)VALUES('$brand','$size','$wheel','$pattern','$tyre_type','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price','$upload_image',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -164,6 +190,18 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                             </div>
                         </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['tyre_image']) ? $error['tyre_image'] : ''; ?>
+                                    <input type="file" name="tyre_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="tyre_image" />
+                                </div>
+                                <div class="form-group">
+                                    <img id="blah" src="#"  />
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- /.box-body -->
@@ -200,6 +238,22 @@ if (isset($_POST['btnAdd'])) {
             CKEDITOR.instances[instance].setData('');
         }
     });
+</script>
+<script>
+    function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 </script>
 
 <!--code for page clear-->

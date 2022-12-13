@@ -146,7 +146,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'categories') {
     foreach ($res as $row) {
 
         
-        $operate = ' <a href="edit-category.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i></a>';
+        $operate = ' <a href="edit-category.php?id=' . $row['id'] . '"><i class="fa fa-edit">Edit</i></a>';
         //$operate = ' <a class="btn-xs btn-danger" href="delete-category.php?id=' . $row['id'] . '"><i class="fa fa-trash-o"></i>Delete</a>';
 
         $tempRow['id'] = $row['id'];
@@ -182,7 +182,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($_GET['search']);
-        $where .= "WHERE product_name like '%" . $search . "%' OR id like '%" . $search . "%'OR category_id like '%" . $search . "%'OR brand like '%" . $search . "%'";
+        $where .= "WHERE p.product_name like '%" . $search . "%' OR p.id like '%" . $search . "%' OR c.name like '%" . $search . "%' OR p.brand like '%" . $search . "%' OR p.price like '%" . $search . "%' OR p.model like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -190,13 +190,16 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
     if (isset($_GET['order'])){
         $order = $db->escapeString($_GET['order']);
     }
-    $sql = "SELECT COUNT(`id`) as total FROM `products` ";
+    $join = "LEFT JOIN `categories` c ON p.category_id = c.id";
+
+    $sql = "SELECT COUNT(*) as total FROM `products` p  $join " . $where . "";
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
    
-    $sql = "SELECT * FROM products " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $sql = "SELECT p.*,p.id AS id,c.name AS category_name FROM `products` p $join 
+               $where ORDER BY $sort $order LIMIT $offset, $limit";
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -211,9 +214,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
         
         $operate = ' <a href="edit-product.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
-        $tempRow['category_id'] = $row['category_id'];
+        $tempRow['category_name'] = $row['category_name'];
         $tempRow['product_name'] = $row['product_name'];
         $tempRow['brand'] = $row['brand'];
+        $tempRow['model'] = $row['model'];
+        $tempRow['price'] = $row['price'];
         $tempRow['description'] = $row['description'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
@@ -982,6 +987,13 @@ if (isset($_GET['table']) && $_GET['table'] == 'tyre_products') {
         $tempRow['fitting_charges'] = $row['fitting_charges'];
         $tempRow['actual_price'] = $row['actual_price'];
         $tempRow['final_price'] = $row['final_price'];
+        if(!empty($row['image'])){
+            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
+
+        }else{
+            $tempRow['image'] = 'No Image';
+
+        }
         if ($row['status'] == 0)
         $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
         else

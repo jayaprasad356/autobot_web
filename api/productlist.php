@@ -30,14 +30,10 @@ if ($num >= 1) {
         $temp['category_name'] = $row['category_name'];
         $temp['product_name'] = $row['product_name'];
         $temp['brand'] = $row['brand'];
+        $temp['model'] = $row['model'];
+        $temp['price'] = $row['price'];
         $temp['description'] = $row['description'];
         $temp['image'] = DOMAIN_URL . $row['image'];
-        $temp['product_variant'] = array();
-
-        $sql="SELECT * FROM product_variant WHERE product_id='$row[id]'";
-        $db->sql($sql);
-        $res = $db->getResult();
-        $temp['product_variant'] = $res;
         $rows[] = $temp;
         
     }

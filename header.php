@@ -169,18 +169,8 @@ $fn = new custom_functions;
                         <span>Users</span>
                     </a>
                 </li>
-                <li class="treeview">
-                    <a href="categories.php">
-                        <i class="fa fa-bullseye"></i>
-                        <span>Categories</span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="products.php">
-                        <i class="fa fa-cube"></i>
-                        <span>Products</span>
-                    </a>
-                </li>
+               
+               
                 <li class="treeview">
                     <a href="slides.php">
                         <i class="fa fa-sliders"></i>
@@ -233,6 +223,18 @@ $fn = new custom_functions;
                     <a href="bike_products.php">
                     <i class="fa fa-thumb-tack"></i>
                          <span>Bike Product Size</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="categories.php">
+                        <i class="fa fa-bullseye"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="products.php">
+                        <i class="fa fa-cube"></i>
+                        <span>Products</span>
                     </a>
                 </li>
                 <li class="treeview">

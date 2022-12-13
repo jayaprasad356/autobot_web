@@ -11,41 +11,40 @@ include_once('../includes/crud.php');
 
 $db = new Database();
 $db->connect();
+if (empty($_POST['search'])) {
+    $response['success'] = false;
+    $response['message'] = "Search is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+$search = $db->escapeString($_POST['search']);
 
-$sql = "SELECT * FROM `used_vehicles`,`users` WHERE used_vehicles.user_id = users.id";
+$sql = "SELECT * FROM `products` WHERE product_name like '%" . $search . "%'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1) {
+    
     foreach ($res as $row) {
         $temp['id'] = $row['id'];
-        $temp['name'] = $row['name'];
-        $temp['mobile'] = $row['mobile'];
+        $temp['product_name'] = $row['product_name'];
         $temp['brand'] = $row['brand'];
-        $temp['bike_name'] = $row['bike_name'];
         $temp['model'] = $row['model'];
-        $temp['vehicle_no'] = $row['vehicle_no'];
-        $temp['km_driven'] = $row['km_driven'];
-        $temp['insurance'] = $row['insurance'];
         $temp['price'] = $row['price'];
-        $temp['location'] = $row['location'];
-        $temp['color'] = $row['color'];
-        $temp['fuel'] = $row['fuel'];
-        $temp['owner'] = $row['owner'];
-        $temp['image'] = DOMAIN_URL ."upload/vehicles/".$row['image'];
+        $temp['description'] = $row['description'];
+        $temp['image'] = DOMAIN_URL . $row['image'];
         $rows[] = $temp;
         
     }
-    
+
     $response['success'] = true;
-    $response['message'] = "Vehicles listed Successfully";
+    $response['message'] = "Products listed Successfully";
     $response['data'] = $rows;
     print_r(json_encode($response));
-    
 
 }else{
     $response['success'] = false;
-    $response['message'] = "No Vehicles Found";
+    $response['message'] = "No Products Found";
     print_r(json_encode($response));
 
 }
