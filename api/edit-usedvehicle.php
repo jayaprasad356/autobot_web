@@ -82,12 +82,6 @@ if (empty($_POST['location'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['km_driven'])) {
-    $response['success'] = false;
-    $response['message'] = "Kilometer Driven is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 if (empty($_POST['color'])) {
     $response['success'] = false;
     $response['message'] = "Color is Empty";
@@ -125,29 +119,7 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num==1){
-    if (isset($_FILES['image']) && !empty($_FILES['image']) && $_FILES['image']['error'] == 0 && $_FILES['image']['size'] > 0) {
-        if (!is_dir('../upload/vehicles/')) {
-            mkdir('../upload/vehicles/', 0777, true);
-        }
-        $image = $db->escapeString($fn->xss_clean($_FILES['image']['name']));
-        $extension = pathinfo($_FILES["image"]["name"])['extension'];
-        $result = $fn->validate_image($_FILES["image"]);
-        if (!$result) {
-            $response["success"]   = false;
-            $response["message"] = "Image type must jpg, jpeg, gif, or png!";
-            print_r(json_encode($response));
-            return false;
-        }
-        $filename = microtime(true) . '.' . strtolower($extension);
-        $full_path = '../upload/vehicles/' . "" . $filename;
-        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $full_path)) {
-            $response["success"]   = false;
-            $response["message"] = "Invalid directory to load image!";
-            print_r(json_encode($response));
-            return false;
-        }
-    }
-    $sql = "UPDATE used_vehicles SET `user_id`='$user_id',`brand`='$brand',`bike_name`='$bike_name',`model`='$model',`vehicle_no`='$vehicle_no',`km_driven`='$km_driven',`insurance`='$insurance',`price`='$price',`location`='$location',`image`='$filename',`color`='$color',`fuel`='$fuel',`owner`='$owner' WHERE id=" . $used_vehicle_id;
+    $sql = "UPDATE used_vehicles SET `user_id`='$user_id',`brand`='$brand',`bike_name`='$bike_name',`model`='$model',`vehicle_no`='$vehicle_no',`km_driven`='$km_driven',`insurance`='$insurance',`price`='$price',`location`='$location',`color`='$color',`fuel`='$fuel',`owner`='$owner' WHERE id=" . $used_vehicle_id;
     $db->sql($sql);
     $res = $db->getResult();
     $response['success'] = true;
