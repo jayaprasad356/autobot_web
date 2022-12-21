@@ -1,5 +1,5 @@
 <section class="content-header">
-    <h1>Tyre Product Bookings/<small><a href="home.php"><i class="fa fa-home"></i> Home</a></small></h1>
+    <h1>Rental Orders/<small><a href="home.php"><i class="fa fa-home"></i> Home</a></small></h1>
 
 </section>
 
@@ -12,7 +12,7 @@
             <div class="box">
 
                 <div class="box-body table-responsive">
-                    <table id='users_table' class="table table-hover" data-toggle="table" data-url="get-bootstrap-table-data.php?table=tyreproduct_bookings" data-page-list="[5, 10, 20, 50, 100, 200]" data-show-refresh="true" data-show-columns="true" data-side-pagination="server" data-pagination="true" data-search="true" data-trim-on-search="false" data-filter-control="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-show-export="false" data-export-types='["txt","excel"]' data-export-options='{
+                    <table id='users_table' class="table table-hover" data-toggle="table" data-url="get-bootstrap-table-data.php?table=rental_orders" data-page-list="[5, 10, 20, 50, 100, 200]" data-show-refresh="true" data-show-columns="true" data-side-pagination="server" data-pagination="true" data-search="true" data-trim-on-search="false" data-filter-control="true" data-query-params="queryParams" data-sort-name="id" data-sort-order="desc" data-show-export="false" data-export-types='["txt","excel"]' data-export-options='{
                             "fileName": "students-list-<?= date('d-m-Y') ?>",
                             "ignoreColumn": ["operate"] 
                         }'>
@@ -20,13 +20,11 @@
                             <tr>
 
                                 <th data-field="id" data-sortable="true">ID</th>
-                                <th data-field="bike_name" data-sortable="true">Bike Name</th>
-                                <th data-field="tyre_type" data-sortable="true">Tyre Type</th>
-                                <th data-field="wheel" data-sortable="true">Wheel</th>
-                                <th data-field="product_id" data-sortable="true">Product ID</th>
-                                <th data-field="price" data-sortable="true">Price</th>
-                                <th data-field="name" data-sortable="true">Name</th>
-                                <th data-field="size" data-sortable="true">Size </th>
+                                <th data-field="name" data-sortable="true"> Name</th>
+                                <th data-field="mobile" data-sortable="true">Mobile</th>
+                                <th data-field="rental_vehicles_id" data-sortable="true">Rental Vehicle ID</th>
+                                <th data-field="start_time" data-sortable="true">Start Time</th>
+                                <th data-field="end_time" data-sortable="true">End Time</th>
                             </tr>
                         </thead>
                     </table>

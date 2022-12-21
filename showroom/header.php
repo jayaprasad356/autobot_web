@@ -188,12 +188,6 @@ $fn = new custom_functions;
                     </a>
                 </li> -->
                 <!-- <li class="treeview">
-                    <a href="services.php">
-                        <i class="fa fa-wrench"></i>
-                        <span>Services</span>
-                    </a>
-                </li> -->
-                <!-- <li class="treeview">
                     <a href="rental_categories.php">
                         <i class="fa fa-bullseye"></i>
                         <span>Rental Category</span>
@@ -234,6 +228,24 @@ $fn = new custom_functions;
                         <span>Tyre Product Bookings</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="battery-bookings.php">
+                        <i class="fa fa-battery-full"></i>
+                        <span>Battery Bookings</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="services.php">
+                        <i class="fa fa-wrench"></i>
+                        <span>Services</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="rental_orders.php">
+                        <i class="fa fa-truck"></i>
+                        <span>Rental Orders</span>
+                    </a>
+                </li> 
               
             </ul>
             </section>
