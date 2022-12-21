@@ -18,7 +18,7 @@ if(empty($_POST['user_id'])){
 }
 else{
     $user_id = $db->escapeString($_POST['user_id']);
-    $sql = "SELECT *,used_vehicles.id AS id FROM `used_vehicles`,`users` WHERE used_vehicles.user_id = users.id WHERE  used_vehicles.user_id = '$user_id' ";
+    $sql = "SELECT *,used_vehicles.id AS id FROM `used_vehicles`,`users` WHERE used_vehicles.user_id = users.id AND  used_vehicles.user_id = $user_id ";
 }
 
 $db->sql($sql);
