@@ -53,7 +53,7 @@ if (isset($_POST['btnLogin'])) {
         </div>
         <div class="box box-info col-md-12">
             <div class="box-header with-border">
-                <h3 class="box-title">Admin Login</h3>
+                <h3 class="box-title">Showroom Login</h3>
                 <center>
                     <div class="msg"><?php echo isset($error['failed']) ? $error['failed'] : ''; ?>
                     <?php echo isset($error['failed_status']) ? $error['failed_status'] : ''; ?></div>
