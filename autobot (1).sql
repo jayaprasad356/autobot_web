@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2022 at 10:30 AM
+-- Generation Time: Jan 06, 2023 at 12:26 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -430,7 +430,6 @@ INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `ratings`) VALUES
 
 CREATE TABLE `rental` (
   `id` int(11) NOT NULL,
-  `vehicle_no` text DEFAULT NULL,
   `vehicle_group` text DEFAULT NULL,
   `model` text DEFAULT NULL,
   `year_of_manufacture` text DEFAULT NULL
@@ -440,8 +439,8 @@ CREATE TABLE `rental` (
 -- Dumping data for table `rental`
 --
 
-INSERT INTO `rental` (`id`, `vehicle_no`, `vehicle_group`, `model`, `year_of_manufacture`) VALUES
-(1, 'TN65AJ8940', 'Bajaj', 'Pulsar 150', '2020');
+INSERT INTO `rental` (`id`, `vehicle_group`, `model`, `year_of_manufacture`) VALUES
+(1, 'Bajaj', 'Pulsar 150', '2020');
 
 -- --------------------------------------------------------
 
@@ -488,6 +487,30 @@ CREATE TABLE `rental_orders` (
 
 INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`) VALUES
 (1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rental_showrooms`
+--
+
+CREATE TABLE `rental_showrooms` (
+  `id` int(11) NOT NULL,
+  `name` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `location` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rental_showrooms`
+--
+
+INSERT INTO `rental_showrooms` (`id`, `name`, `email`, `mobile`, `password`, `location`, `status`) VALUES
+(1, 'sivam Rentals', 'sivamrent32@gmail.com', '9876543210', 'sivamrent@098', 'Thiruvanamalai', 0),
+(2, 'test', 'example@gmail.com', '9876543234', 'jk123', 'Coimbatore', 2);
 
 -- --------------------------------------------------------
 
@@ -722,23 +745,19 @@ CREATE TABLE `used_vehicles` (
   `brand` text DEFAULT NULL,
   `bike_name` text NOT NULL,
   `model` text DEFAULT NULL,
-  `vehicle_no` text DEFAULT NULL,
   `km_driven` text DEFAULT NULL,
-  `insurance` text DEFAULT NULL,
   `price` text DEFAULT NULL,
   `location` text DEFAULT NULL,
   `image` text DEFAULT NULL,
-  `color` varchar(255) DEFAULT NULL,
-  `fuel` varchar(255) DEFAULT NULL,
-  `owner` int(111) DEFAULT NULL
+  `color` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `used_vehicles`
 --
 
-INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `vehicle_no`, `km_driven`, `insurance`, `price`, `location`, `image`, `color`, `fuel`, `owner`) VALUES
-(1, 2, 'Yamaha', 'R15 V3M', '2022', 'TN67FG7636', '5000', 'yes', '222000', 'Kattur,Trichy', '1670921154.1206.jpg', 'blue', 'petrol', 2);
+INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `km_driven`, `price`, `location`, `image`, `color`) VALUES
+(1, 2, 'Yamaha', 'R15 V3M', '2022', '5000', '222000', 'Kattur,Trichy', '1670921154.1206.jpg', 'blue');
 
 -- --------------------------------------------------------
 
@@ -905,6 +924,12 @@ ALTER TABLE `rental_category`
 -- Indexes for table `rental_orders`
 --
 ALTER TABLE `rental_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rental_showrooms`
+--
+ALTER TABLE `rental_showrooms`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1098,6 +1123,12 @@ ALTER TABLE `rental_orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `rental_showrooms`
+--
+ALTER TABLE `rental_showrooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `rental_vehicles`
 --
 ALTER TABLE `rental_vehicles`
@@ -1107,7 +1138,7 @@ ALTER TABLE `rental_vehicles`
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `services`

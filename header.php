@@ -250,6 +250,12 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="accounts.php">
+                    <i class="fa fa-money"></i>
+                         <span>Accounts</span>
+                    </a>
+                </li>
+                <li class="treeview">
                     <a href="admins.php">
                     <i class="fa fa-adn"></i>
                     <span>Multiple Admin</span>

@@ -4,20 +4,32 @@ $function = new functions;
 include_once('../includes/custom-functions.php');
 $fn = new custom_functions;
 
-$seller_id = $_SESSION['seller_id'];
-
 ?>
 <?php
+$brand = '';
+$bike_name = '';
+$cc = '';
+$hills_price = '';
+$normal_price = '';
+if (isset($_POST['btnView'])) {
+    $rental_category_id = $db->escapeString($_POST['rental_category_id']);
+    $sql="SELECT * FROM rental_category WHERE id = '$rental_category_id'";
+    $db->sql($sql);
+    $resslot = $db->getResult();
+    $brand = $resslot[0]['brand'];
+    $bike_name = $resslot[0]['bike_name'];
+    $cc = $resslot[0]['cc'];
+    $hills_price = $resslot[0]['hills_price'];
+    $normal_price = $resslot[0]['normal_price'];
+
+
+}
 if (isset($_POST['btnAdd'])) {
 
 
-        $brand = $db->escapeString($_POST['brand']);
-        $bike_name = $db->escapeString($_POST['bike_name']);
-        $model = $db->escapeString($_POST['model']);
-        $km_driven = $db->escapeString($_POST['km_driven']);
-        $price = $db->escapeString($_POST['price']);
-        $location = $db->escapeString($_POST['location']);
-        $color = $db->escapeString($_POST['color']);
+        $rental_category_id = $db->escapeString($_POST['rental_category_id']);
+        $pincode = $db->escapeString($_POST['pincode']);
+
 
         // get image info
         $menu_image = $db->escapeString($_FILES['bike_image']['name']);
@@ -34,30 +46,15 @@ if (isset($_POST['btnAdd'])) {
         $extension = end(explode(".", $_FILES["bike_image"]["name"]));
         
 
-        if (empty($brand)) {
-            $error['brand'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($rental_category_id)) {
+            $error['rental_category_id'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($bike_name)) {
-            $error['bike_name'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($model)) {
-            $error['model'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($km_driven)) {
-            $error['km_driven'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($price)) {
-            $error['price'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($location)) {
-            $error['location'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($color)) {
-            $error['color'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($pincode)) {
+            $error['pincode'] = " <span class='label label-danger'>Required!</span>";
         }
 
 
-        if (!empty($brand) && !empty($bike_name) && !empty($model) && !empty($km_driven) && !empty($price) && !empty($location)&& !empty($color)) {
+        if (!empty($rental_category_id) && !empty($pincode) ) {
             $result = $fn->validate_image($_FILES["bike_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -65,12 +62,12 @@ if (isset($_POST['btnAdd'])) {
                 $menu_image = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
         
                 // upload new image
-                $upload = move_uploaded_file($_FILES['bike_image']['tmp_name'], '../upload/vehicles/' . $menu_image);
+                $upload = move_uploaded_file($_FILES['bike_image']['tmp_name'], '../upload/rentals/' . $menu_image);
         
                 // insert new data to menu table
-                $upload_image = 'upload/vehicles/' . $menu_image;
+                $upload_image = 'upload/rentals/' . $menu_image;
            
-            $sql_query = "INSERT INTO used_vehicles (seller_id,brand,bike_name,model,km_driven,price,location,image,color) VALUES ('$seller_id','$brand','$bike_name','$model','$km_driven','$price','$location','$upload_image','$color')";
+            $sql_query = "INSERT INTO rental_vehicles (rental_category_id,pincode,image,status) VALUES ('$rental_category_id','$pincode','$upload_image',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -80,15 +77,18 @@ if (isset($_POST['btnAdd'])) {
             }
 
             if ($result == 1) {
-                $error['add_vehicle'] = " <section class='content-header'><span class='label label-success'>Vehicle Added Successfully</span></section>";
+                $error['add_vehicle'] = " <section class='content-header'><span class='label label-success'>Rental Vehicle Added Successfully</span></section>";
             } else {
                 $error['add_vehicle'] = " <span class='label label-danger'>Failed!</span>";
             }
             }
         }
+
+      
+
 ?>
 <section class="content-header">
-    <h1>Add Vehicle <small><a href='used_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Vehicles</a></small></h1>
+    <h1>Add Vehicle For Rent<small><a href='rental_vehicles.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Rental Vehicles</a></small></h1>
 
     <?php echo isset($error['add_vehicle']) ? $error['add_vehicle'] : ''; ?>
     <ol class="breadcrumb">
@@ -105,69 +105,81 @@ if (isset($_POST['btnAdd'])) {
                 <div class="box-header with-border">
 
                 </div><!-- /.box-header -->
-                <!-- form start -->
-                <form name="add_vehicle_form" method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                        <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i>
-                                        <select id='brand' name="brand" class='form-control' required>
+                                    <label for="exampleInputEmail1"> Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                    <select id='rental_category_id' name="rental_category_id" class='form-control' required>
                                                 <option value="">Select</option>
                                                             <?php
-                                                            $sql = "SELECT * FROM `models`";
+                                                            $sql = "SELECT id,bike_name FROM `rental_category`";
                                                             $db->sql($sql);
 
                                                             $result = $db->getResult();
                                                             foreach ($result as $value) {
                                                             ?>
-                                                                <option value='<?= $value['model'] ?>'><?= $value['model'] ?></option>
+                                                                <option value='<?= $value['id'] ?>'><?= $value['bike_name'] ?></option>
                                                             <?php } ?>
-                                        </select>
-                                </div>
+                                        </select>                               
+                               </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
-                                    <input type="text" class="form-control" name="bike_name" required>
-                                </div>
+                            <div class="col-md-1">
+                                  <button type="submit"  class="btn btn-primary" style="margin-top:24px;" name="btnView">View</button>                            
                             </div>
                         </div>
+
+                    </div>
+                </form>
+                <!-- form start -->
+                <form name="add_vehicle_form" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" name="rental_category_id"  value="<?php echo $rental_category_id ?>" readonly >
+                    <div class="box-body">
+
                         <div class="row">
-                            <div class="col-md-4">
+                           <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Model</label><i class="text-danger asterik">*</i><?php echo isset($error['model']) ? $error['model'] : ''; ?>
-                                    <input type="number" class="form-control" name="model" required>
+                                    <label for="exampleInputEmail1">Bike Name</label><i class="text-danger asterik">*</i>
+                                    <input type="text" class="form-control" name="bike_name"  value="<?php echo $bike_name ?>" readonly >
+                                </div>
+                            </div>
+                           <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i>
+                                    <input type="text" class="form-control" name="brand"  value="<?php echo $brand ?>" readonly >
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> KM Driven</label><i class="text-danger asterik">*</i><?php echo isset($error['km_driven']) ? $error['km_driven'] : ''; ?>
-                                    <input type="text" class="form-control" name="km_driven" required>
+                                    <label for="exampleInputEmail1">CC</label><i class="text-danger asterik">*</i>
+                                    <input type="number" class="form-control" name="cc" value="<?php echo $cc ?>" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1"> Price</label><i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
-                                    <input type="text" class="form-control" name="price" required>
+                                    <label for="exampleInputEmail1">Hills Price</label><i class="text-danger asterik">*</i>
+                                    <input type="number" class="form-control" name="hills_price" value="<?php echo $hills_price ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Location</label><i class="text-danger asterik">*</i><?php echo isset($error['location']) ? $error['location'] : ''; ?>
-                                    <input type="text" class="form-control" name="location" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> color</label><i class="text-danger asterik">*</i><?php echo isset($error['color']) ? $error['color'] : ''; ?>
-                                    <input type="text" class="form-control" name="color" required>
+                                    <label for="exampleInputEmail1">Normal Price</label><i class="text-danger asterik">*</i>
+                                    <input type="number" class="form-control" name="normal_price" value="<?php echo $normal_price ?>" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Pincode</label><i class="text-danger asterik">*</i><?php echo isset($error['pincode']) ? $error['pincode'] : ''; ?>
+                                    <input type="text" class="form-control" name="pincode" required>
+                                </div>
+                            </div>
+                           
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_image']) ? $error['bike_image'] : ''; ?>
@@ -201,10 +213,7 @@ if (isset($_POST['btnAdd'])) {
         ignore: [],
         debug: false,
         rules: {
-            brand: "required",
-            model: "required",
-            price:"required",
-            bike_name:"required",
+            pincode:"required",
         }
     });
     $('#btnClear').on('click', function() {

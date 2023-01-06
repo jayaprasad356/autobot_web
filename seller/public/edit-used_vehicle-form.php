@@ -18,14 +18,10 @@ if (isset($_POST['btnUpdate'])) {
         $brand = $db->escapeString($_POST['brand']);
         $bike_name = $db->escapeString($_POST['bike_name']);
         $model = $db->escapeString($_POST['model']);
-        $vehicle_no = $db->escapeString($_POST['vehicle_no']);
         $km_driven = $db->escapeString($_POST['km_driven']);
-        $insurance = $db->escapeString($_POST['insurance']);
         $price = $db->escapeString($_POST['price']);
         $location = $db->escapeString($_POST['location']);
         $color = $db->escapeString($_POST['color']);
-        $fuel = $db->escapeString($_POST['fuel']);
-        $owner = $db->escapeString($_POST['owner']);
 
 
         if (empty($brand)) {
@@ -37,14 +33,9 @@ if (isset($_POST['btnUpdate'])) {
         if (empty($model)) {
             $error['model'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($vehicle_no)) {
-            $error['vehicle_no'] = " <span class='label label-danger'>Required!</span>";
-        }
+      
         if (empty($km_driven)) {
             $error['km_driven'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($insurance)) {
-            $error['insurance'] = " <span class='label label-danger'>Required!</span>";
         }
         if (empty($price)) {
             $error['price'] = " <span class='label label-danger'>Required!</span>";
@@ -55,15 +46,9 @@ if (isset($_POST['btnUpdate'])) {
         if (empty($color)) {
             $error['color'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($fuel)) {
-            $error['fuel'] = " <span class='label label-danger'>Required!</span>";
-        }
-        if (empty($owner)) {
-            $error['owner'] = " <span class='label label-danger'>Required!</span>";
-        }
 
 
-        if ( !empty($brand) && !empty($bike_name) && !empty($model) && !empty($vehicle_no) && !empty($km_driven) && !empty($insurance) && !empty($price) && !empty($location) && !empty($color) && !empty($fuel)  && !empty($owner)  ) {
+        if ( !empty($brand) && !empty($bike_name) && !empty($model)  && !empty($km_driven) && !empty($price) && !empty($location) && !empty($color)) {
            
             if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
 				//image isn't empty and update the image
@@ -88,7 +73,7 @@ if (isset($_POST['btnUpdate'])) {
 				$db->sql($sql);
 			}
            
-            $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',vehicle_no='$vehicle_no',km_driven='$km_driven',insurance='$insurance',price='$price',location='$location',image='$upload_image',color='$color',fuel='$fuel',owner='$owner' WHERE id =  $ID";
+            $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',km_driven='$km_driven',price='$price',location='$location',image='$upload_image',color='$color' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -157,37 +142,18 @@ $res = $db->getResult();
                                     <input type="text" class="form-control" name="bike_name" value="<?php echo $res[0]['bike_name']; ?>">
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> Model</label><i class="text-danger asterik">*</i><?php echo isset($error['model']) ? $error['model'] : ''; ?>
                                     <input type="number" class="form-control" name="model" value="<?php echo $res[0]['model']; ?>">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Vehicle Number</label><i class="text-danger asterik">*</i><?php echo isset($error['vehicle_no']) ? $error['vehicle_no'] : ''; ?>
-                                    <input type="text" class="form-control" name="vehicle_no" value="<?php echo $res[0]['vehicle_no']; ?>">
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1"> KM Driven</label><i class="text-danger asterik">*</i><?php echo isset($error['km_driven']) ? $error['km_driven'] : ''; ?>
                                     <input type="text" class="form-control" name="km_driven" value="<?php echo $res[0]['km_driven']; ?>">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                               <label  class="control-label"> Insurance</label><i class="text-danger asterik">*</i>
-                                <div class="form-group" >
-                                    <div id="insurance" class="btn-group">
-                                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="insurance" value="Yes" <?= ($res[0]['insurance'] == 'Yes') ? 'checked' : ''; ?>>Yes
-                                        </label>
-                                        <label class="btn btn-danger" data-toggle-class="btn-danger" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="insurance" value="No"  <?= ($res[0]['insurance'] == 'No') ? 'checked' : ''; ?>> No
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -212,22 +178,6 @@ $res = $db->getResult();
                             </div>
                         </div>
                         <div class="row">
-                           <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Fuel</label><i class="text-danger asterik">*</i><?php echo isset($error['fuel']) ? $error['fuel'] : ''; ?>
-                                    <select id="fuel" name="fuel" class="form-control">
-                                        <option value="#">Select</option>
-                                        <option value="Petrol"<?=$res[0]['fuel'] == 'Petrol' ? ' selected="selected"' : '';?>>Petrol</option>
-                                        <option value="Diesel"<?=$res[0]['fuel'] == 'Diesel' ? ' selected="selected"' : '';?>>Diesel</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1"> Owner</label><i class="text-danger asterik">*</i><?php echo isset($error['owner']) ? $error['owner'] : ''; ?>
-                                    <input type="number" class="form-control" name="owner" value="<?php echo $res[0]['owner']; ?>">
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
 									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>

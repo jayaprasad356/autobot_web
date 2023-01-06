@@ -24,14 +24,10 @@ if ($num >= 1) {
         $temp['brand'] = $row['brand'];
         $temp['bike_name'] = $row['bike_name'];
         $temp['model'] = $row['model'];
-        $temp['vehicle_no'] = $row['vehicle_no'];
         $temp['km_driven'] = $row['km_driven'];
-        $temp['insurance'] = $row['insurance'];
         $temp['price'] = $row['price'];
         $temp['location'] = $row['location'];
         $temp['color'] = $row['color'];
-        $temp['fuel'] = $row['fuel'];
-        $temp['owner'] = $row['owner'];
         $temp['image'] = DOMAIN_URL ."upload/vehicles/".$row['image'];
         $rows[] = $temp;
         

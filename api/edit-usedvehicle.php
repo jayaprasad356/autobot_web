@@ -105,21 +105,17 @@ $user_id = $db->escapeString($_POST['user_id']);
 $brand = $db->escapeString($_POST['brand']);
 $bike_name = $db->escapeString($_POST['bike_name']);
 $model = $db->escapeString($_POST['model']);
-$vehicle_no = $db->escapeString($_POST['vehicle_no']);
 $km_driven = $db->escapeString($_POST['km_driven']);
-$insurance = $db->escapeString($_POST['insurance']);
 $price = $db->escapeString($_POST['price']);
 $location = $db->escapeString($_POST['location']);
 $color = $db->escapeString($_POST['color']);
-$fuel = $db->escapeString($_POST['fuel']);
-$owner = $db->escapeString($_POST['owner']);
 
 $sql = "SELECT * FROM used_vehicles WHERE id=" . $used_vehicle_id;
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num==1){
-    $sql = "UPDATE used_vehicles SET `user_id`='$user_id',`brand`='$brand',`bike_name`='$bike_name',`model`='$model',`vehicle_no`='$vehicle_no',`km_driven`='$km_driven',`insurance`='$insurance',`price`='$price',`location`='$location',`color`='$color',`fuel`='$fuel',`owner`='$owner' WHERE id=" . $used_vehicle_id;
+    $sql = "UPDATE used_vehicles SET `user_id`='$user_id',`brand`='$brand',`bike_name`='$bike_name',`model`='$model',`km_driven`='$km_driven',`price`='$price',`location`='$location',`color`='$color' WHERE id=" . $used_vehicle_id;
     $db->sql($sql);
     $res = $db->getResult();
     $response['success'] = true;

@@ -87,14 +87,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'used_vehicles') {
         $tempRow['brand'] = $row['brand'];
         $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['model'] = $row['model'];
-        $tempRow['vehicle_no'] = $row['vehicle_no'];
         $tempRow['km_driven'] = $row['km_driven'];
-        $tempRow['insurance'] = $row['insurance'];
         $tempRow['price'] = $row['price'];
         $tempRow['location'] = $row['location'];
         $tempRow['color'] = $row['color'];
-        $tempRow['fuel'] = $row['fuel'];
-        $tempRow['owner'] = $row['owner'];
         if (!empty($row['image'])) {
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
         } else {
@@ -190,7 +186,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "AND mobile like '%" . $search . "%' OR status like '%" . $search . "%' OR start_time like '%" . $search . "%'";
+        $where .= "AND ro.mobile like '%" . $search . "%' OR ro.name like '%" . $search . "%' OR ro.start_time like '%" . $search . "%' OR ro.status like '%" . $search . "%' ";
     }
     if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
@@ -198,13 +194,18 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
     if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
     }
-    $sql = "SELECT COUNT(`id`) as total FROM `rental_orders` ";
+
+    $join = "LEFT JOIN `rental_vehicles` rv ON ro.rental_vehicles_id = rv.id WHERE ro.id IS NOT NULL ";
+
+
+    $sql = "SELECT COUNT(ro.id) as total FROM `rental_orders` ro $join " . $where . "";
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT *,rental_orders.id AS id,rental_orders.status AS status FROM rental_orders,users WHERE rental_orders.user_id = users.id  ";
+    $sql = "SELECT ro.id AS id,ro.*,ro.status AS status FROM `rental_orders` ro $join 
+            $where ORDER BY $sort $order LIMIT $offset, $limit";
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -221,9 +222,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['mobile'] = $row['mobile'];
-        $tempRow['rental_vehicle_id'] = $row['rental_vehicle_id'];
-        $tempRow['start_date'] = $row['start_date'];
-        $tempRow['end_date'] = $row['end_date'];
+        $tempRow['rental_vehicles_id'] = $row['rental_vehicles_id'];
+        $tempRow['start_time'] = $row['start_time'];
+        $tempRow['end_time'] = $row['end_time'];
         $tempRow['status'] = $row['status'];
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;

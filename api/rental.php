@@ -13,12 +13,7 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-if (empty($_POST['vehicle_no'])) {
-    $response['success'] = false;
-    $response['message'] = "Vehicle Number is Empty";
-    print_r(json_encode($response));
-    return false;
-}
+
 if (empty($_POST['vehicle_group'])) {
     $response['success'] = false;
     $response['message'] = "Vehicle Group is Empty";
@@ -38,7 +33,6 @@ if (empty($_POST['year_of_manufacture'])) {
     return false;
 }
 
-$vehicle_no = $db->escapeString($_POST['vehicle_no']);
 $vehicle_group = $db->escapeString($_POST['vehicle_group']);
 $model = $db->escapeString($_POST['model']);
 $year_of_manufacture = $db->escapeString($_POST['year_of_manufacture']);
@@ -46,7 +40,7 @@ $year_of_manufacture = $db->escapeString($_POST['year_of_manufacture']);
 
    
 
-$sql = "INSERT INTO rental (`vehicle_no`,`vehicle_group`,`model`,`year_of_manufacture`) VALUES ('$vehicle_no','$vehicle_group','$model','$year_of_manufacture')";
+$sql = "INSERT INTO rental (`vehicle_group`,`model`,`year_of_manufacture`) VALUES ('$vehicle_group','$model','$year_of_manufacture')";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;

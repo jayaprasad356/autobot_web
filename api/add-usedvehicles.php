@@ -44,22 +44,9 @@ if (empty($_POST['model'])) {
     return false;
 }
 
-if (empty($_POST['vehicle_no'])) {
-    $response['success'] = false;
-    $response['message'] = "Vehicle Number is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-
 if (empty($_POST['km_driven'])) {
     $response['success'] = false;
     $response['message'] = "Kilometer Driven is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-if (empty($_POST['insurance'])) {
-    $response['success'] = false;
-    $response['message'] = "Insurance Status is Empty";
     print_r(json_encode($response));
     return false;
 }
@@ -87,31 +74,16 @@ if (empty($_POST['color'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['fuel'])) {
-    $response['success'] = false;
-    $response['message'] = "Type of Fuel is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-if (empty($_POST['owner'])) {
-    $response['success'] = false;
-    $response['message'] = "Owner is Empty";
-    print_r(json_encode($response));
-    return false;
-}
+
 
 $user_id = $db->escapeString($_POST['user_id']);
 $brand = $db->escapeString($_POST['brand']);
 $bike_name = $db->escapeString($_POST['bike_name']);
 $model = $db->escapeString($_POST['model']);
-$vehicle_no = $db->escapeString($_POST['vehicle_no']);
 $km_driven = $db->escapeString($_POST['km_driven']);
-$insurance = $db->escapeString($_POST['insurance']);
 $price = $db->escapeString($_POST['price']);
 $location = $db->escapeString($_POST['location']);
 $color = $db->escapeString($_POST['color']);
-$fuel = $db->escapeString($_POST['fuel']);
-$owner = $db->escapeString($_POST['owner']);
 
 if (isset($_FILES['image']) && !empty($_FILES['image']) && $_FILES['image']['error'] == 0 && $_FILES['image']['size'] > 0) {
     if (!is_dir('../upload/vehicles/')) {
@@ -135,7 +107,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image']) && $_FILES['image']['err
         return false;
     }
 
-$sql = "INSERT INTO used_vehicles (`user_id`,`brand`,`bike_name`,`model`,`vehicle_no`,`km_driven`,`insurance`,`price`,`location`,`image`,`color`,`fuel`,`owner`) VALUES ('$user_id','$brand','$bike_name','$model','$vehicle_no','$km_driven','$insurance','$price','$location','$filename','$color','$fuel','$owner')";
+$sql = "INSERT INTO used_vehicles (`user_id`,`brand`,`bike_name`,`model`,`km_driven`,`price`,`location`,`image`,`color`,`fuel`,`owner`) VALUES ('$user_id','$brand','$bike_name','$model','$km_driven','$price','$location','$filename','$color')";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;
