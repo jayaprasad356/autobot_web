@@ -44,12 +44,6 @@ if (empty($_POST['model'])) {
     return false;
 }
 
-if (empty($_POST['km_driven'])) {
-    $response['success'] = false;
-    $response['message'] = "Kilometer Driven is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 if (empty($_POST['price'])) {
     $response['success'] = false;
     $response['message'] = "Price is Empty";
@@ -107,7 +101,7 @@ if (isset($_FILES['image']) && !empty($_FILES['image']) && $_FILES['image']['err
         return false;
     }
 
-$sql = "INSERT INTO used_vehicles (`user_id`,`brand`,`bike_name`,`model`,`km_driven`,`price`,`location`,`image`,`color`,`fuel`,`owner`) VALUES ('$user_id','$brand','$bike_name','$model','$km_driven','$price','$location','$filename','$color')";
+$sql = "INSERT INTO used_vehicles (`user_id`,`brand`,`bike_name`,`model`,`km_driven`,`price`,`location`,`image`,`color`) VALUES ('$user_id','$brand','$bike_name','$model','$km_driven','$price','$location','$filename','$color')";
 $db->sql($sql);
 $res = $db->getResult();
 $response['success'] = true;
