@@ -43,7 +43,7 @@ include "header.php"; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <?php
-        $sql_query = "SELECT * FROM seller WHERE id ='" . $ID . "'";
+        $sql_query = "SELECT * FROM rental_showrooms WHERE id ='" . $ID . "'";
         // create array variable to store previous data
         $data = array();
         // Execute query
@@ -74,14 +74,14 @@ include "header.php"; ?>
                             <h3 class="box-title">Edit Seller</h3>
                         </div><!-- /.box-header -->
                         <!-- form start -->
-                        <form id="edit_form" method="post" action="public/db-operation.php" enctype="multipart/form-data">
+                        <form id="edit_rental_form" method="post" action="public/db-operation.php" enctype="multipart/form-data">
                             <div class="box-body">
-                                <input type="hidden" id="update_seller" name="update_seller" required="" value="1" aria-required="true">
+                                <input type="hidden" id="update_rental" name="update_rental" required="" value="1" aria-required="true">
                                 <input type="hidden" id="update_id" name="update_id" required value="<?= $ID; ?>">
                                 <input type="hidden" id="hide_description" name="hide_description">
-                                <input type="hidden" id="old_logo" name="old_logo" required value="<?= $res[0]['logo']; ?>">
+                                <!-- <input type="hidden" id="old_logo" name="old_logo" required value="<?= $res[0]['logo']; ?>">
                                 <input type="hidden" id="old_national_identity_card" name="old_national_identity_card" required value="<?= $res[0]['national_identity_card']; ?>">
-                                <input type="hidden" id="old_address_proof" name="old_address_proof" required value="<?= $res[0]['address_proof']; ?>">
+                                <input type="hidden" id="old_address_proof" name="old_address_proof" required value="<?= $res[0]['address_proof']; ?>"> -->
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
@@ -103,14 +103,6 @@ include "header.php"; ?>
                                             <input type="number" class="form-control" name="mobile" id="mobile" value="<?= $res[0]['mobile']; ?>" required readonly>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Store URL</label>
-                                            <input type="text" class="form-control" name="store_url" id="store_url" value="<?= $res[0]['store_url']; ?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label for="">Old Password :</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
@@ -135,6 +127,28 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
+                                            <label for="">Location</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="location" value="<?= $res[0]['location']; ?>"  id="location">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
+                                        <div id="status" class="btn-group">
+                                            <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Deactivated
+                                            </label>
+                                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Activated
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary" id="submit_btn">Update</button><br>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
                                             <label for="exampleInputFile">Logo</label><i class="text-danger asterik">*</i>
                                             <input type="file" name="store_logo" id="store_logo">
                                             <p class="help-block"><img src="<?php echo DOMAIN_URL . 'upload/seller/' . $res[0]['logo']; ?>" style="max-width:100%" /></p>
@@ -154,8 +168,8 @@ include "header.php"; ?>
                                             <p class="help-block"><img src="<?php echo DOMAIN_URL . 'upload/seller/' . $res[0]['address_proof']; ?>" style="max-width:100%" /></p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                </div> -->
+                                <!-- <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label for="">Commission (%)</label>
@@ -299,20 +313,18 @@ include "header.php"; ?>
                                             <input type="text" class="form-control" name="pan_number" value="<?= $res[0]['pan_number']; ?>" required>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                </div> -->
+                                <!-- <div class="row">
                                     <div class="form-group col-md-8">
                                         <div class="form-group">
                                             <label for="description">Store Description :</label>
-                                            <!-- <textarea name="store_description" id="store_description" class="form-control" rows="8"> <?= $res[0]['store_description']; ?></textarea> -->
                                             <textarea name="descriptions" id="descriptions" class="form-control" rows="16"><?php echo $res[0]['store_description']; ?></textarea>
 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
+                                </div> -->
+                                <!-- <div class="form-group">
                                     <label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
-
                                     <div id="status" class="btn-group">
                                         <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
                                             <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Deactivated
@@ -324,8 +336,7 @@ include "header.php"; ?>
                                 </div>
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary" id="submit_btn">Update</button><br>
-                                    <div style="display:none;" id="result"></div>
-                                </div>
+                                </div> -->
                             </div><!-- /.box-body -->
                         </form>
                     </div><!-- /.box -->
@@ -351,28 +362,26 @@ include "header.php"; ?>
         rules: {
             name: "required",
             mobile: "required",
-            address: "required",
-            descriptions: "required",
             confirm_password: {
                 equalTo: "#password"
             }
         }
     });
-    $('#cat_ids').select2({
-        width: 'element',
-        placeholder: 'type in category name to search',
+    // $('#cat_ids').select2({
+    //     width: 'element',
+    //     placeholder: 'type in category name to search',
 
-    });
+    // });
 
     // if (!CKEDITOR.env.ie || CKEDITOR.env.version > 7)
     //     CKEDITOR.env.isCompatible = true;
-    $('#edit_form').on('submit', function(e) {
+    $('#edit_rental_form').on('submit', function(e) {
         e.preventDefault();
         // var content = $('textarea[name=descriptions]').val();
         var content = tinyMCE.activeEditor.getContent();
         $('#hide_description').val(content);
         var formData = new FormData(this);
-        if ($("#edit_form").validate().form()) {
+        if ($("#edit_rental_form").validate().form()) {
             if (confirm("Are you sure want to update profile?")) {
                 $.ajax({
                     type: 'POST',
@@ -387,9 +396,9 @@ include "header.php"; ?>
                     success: function(result) {
                         $('#result').html(result);
                         $('#result').show().delay(6000).fadeOut();
-                        $('#cat_ids').select2({
-                            placeholder: "type in category name to search"
-                        });
+                        // $('#cat_ids').select2({
+                        //     placeholder: "type in category name to search"
+                        // });
                         $('#submit_btn').html('Update');
                         location.reload(true);
                     }
