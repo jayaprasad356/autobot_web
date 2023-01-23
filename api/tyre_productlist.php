@@ -15,7 +15,7 @@ $db->connect();
 $tyre_type = $db->escapeString($_POST['tyre_type']);
 $wheel = $db->escapeString($_POST['wheel']);
 
-$sql = "SELECT * FROM `tyre_products` WHERE tyre_type='$tyre_type' AND wheel='$wheel'";
+$sql = "SELECT * FROM `tyre_products` WHERE tyre_type='$tyre_type' AND wheel='$wheel' AND status=1";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);

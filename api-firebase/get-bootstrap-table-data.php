@@ -227,6 +227,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
             $tempRow['image'] = 'No Image';
 
         }
+        if ($row['status'] == 0)
+            $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
+        else
+             $tempRow['status'] = "<label class='label label-success'>Available</label>";
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }

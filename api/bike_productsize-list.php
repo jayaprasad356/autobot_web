@@ -12,7 +12,7 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$sql = "SELECT * FROM `bike_product_size` bs,`bikes` b WHERE bs.bike_id=b.id";
+$sql = "SELECT * FROM `bike_product_size` bs,`bikes` b WHERE bs.bike_id=b.id AND bs.status=1";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);

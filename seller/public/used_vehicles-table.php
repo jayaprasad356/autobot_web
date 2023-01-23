@@ -32,6 +32,7 @@
                                     <th data-field="location" data-sortable="true">Location</th>
                                     <th data-field="color" data-sortable="true">Color</th>
                                     <th data-field="image">Image</th>
+                                    <th data-field="status" data-sortable="true">Stock</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>   
                                 </tr>
                             </thead>

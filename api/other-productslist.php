@@ -13,7 +13,7 @@ $db = new Database();
 $db->connect();
 
 
-$sql = "SELECT p.*,c.name AS category_name,p.image AS image,p.id AS id FROM `products` p,`categories` c WHERE p.category_id=c.id AND c.name='others'";
+$sql = "SELECT p.*,c.name AS category_name,p.image AS image,p.id AS id FROM `products` p,`categories` c WHERE p.category_id=c.id AND p.status=1 AND c.name='others'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);

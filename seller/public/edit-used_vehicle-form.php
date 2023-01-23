@@ -22,6 +22,7 @@ if (isset($_POST['btnUpdate'])) {
         $price = $db->escapeString($_POST['price']);
         $location = $db->escapeString($_POST['location']);
         $color = $db->escapeString($_POST['color']);
+        $status = $db->escapeString($_POST['status']);
 
 
         if (empty($brand)) {
@@ -73,7 +74,7 @@ if (isset($_POST['btnUpdate'])) {
 				$db->sql($sql);
 			}
            
-            $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',km_driven='$km_driven',price='$price',location='$location',image='$upload_image',color='$color' WHERE id =  $ID";
+            $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',km_driven='$km_driven',price='$price',location='$location',image='$upload_image',color='$color',status='$status' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -185,8 +186,20 @@ $res = $db->getResult();
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
                                 </div>
                             </div>
+                            <div class='col-md-4'>
+                                <label class="control-label">Stock</label> <i class="text-danger asterik">*</i><br>
+                                <div id="status" class="btn-group">
+                                    <label class="btn btn-danger" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-Available
+                                    </label>
+                                    <label class="btn btn-success" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                  
                   
                     <!-- /.box-body -->
 

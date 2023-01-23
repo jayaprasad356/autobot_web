@@ -24,6 +24,7 @@ if (isset($_POST['btnEdit'])) {
         $description = $db->escapeString($_POST['description']);
 		$model = $db->escapeString($_POST['model']);
         $price = $db->escapeString($_POST['price']);
+		$status = $db->escapeString($_POST['status']);
 		$error = array();
 
 		if (empty($category)) {
@@ -66,7 +67,7 @@ if (isset($_POST['btnEdit'])) {
 				$db->sql($sql);
 			}
 			
-             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',brand='$brand',description='$description',model='$model',price='$price' WHERE id =  $ID";
+             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',brand='$brand',description='$description',model='$model',price='$price',status='$status' WHERE id =  $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -200,6 +201,20 @@ if (isset($_POST['btnCancel'])) { ?>
                                         <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
 									 </div>
 								</div>
+						   </div>
+						   <br>
+						   <div class="row">
+						             <div class='col-md-4'>
+                                        <label class="control-label">Stock</label> <i class="text-danger asterik">*</i><br>
+                                        <div id="status" class="btn-group">
+                                            <label class="btn btn-danger" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-Available
+                                            </label>
+                                            <label class="btn btn-success" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                                <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
+                                            </label>
+                                        </div>
+						            </div>
 						   </div>
 						   <!-- <hr>
 						   

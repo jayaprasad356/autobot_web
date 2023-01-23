@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 07, 2023 at 05:29 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jan 23, 2023 at 09:17 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
   `password` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 1,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
@@ -61,14 +61,15 @@ CREATE TABLE `batteries` (
   `actual_price` text DEFAULT NULL,
   `final_price` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `batteries`
 --
 
 INSERT INTO `batteries` (`id`, `brand`, `type`, `warranty`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
-(1, 'Excel', 'Self start', '2', '1500', '50', '100', '1699', '1400', 1);
+(1, 'Excel', 'Self start', '2', '1500', '50', '100', '1699', '1400', 1),
+(2, 'Excel', 'Self start', '2', '1500', '50', '100', '1699', '1400', 0);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `battery_bookings` (
   `name` text DEFAULT NULL,
   `price` text DEFAULT NULL,
   `size` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `battery_bookings`
@@ -104,7 +105,7 @@ CREATE TABLE `bikes` (
   `bike_name` text DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `cc` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bikes`
@@ -128,7 +129,7 @@ CREATE TABLE `bike_product_size` (
   `wheel` text DEFAULT NULL,
   `tyre_type` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bike_product_size`
@@ -149,7 +150,7 @@ CREATE TABLE `bike_services` (
   `type` text DEFAULT NULL,
   `price` text DEFAULT '0',
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `bike_services`
@@ -172,7 +173,7 @@ CREATE TABLE `booked_services` (
   `type` text DEFAULT NULL,
   `price` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `booked_services`
@@ -195,7 +196,7 @@ CREATE TABLE `categories` (
   `status` tinyint(11) DEFAULT NULL,
   `last_updated` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `categories`
@@ -217,7 +218,7 @@ INSERT INTO `categories` (`id`, `name`, `image`, `status`, `last_updated`, `date
 CREATE TABLE `deliver_pincodes` (
   `id` int(11) NOT NULL,
   `pincode` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `deliver_pincodes`
@@ -241,7 +242,7 @@ CREATE TABLE `mechanic` (
   `district` text DEFAULT NULL,
   `state` text DEFAULT NULL,
   `pincode` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mechanic`
@@ -260,7 +261,7 @@ INSERT INTO `mechanic` (`id`, `name`, `mobile`, `password`, `address`, `district
 CREATE TABLE `models` (
   `id` int(11) NOT NULL,
   `model` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `models`
@@ -286,7 +287,7 @@ CREATE TABLE `notifications` (
   `id` int(11) NOT NULL,
   `title` text DEFAULT NULL,
   `description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `notifications`
@@ -313,7 +314,7 @@ CREATE TABLE `orders` (
   `model` text DEFAULT NULL,
   `price` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
@@ -338,17 +339,18 @@ CREATE TABLE `products` (
   `price` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `image` text DEFAULT NULL,
-  `ratings` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `ratings` float DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `model`, `price`, `description`, `image`, `ratings`) VALUES
-(1, 5, 'Engine Oil', 'Racer', '', '', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333),
-(6, 2, 'Handle Miror', 'jace', NULL, NULL, 'cdsce', 'upload/products/1659119349.1368.jpg', NULL),
-(8, 3, 'Front tyre', 'MRF', 'Splender', '600', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg', NULL);
+INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `model`, `price`, `description`, `image`, `ratings`, `status`) VALUES
+(1, 5, 'Engine Oil', 'Racer', '', '', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333, 1),
+(6, 2, 'Handle Miror', 'jace', NULL, NULL, 'cdsce', 'upload/products/1659119349.1368.jpg', NULL, 1),
+(8, 3, 'Front tyre', 'MRF', 'Splender', '600', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -361,7 +363,7 @@ CREATE TABLE `product_variant` (
   `product_id` int(11) DEFAULT NULL,
   `model` text DEFAULT NULL,
   `price` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product_variant`
@@ -388,7 +390,7 @@ CREATE TABLE `puncture_services` (
   `wheel` text DEFAULT NULL,
   `price` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `puncture_services`
@@ -408,7 +410,7 @@ CREATE TABLE `ratings` (
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `ratings` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ratings`
@@ -433,7 +435,7 @@ CREATE TABLE `rental` (
   `vehicle_group` text DEFAULT NULL,
   `model` text DEFAULT NULL,
   `year_of_manufacture` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rental`
@@ -455,7 +457,7 @@ CREATE TABLE `rental_category` (
   `cc` text DEFAULT NULL,
   `hills_price` text DEFAULT NULL,
   `normal_price` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rental_category`
@@ -479,14 +481,14 @@ CREATE TABLE `rental_orders` (
   `start_time` date DEFAULT NULL,
   `end_time` date DEFAULT NULL,
   `status` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rental_orders`
 --
 
 INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`) VALUES
-(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '2');
+(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '1');
 
 -- --------------------------------------------------------
 
@@ -502,7 +504,7 @@ CREATE TABLE `rental_showrooms` (
   `password` text DEFAULT NULL,
   `location` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rental_showrooms`
@@ -524,7 +526,7 @@ CREATE TABLE `rental_vehicles` (
   `pincode` varchar(255) DEFAULT NULL,
   `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rental_vehicles`
@@ -541,45 +543,45 @@ INSERT INTO `rental_vehicles` (`id`, `rental_category_id`, `pincode`, `image`, `
 
 CREATE TABLE `seller` (
   `id` int(11) NOT NULL,
-  `name` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `store_name` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `name` text CHARACTER SET utf8 DEFAULT NULL,
+  `store_name` text CHARACTER SET utf8 DEFAULT NULL,
   `slug` varchar(256) DEFAULT NULL,
-  `email` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `email` text CHARACTER SET utf8 DEFAULT NULL,
   `mobile` text DEFAULT NULL,
-  `password` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` text CHARACTER SET utf8 NOT NULL,
   `balance` int(50) NOT NULL DEFAULT 0,
-  `store_url` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `logo` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `store_description` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `street` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `store_url` text CHARACTER SET utf8 DEFAULT NULL,
+  `logo` text CHARACTER SET utf8 DEFAULT NULL,
+  `store_description` text CHARACTER SET utf8 DEFAULT NULL,
+  `street` text CHARACTER SET utf8 DEFAULT NULL,
   `pincode_id` int(11) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `pincode_text` varchar(100) NOT NULL,
   `city_text` varchar(100) NOT NULL,
-  `state` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `categories` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `account_number` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `bank_ifsc_code` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `account_name` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `bank_name` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `state` text CHARACTER SET utf8 DEFAULT NULL,
+  `categories` text CHARACTER SET utf8 DEFAULT NULL,
+  `account_number` text CHARACTER SET utf8 DEFAULT NULL,
+  `bank_ifsc_code` text CHARACTER SET utf8 DEFAULT NULL,
+  `account_name` text CHARACTER SET utf8 DEFAULT NULL,
+  `bank_name` text CHARACTER SET utf8 DEFAULT NULL,
   `commission` int(11) DEFAULT 0,
   `status` tinyint(2) NOT NULL DEFAULT 0,
   `last_updated` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `require_products_approval` tinyint(2) NOT NULL DEFAULT 0,
-  `fcm_id` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `national_identity_card` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `address_proof` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `pan_number` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `tax_name` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `tax_number` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `fcm_id` text CHARACTER SET utf8 DEFAULT NULL,
+  `national_identity_card` text CHARACTER SET utf8 DEFAULT NULL,
+  `address_proof` text CHARACTER SET utf8 DEFAULT NULL,
+  `pan_number` text CHARACTER SET utf8 DEFAULT NULL,
+  `tax_name` text CHARACTER SET utf8 DEFAULT NULL,
+  `tax_number` text CHARACTER SET utf8 DEFAULT NULL,
   `customer_privacy` tinyint(4) DEFAULT 0,
-  `latitude` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `longitude` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `latitude` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  `longitude` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
   `forgot_password_code` varchar(256) DEFAULT NULL,
   `view_order_otp` tinyint(2) DEFAULT 0,
   `assign_delivery_boy` tinyint(2) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `seller`
@@ -601,7 +603,7 @@ CREATE TABLE `services` (
   `mobile` text DEFAULT NULL,
   `service_type` text DEFAULT NULL,
   `category` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `services`
@@ -621,7 +623,7 @@ CREATE TABLE `settings` (
   `id` int(11) NOT NULL,
   `variable` text NOT NULL,
   `value` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `settings`
@@ -663,7 +665,7 @@ CREATE TABLE `showrooms` (
   `brand` varchar(255) DEFAULT NULL,
   `latitude` varchar(255) DEFAULT NULL,
   `longitude` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `showrooms`
@@ -684,7 +686,7 @@ CREATE TABLE `slides` (
   `name` text DEFAULT NULL,
   `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `slides`
@@ -710,7 +712,7 @@ CREATE TABLE `tyreproduct_bookings` (
   `name` text DEFAULT NULL,
   `size` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tyreproduct_bookings`
@@ -731,7 +733,7 @@ CREATE TABLE `tyrepuncture_bookings` (
   `tyre_type` text DEFAULT NULL,
   `wheel` text DEFAULT NULL,
   `price` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tyrepuncture_bookings`
@@ -760,7 +762,7 @@ CREATE TABLE `tyre_products` (
   `final_price` int(200) DEFAULT 0,
   `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tyre_products`
@@ -785,15 +787,16 @@ CREATE TABLE `used_vehicles` (
   `price` text DEFAULT NULL,
   `location` text DEFAULT NULL,
   `image` text DEFAULT NULL,
-  `color` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `color` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `used_vehicles`
 --
 
-INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `km_driven`, `price`, `location`, `image`, `color`) VALUES
-(1, 2, 'Yamaha', 'R15 V3M', '2022', '5000', '222000', 'Kattur,Trichy', '1670921154.1206.jpg', 'blue');
+INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `km_driven`, `price`, `location`, `image`, `color`, `status`) VALUES
+(1, 2, 'Yamaha', 'R15 V3M', '2022', '5000', '222000', 'Kattur,Trichy', '', 'blue', 1);
 
 -- --------------------------------------------------------
 
@@ -808,7 +811,7 @@ CREATE TABLE `used_vehicle_orders` (
   `price` text DEFAULT NULL,
   `description` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `used_vehicle_orders`
@@ -828,7 +831,7 @@ CREATE TABLE `users` (
   `name` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
   `status` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -1054,7 +1057,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `batteries`
 --
 ALTER TABLE `batteries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `battery_bookings`

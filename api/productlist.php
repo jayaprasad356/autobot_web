@@ -19,7 +19,7 @@ if (empty($_POST['category_id'])) {
 }
 $category_id = $db->escapeString($_POST['category_id']);
 
-$sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id  AND products.category_id = $category_id";
+$sql = "SELECT *,categories.name AS category_name,products.image AS image,products.id AS id FROM `products`,`categories` WHERE products.category_id=categories.id  AND products.status=1 AND products.category_id = $category_id";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
