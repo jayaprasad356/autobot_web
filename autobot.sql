@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2023 at 09:17 AM
+-- Generation Time: Jan 24, 2023 at 06:35 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -182,6 +182,28 @@ CREATE TABLE `booked_services` (
 INSERT INTO `booked_services` (`id`, `bike_name`, `date`, `time`, `type`, `price`, `status`) VALUES
 (1, 'Yamaha R15 v3', '2022-11-25', '10:26:00', 'Emergency', '', 0),
 (2, 'Pulsar NS160', '2022-01-12', '09:45:20', 'General', '1500', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
+(1, 1, 1, 2, '2023-01-24 05:32:55'),
+(2, 2, 3, 1, '2023-01-24 05:34:54');
 
 -- --------------------------------------------------------
 
@@ -888,6 +910,12 @@ ALTER TABLE `booked_services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -1087,6 +1115,12 @@ ALTER TABLE `bike_services`
 -- AUTO_INCREMENT for table `booked_services`
 --
 ALTER TABLE `booked_services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
