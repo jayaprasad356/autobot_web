@@ -69,7 +69,7 @@ if (isset($_POST['btnUpdate'])) {
 				if (!empty($old_image)) {
 					unlink($old_image);
 				}
-				$upload_image = 'upload/vehicles/' . $filename;
+				$upload_image =$filename;
 				$sql = "UPDATE used_vehicles SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
 				$db->sql($sql);
 			}
@@ -93,7 +93,7 @@ if (isset($_POST['btnUpdate'])) {
 				   if (!empty($old_image1)) {
 					   unlink( $old_image1);
 				   }
-				   $upload_image1 = 'upload/vehicles/' . $filename;
+				   $upload_image1 =$filename;
 				   $sql = "UPDATE used_vehicles SET image1='$upload_image1' WHERE id =  $ID";
 				   $db->sql($sql);
 			   }
@@ -119,7 +119,7 @@ if (isset($_POST['btnUpdate'])) {
 				   if (!empty($old_image2)) {
 					   unlink( $old_image2);
 				   }
-				   $upload_image2 = 'upload/vehicles/' . $filename;
+				   $upload_image2 = $filename;
 				   $sql = "UPDATE used_vehicles SET image2='$upload_image2' WHERE id =  $ID";
 				   $db->sql($sql);
 			   }
@@ -145,11 +145,11 @@ if (isset($_POST['btnUpdate'])) {
 				   if (!empty($old_image3)) {
 					   unlink( $old_image3);
 				   }
-				   $upload_image3 = 'upload/vehicles/' . $filename;
+				   $upload_image3 =$filename;
 				   $sql = "UPDATE used_vehicles SET image3='$upload_image3' WHERE id =  $ID";
 				   $db->sql($sql);
 			   }
-            $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',km_driven='$km_driven',price='$price',location='$location',image='$upload_image',color='$color',status='$status' WHERE id =  $ID";
+            $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',km_driven='$km_driven',price='$price',location='$location',color='$color',status='$status' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -193,10 +193,10 @@ $res = $db->getResult();
                 <!-- form start -->
                 <form name="edit_vehicle_form" method="post" enctype="multipart/form-data">
                     <div class="box-body">
-                      <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
-                      <input type="hidden" id="old_image1" name="old_image1"  value="<?= $res[0]['image1']; ?>">
-                      <input type="hidden" id="old_image2" name="old_image2"  value="<?= $res[0]['image2']; ?>">
-                      <input type="hidden" id="old_image3" name="old_image3"  value="<?= $res[0]['old_image3']; ?>">
+                      <input type="hidden" id="old_image" name="old_image"  value="<?= "../upload/vehicles/".$res[0]['image']; ?>">
+                      <input type="hidden" id="old_image1" name="old_image1"  value="<?=  "../upload/vehicles/".$res[0]['image1']; ?>">
+                      <input type="hidden" id="old_image2" name="old_image2"  value="<?= "../upload/vehicles/".$res[0]['image2']; ?>">
+                      <input type="hidden" id="old_image3" name="old_image3"  value="<?= "../upload/vehicles/".$res[0]['image3']; ?>">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -261,7 +261,7 @@ $res = $db->getResult();
                                 <div class="form-group">
 									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
                                         <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
-                                        <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
+                                        <p class="help-block"><img id="blah" src="<?php echo "../upload/vehicles/".$res[0]['image']; ?>" style="max-width:100%" /></p>
                                 </div>
                             </div>
                             <div class='col-md-4'>
@@ -281,18 +281,18 @@ $res = $db->getResult();
                             <div class='col-md-4'>
                                     <label for="exampleInputFile">Image1</label>
                                     <input type="file" accept="image/png,  image/jpeg"  name="image1" id="image1">
-                                    <p class="help-block"><img id="blan" src="<?php echo $res[0]['image1']; ?>" style="max-width:50%;padding:4px;" /></p>
+                                    <p class="help-block"><img id="blan" src="<?php echo "../upload/vehicles/".$res[0]['image1']; ?>" style="max-width:50%;padding:4px;" /></p>
                             </div>
                             <div class='col-md-4'>
                                         <label for="exampleInputFile">Image2</label>
                                     <input type="file" accept="image/png,  image/jpeg"  name="image2" id="image2">
-                                    <p class="help-block"><img id="blas" src="<?php echo  $res[0]['image2']; ?>" style="max-width:50%;padding:4px;" /></p>
+                                    <p class="help-block"><img id="blas" src="<?php echo  "../upload/vehicles/".$res[0]['image2']; ?>" style="max-width:50%;padding:4px;" /></p>
                             </div>
                             <div class="col-md-4">
                                 <label for="exampleInputFile">Image3</label><i class="text-danger asterik">*</i>
                                 
                                 <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image3" id="image3">
-                                <p class="help-block"><img id="blah" src="<?php echo $res[0]['image3']; ?>" style="height:100px;max-width:100%" /></p>
+                                <p class="help-block"><img id="blah" src="<?php echo "../upload/vehicles/".$res[0]['image3']; ?>" style="height:100px;max-width:100%" /></p>
                             </div>
                         </div>
                     </div>

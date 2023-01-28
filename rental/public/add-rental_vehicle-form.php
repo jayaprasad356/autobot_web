@@ -64,7 +64,7 @@ if (isset($_POST['btnAdd'])) {
                 $upload = move_uploaded_file($_FILES['bike_image']['tmp_name'], '../upload/rentals/' . $menu_image);
         
                 // insert new data to menu table
-                $upload_image = 'upload/rentals/' . $menu_image;
+                $upload_image = $menu_image;
            
             $sql_query = "INSERT INTO rental_vehicles (rental_category_id,pincode,image,status) VALUES ('$rental_category_id','$pincode','$upload_image',1)";
             $db->sql($sql_query);

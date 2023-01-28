@@ -68,12 +68,12 @@ if (isset($_POST['btnUpdate'])) {
 				if (!empty($old_image)) {
 					unlink($old_image);
 				}
-				$upload_image = 'upload/rentals/' . $filename;
+				$upload_image = $filename;
 				$sql = "UPDATE rental_vehicles SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
 				$db->sql($sql);
 			}
            
-            $sql_query = "UPDATE rental_vehicles SET rental_category_id='$rental_category_id',pincode='$pincode',image='$upload_image',status='$status' WHERE id =  $ID";
+            $sql_query = "UPDATE rental_vehicles SET rental_category_id='$rental_category_id',pincode='$pincode',status='$status' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -146,7 +146,7 @@ $res = $db->getResult();
                 <form name="edit_vehicle_form" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                     <input type="hidden" class="form-control" name="rental_category_id"  value="<?php echo $rental_category_id ?>" readonly >
-                      <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
+                      <input type="hidden" id="old_image" name="old_image"  value="<?= "../upload/rentals/".$res[0]['image']; ?>">
                          <div class="row">
                            <div class="col-md-4">
                                 <div class="form-group">
@@ -192,7 +192,7 @@ $res = $db->getResult();
                                 <div class="form-group">
 									     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i>
                                         <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
-                                        <p class="help-block"><img id="blah" src="<?php echo "../".$res[0]['image']; ?>" style="max-width:100%" /></p>
+                                        <p class="help-block"><img id="blah" src="<?php echo "../upload/rentals/".$res[0]['image']; ?>" style="max-width:100%" /></p>
                                 </div>
                             </div>   
                           

@@ -87,7 +87,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
         $tempRow['rental_category_id'] = $row['rental_category_id'];
         $tempRow['pincode'] = $row['pincode'];
         if (!empty($row['image'])) {
-            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
+            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../upload/rentals/" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
         } else {
             $tempRow['image'] = 'No Image';
         }

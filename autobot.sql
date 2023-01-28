@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2023 at 11:22 AM
+-- Generation Time: Jan 28, 2023 at 01:14 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -547,9 +547,6 @@ CREATE TABLE `rental_vehicles` (
   `rental_category_id` int(11) DEFAULT NULL,
   `pincode` varchar(255) DEFAULT NULL,
   `image` text DEFAULT NULL,
-  `image1` text DEFAULT NULL,
-  `image2` text DEFAULT NULL,
-  `image3` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -557,9 +554,8 @@ CREATE TABLE `rental_vehicles` (
 -- Dumping data for table `rental_vehicles`
 --
 
-INSERT INTO `rental_vehicles` (`id`, `rental_category_id`, `pincode`, `image`, `image1`, `image2`, `image3`, `status`) VALUES
-(1, 2, '675894', 'upload/rentals/1663736961.0766.jpg', NULL, NULL, NULL, 1),
-(2, 1, '675894', 'upload/rentals/5559-2023-01-28.jpg', 'upload/rentals/4051-2023-01-28.jpg', 'upload/rentals/2401-2023-01-28.jpg', 'upload/rentals/4013-2023-01-28.jpg', 1);
+INSERT INTO `rental_vehicles` (`id`, `rental_category_id`, `pincode`, `image`, `status`) VALUES
+(1, 2, '621313', '1674908016.0608.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -825,7 +821,7 @@ CREATE TABLE `used_vehicles` (
 --
 
 INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `km_driven`, `price`, `location`, `image`, `image1`, `image2`, `image3`, `color`, `status`) VALUES
-(1, 2, 'Yamaha', 'R15 V3M', '2022', '5000', '222000', 'Kattur,Trichy', '1674901265.6303.jpg', '1674901265.6308.jpg', '1674901265.6313.jpg', '1674901265.6319.jpg', 'blue', 1);
+(1, 1, 'KTM', 'Duke 200', '2018', '14320', '220000', 'Coimbatore', '1674906579.803.jpg', '1674906508.2295.jpg', '1674906508.2341.jpg', '1674906508.2393.jpg', 'Orange', 1);
 
 -- --------------------------------------------------------
 
@@ -1218,7 +1214,7 @@ ALTER TABLE `rental_showrooms`
 -- AUTO_INCREMENT for table `rental_vehicles`
 --
 ALTER TABLE `rental_vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `seller`
