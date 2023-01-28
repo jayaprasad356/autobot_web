@@ -24,6 +24,21 @@ if (isset($_POST['btnAdd'])) {
         $image_error = $db->escapeString($_FILES['bike_image']['error']);
         $image_type = $db->escapeString($_FILES['bike_image']['type']);
 
+        //image1 info
+        $menu_image = $db->escapeString($_FILES['image1']['name']);
+        $image_error = $db->escapeString($_FILES['image1']['error']);
+        $image_type = $db->escapeString($_FILES['image1']['type']);
+
+        //image2 info
+        $menu_image = $db->escapeString($_FILES['image2']['name']);
+        $image_error = $db->escapeString($_FILES['image2']['error']);
+        $image_type = $db->escapeString($_FILES['image2']['type']);
+
+        //image3 info
+        $menu_image = $db->escapeString($_FILES['image3']['name']);
+        $image_error = $db->escapeString($_FILES['image3']['error']);
+        $image_type = $db->escapeString($_FILES['image3']['type']);
+
         // create array variable to handle error
         $error = array();
             // common image file extensions
@@ -32,6 +47,18 @@ if (isset($_POST['btnAdd'])) {
         // get image file extension
         error_reporting(E_ERROR | E_PARSE);
         $extension = end(explode(".", $_FILES["bike_image"]["name"]));
+
+        //get image1 file extension
+        error_reporting(E_ERROR | E_PARSE);
+        $extension = end(explode(".", $_FILES["image1"]["name"]));
+
+        //get image2 file extension
+        error_reporting(E_ERROR | E_PARSE);
+        $extension = end(explode(".", $_FILES["image2"]["name"]));
+        
+        //get image3 file extension
+        error_reporting(E_ERROR | E_PARSE);
+        $extension = end(explode(".", $_FILES["image3"]["name"]));
         
 
         if (empty($brand)) {
@@ -69,8 +96,54 @@ if (isset($_POST['btnAdd'])) {
         
                 // insert new data to menu table
                 $upload_image = 'upload/vehicles/' . $menu_image;
+                $upload_image1 ='';
+                $upload_image2 ='';
+                $upload_image3 ='';
+
+                //image1 info
+                if ($_FILES['image1']['size'] != 0 && $_FILES['image1']['error'] == 0 && !empty($_FILES['image1'])){
+                    // create random image1 file name
+                    $string = '0123456789';
+                    $file = preg_replace("/\s+/", "_", $_FILES['image1']['name']);
+                    $image1 = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
+    
+                    //upload new image1
+                    $upload = move_uploaded_file($_FILES['image1']['tmp_name'], '../upload/vehicles/' . $image1);
+    
+                    // insert new data to menu table
+                    $upload_image1 = 'upload/vehicles/' . $image1;
+               
+                }
+                 //image2 info
+                if ($_FILES['image2']['size'] != 0 && $_FILES['image2']['error'] == 0 && !empty($_FILES['image2'])){
+                    // create random image2 file name
+                    $string = '0123456789';
+                    $file = preg_replace("/\s+/", "_", $_FILES['image2']['name']);
+                    $image2 = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
+        
+                    //upload new image2
+                    $upload = move_uploaded_file($_FILES['image2']['tmp_name'], '../upload/vehicles/' . $image2);
+        
+                    // insert new data to menu table
+                    $upload_image2 = 'upload/vehicles/' . $image2;
+
+                }
+                //image3 info
+                if ($_FILES['image3']['size'] != 0 && $_FILES['image3']['error'] == 0 && !empty($_FILES['image3'])){
+                    // create random image2 file name
+                    $string = '0123456789';
+                    $file = preg_replace("/\s+/", "_", $_FILES['image3']['name']);
+                    $image3 = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
+        
+                    //upload new image2
+                    $upload = move_uploaded_file($_FILES['image3']['tmp_name'], '../upload/vehicles/' . $image2);
+        
+                    // insert new data to menu table
+                    $upload_image3 = 'upload/vehicles/' . $image3;
+
+                }
            
-            $sql_query = "INSERT INTO used_vehicles (seller_id,brand,bike_name,model,km_driven,price,location,image,color) VALUES ('$seller_id','$brand','$bike_name','$model','$km_driven','$price','$location','$upload_image','$color')";
+            $sql_query = "INSERT INTO used_vehicles (user_id,brand,bike_name,model,km_driven,price,location,image,image1,image2,image3,color) VALUES ('$seller_id','$brand','$bike_name','$model','$km_driven','$price','$location','$upload_image','$upload_image1','$upload_image2','$upload_image3','$color')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -167,15 +240,36 @@ if (isset($_POST['btnAdd'])) {
                                 </div>
                             </div>
                         </div>
+                        <br>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_image']) ? $error['bike_image'] : ''; ?>
                                     <input type="file" name="bike_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="bike_image" />
                                 </div>
                                 <div class="form-group">
                                     <img id="blah" src="#" alt="" />
-
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                    <label for="exampleInputFile">Image1</label><?php echo isset($error['image1']) ? $error['image1'] : ''; ?>
+                                    <input type="file" name="image1" accept="image/png,  image/jpeg" id="image1" />
+                                    <div class="form-group">
+                                        <img id="blan" src="#" alt="image" />
+                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                    <label for="exampleInputFile">Image2</label><?php echo isset($error['image2']) ? $error['image2'] : ''; ?>
+                                    <input type="file" name="image2" accept="image/png,  image/jpeg" id="image2"/>
+                                    <div class="form-group">
+                                        <img id="blas" src="#" alt="image" />
+                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="exampleInputFile">Image3</label><?php echo isset($error['image3']) ? $error['image3'] : ''; ?>
+                                <input type="file" name="image3" accept="image/png,  image/jpeg" id="image3" />
+                                <div class="form-group">
+                                    <img id="blan" src="#" alt="image" />
                                 </div>
                             </div>
                         </div>

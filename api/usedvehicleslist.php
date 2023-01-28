@@ -36,7 +36,10 @@ if ($num >= 1) {
         $temp['price'] = $row['price'];
         $temp['location'] = $row['location'];
         $temp['color'] = $row['color'];
-        $temp['image'] = DOMAIN_URL ."upload/vehicles/".$row['image'];
+        $temp['bike_image'] = DOMAIN_URL ."upload/vehicles/".$row['image'];
+        $temp['image1'] = DOMAIN_URL ."upload/vehicles/".$row['image1'];
+        $temp['image2'] = DOMAIN_URL ."upload/vehicles/".$row['image2'];
+        $temp['image3'] = DOMAIN_URL ."upload/vehicles/".$row['image3'];
         $rows[] = $temp;
         
     }

@@ -73,7 +73,82 @@ if (isset($_POST['btnUpdate'])) {
 				$sql = "UPDATE used_vehicles SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
 				$db->sql($sql);
 			}
+              //image1
+			   if ($_FILES['image1']['size'] != 0 && $_FILES['image1']['error'] == 0 && !empty($_FILES['image1']))
+			   {
+				   $old_image1 = $db->escapeString($_POST['old_image1']);
+				   $extension = pathinfo($_FILES["image1"]["name"])['extension'];
+				   $new_image = $ID . "." . $extension;
+			
+				   $result = $fn->validate_image($_FILES["image1"]);
+				   $target_path = '../upload/vehicles/';
+				   
+				   $filename = microtime(true) . '.' . strtolower($extension);
+				   $full_path = $target_path . "" . $filename;
+				   if (!move_uploaded_file($_FILES["image1"]["tmp_name"], $full_path)) {
+					   echo '<p class="alert alert-danger">Can not upload image.</p>';
+					   return false;
+					   exit();
+				   }
+				   if (!empty($old_image1)) {
+					   unlink( $old_image1);
+				   }
+				   $upload_image1 = 'upload/vehicles/' . $filename;
+				   $sql = "UPDATE used_vehicles SET image1='$upload_image1' WHERE id =  $ID";
+				   $db->sql($sql);
+			   }
+   
+              //image2
+			   if ($_FILES['image2']['size'] != 0 && $_FILES['image2']['error'] == 0 && !empty($_FILES['image2']))
+			   {
+				   $old_image2 = $db->escapeString($_POST['old_image2']);
+				   $extension = pathinfo($_FILES["image2"]["name"])['extension'];
+				   $new_image = $ID . "." . $extension;
+				   
+   
+				   $result = $fn->validate_image($_FILES["image2"]);
+				   $target_path = '../upload/vehicles/';
+				   
+				   $filename = microtime(true) . '.' . strtolower($extension);
+				   $full_path = $target_path . "" . $filename;
+				   if (!move_uploaded_file($_FILES["image2"]["tmp_name"], $full_path)) {
+					   echo '<p class="alert alert-danger">Can not upload image.</p>';
+					   return false;
+					   exit();
+				   }
+				   if (!empty($old_image2)) {
+					   unlink( $old_image2);
+				   }
+				   $upload_image2 = 'upload/vehicles/' . $filename;
+				   $sql = "UPDATE used_vehicles SET image2='$upload_image2' WHERE id =  $ID";
+				   $db->sql($sql);
+			   }
            
+                 //image3
+			   if ($_FILES['image3']['size'] != 0 && $_FILES['image3']['error'] == 0 && !empty($_FILES['image3']))
+			   {
+				   $old_image3 = $db->escapeString($_POST['old_image3']);
+				   $extension = pathinfo($_FILES["image3"]["name"])['extension'];
+				   $new_image = $ID . "." . $extension;
+				   
+   
+				   $result = $fn->validate_image($_FILES["image3"]);
+				   $target_path = '../upload/vehicles/';
+				   
+				   $filename = microtime(true) . '.' . strtolower($extension);
+				   $full_path = $target_path . "" . $filename;
+				   if (!move_uploaded_file($_FILES["image3"]["tmp_name"], $full_path)) {
+					   echo '<p class="alert alert-danger">Can not upload image.</p>';
+					   return false;
+					   exit();
+				   }
+				   if (!empty($old_image3)) {
+					   unlink( $old_image3);
+				   }
+				   $upload_image3 = 'upload/vehicles/' . $filename;
+				   $sql = "UPDATE used_vehicles SET image3='$upload_image3' WHERE id =  $ID";
+				   $db->sql($sql);
+			   }
             $sql_query = "UPDATE used_vehicles SET brand='$brand',bike_name='$bike_name',model='$model',km_driven='$km_driven',price='$price',location='$location',image='$upload_image',color='$color',status='$status' WHERE id =  $ID";
             $db->sql($sql_query);
             $result = $db->getResult();
@@ -119,6 +194,9 @@ $res = $db->getResult();
                 <form name="edit_vehicle_form" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                       <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
+                      <input type="hidden" id="old_image1" name="old_image1"  value="<?= $res[0]['image1']; ?>">
+                      <input type="hidden" id="old_image2" name="old_image2"  value="<?= $res[0]['image2']; ?>">
+                      <input type="hidden" id="old_image3" name="old_image3"  value="<?= $res[0]['old_image3']; ?>">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -196,6 +274,25 @@ $res = $db->getResult();
                                         <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Available
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class='col-md-4'>
+                                    <label for="exampleInputFile">Image1</label>
+                                    <input type="file" accept="image/png,  image/jpeg"  name="image1" id="image1">
+                                    <p class="help-block"><img id="blan" src="<?php echo $res[0]['image1']; ?>" style="max-width:50%;padding:4px;" /></p>
+                            </div>
+                            <div class='col-md-4'>
+                                        <label for="exampleInputFile">Image2</label>
+                                    <input type="file" accept="image/png,  image/jpeg"  name="image2" id="image2">
+                                    <p class="help-block"><img id="blas" src="<?php echo  $res[0]['image2']; ?>" style="max-width:50%;padding:4px;" /></p>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="exampleInputFile">Image3</label><i class="text-danger asterik">*</i>
+                                
+                                <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image3" id="image3">
+                                <p class="help-block"><img id="blah" src="<?php echo $res[0]['image3']; ?>" style="height:100px;max-width:100%" /></p>
                             </div>
                         </div>
                     </div>

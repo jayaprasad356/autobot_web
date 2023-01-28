@@ -29,6 +29,7 @@ if (isset($_POST['btnAdd'])) {
 
         $rental_category_id = $db->escapeString($_POST['rental_category_id']);
         $pincode = $db->escapeString($_POST['pincode']);
+        $error = array();
 
 
         // get image info
@@ -36,15 +37,13 @@ if (isset($_POST['btnAdd'])) {
         $image_error = $db->escapeString($_FILES['bike_image']['error']);
         $image_type = $db->escapeString($_FILES['bike_image']['type']);
 
-        // create array variable to handle error
-        $error = array();
-            // common image file extensions
+        // common image file extensions
         $allowedExts = array("gif", "jpeg", "jpg", "png");
 
         // get image file extension
         error_reporting(E_ERROR | E_PARSE);
         $extension = end(explode(".", $_FILES["bike_image"]["name"]));
-        
+
 
         if (empty($rental_category_id)) {
             $error['rental_category_id'] = " <span class='label label-danger'>Required!</span>";
@@ -179,15 +178,13 @@ if (isset($_POST['btnAdd'])) {
                                     <input type="text" class="form-control" name="pincode" required>
                                 </div>
                             </div>
-                           
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_image']) ? $error['bike_image'] : ''; ?>
+                                    <label for="exampleInputFile">Bike Image</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_image']) ? $error['bike_image'] : ''; ?>
                                     <input type="file" name="bike_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="bike_image" />
                                 </div>
                                 <div class="form-group">
                                     <img id="blah" src="#" alt="" />
-
                                 </div>
                             </div>
                         </div>

@@ -27,15 +27,18 @@ $db->sql($sql_query);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num==1){
-    // $target_path =  DOMAIN_URL ."upload/vehicles/".$res[0]['image'];
-	// 		if(unlink($target_path)){	
-					$sql_query = "DELETE  FROM used_vehicles WHERE id =" . $used_vehicle_id;
-					$db->sql($sql_query);
-					$res = $db->getResult();
-                    $response['success'] = true;
-                    $response['message'] = "Vehicle Removed Successfully";
-                    print_r(json_encode($response));
-    // }
+    $target_path =  DOMAIN_URL ."upload/vehicles/".$res[0]['image'];
+    $target_path1 =  DOMAIN_URL ."upload/vehicles/".$res[0]['image1'];
+	$target_path2 = DOMAIN_URL ."upload/vehicles/".$res[0]['image2'];
+    $target_path3 = DOMAIN_URL ."upload/vehicles/".$res[0]['image3'];
+    if(unlink($target_path) && unlink($target_path1) && unlink($target_path2) && unlink($target_path3)){	
+            $sql_query = "DELETE  FROM used_vehicles WHERE id =" . $used_vehicle_id;
+            $db->sql($sql_query);
+            $res = $db->getResult();
+            $response['success'] = true;
+            $response['message'] = "Vehicle Removed Successfully";
+            print_r(json_encode($response));
+    }
 }
 else{
     $response['success'] = false;

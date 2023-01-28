@@ -51,25 +51,13 @@ if (empty($_POST['model'])) {
     return false;
 }
 
-if (empty($_POST['vehicle_no'])) {
-    $response['success'] = false;
-    $response['message'] = "Vehicle Number is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-
 if (empty($_POST['km_driven'])) {
     $response['success'] = false;
     $response['message'] = "Kilometer Driven is Empty";
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['insurance'])) {
-    $response['success'] = false;
-    $response['message'] = "Insurance Status is Empty";
-    print_r(json_encode($response));
-    return false;
-}
+
 if (empty($_POST['price'])) {
     $response['success'] = false;
     $response['message'] = "Price is Empty";
@@ -88,18 +76,6 @@ if (empty($_POST['color'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['fuel'])) {
-    $response['success'] = false;
-    $response['message'] = "Type of Fuel is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-if (empty($_POST['owner'])) {
-    $response['success'] = false;
-    $response['message'] = "Owner is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 $used_vehicle_id = $db->escapeString($_POST['used_vehicle_id']);
 $user_id = $db->escapeString($_POST['user_id']);
 $brand = $db->escapeString($_POST['brand']);
@@ -115,6 +91,28 @@ $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num==1){
+    if (isset($_FILES['image']) && !empty($_FILES['image']) && $_FILES['image']['error'] == 0 && $_FILES['image']['size'] > 0) {
+        if (!empty($res[0]['image'])) {
+            $old_image = $res[0]['image'];
+            if ( !empty($old_image)) {
+                unlink('../upload/vehicles/' . $old_image);
+            }
+        }
+    
+        $image = $db->escapeString($fn->xss_clean($_FILES['image']['name']));
+        $extension = pathinfo($_FILES["image"]["name"])['extension'];
+    
+        $filename = microtime(true) . '.' . strtolower($extension);
+        $full_path = 'upload/vehicles/' . "" . $filename;
+        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $full_path)) {
+            $response["error"]   = true;
+            $response["message"] = "Invalid directory to load license!";
+            print_r(json_encode($response));
+            return false;
+        }
+        $sql = "UPDATE used_vehicles SET `image`='$filename' WHERE id=" . $used_vehicle_id;
+        $db->sql($sql);
+    }
     $sql = "UPDATE used_vehicles SET `user_id`='$user_id',`brand`='$brand',`bike_name`='$bike_name',`model`='$model',`km_driven`='$km_driven',`price`='$price',`location`='$location',`color`='$color' WHERE id=" . $used_vehicle_id;
     $db->sql($sql);
     $res = $db->getResult();
