@@ -31,10 +31,9 @@ if ($num >= 1){
         
             foreach ($res as $row) {
                 $temp['id'] = $row['id'];
-                $temp['mobile'] = $row['mobile'];
-                $temp['name'] =$row['name'];
+                $temp['user_id'] = $row['user_id'];
                 $temp['address'] = $row['address'];
-                $temp['pincode'] = $row['pincode'];
+                $temp['mobile'] = $row['mobile'];
                 $temp['product_name'] = $row['product_name'];
                 $temp['brand'] = $row['brand'];
                 $temp['image'] = DOMAIN_URL . $row['image'];

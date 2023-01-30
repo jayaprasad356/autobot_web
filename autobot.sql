@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 09:36 AM
+-- Generation Time: Jan 30, 2023 at 11:58 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -197,13 +197,6 @@ CREATE TABLE `cart` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
-(6, 1, 6, 3, '2023-01-30 07:57:59');
-
 -- --------------------------------------------------------
 
 --
@@ -326,16 +319,14 @@ INSERT INTO `notifications` (`id`, `title`, `description`) VALUES
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `mobile` text DEFAULT NULL,
-  `name` text DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `pincode` text DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `product_variant_id` int(11) DEFAULT NULL,
   `model` text DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `grand_total` decimal(10,2) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `mobile` text DEFAULT NULL,
   `order_date` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -344,9 +335,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `mobile`, `name`, `address`, `pincode`, `product_id`, `product_variant_id`, `model`, `quantity`, `price`, `grand_total`, `order_date`, `status`) VALUES
-(1, 2, '8428225519', 'Divakar', '1,Thayanur,Trichy', '643452', 6, 5, 'Yamaha FZ', 2, '450.00', '450.00', '2023-01-30', 1),
-(2, 1, '98489884', 'sanjay', 'Coimbatore', '643452', 6, 5, 'KTM dUKE200', 2, '370.00', '370.00', '2023-01-30', 1);
+INSERT INTO `orders` (`id`, `user_id`, `product_id`, `product_variant_id`, `model`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
+(1, 1, 6, 5, 'Yamaha FZ', 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
 
 -- --------------------------------------------------------
 
@@ -1129,7 +1119,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1165,7 +1155,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`

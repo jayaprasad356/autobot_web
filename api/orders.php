@@ -25,21 +25,9 @@ if (empty($_POST['mobile'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['name'])) {
-    $response['success'] = false;
-    $response['message'] = "Name is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 if (empty($_POST['address'])) {
     $response['success'] = false;
     $response['message'] = "Address is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-if (empty($_POST['pincode'])) {
-    $response['success'] = false;
-    $response['message'] = "Pincode is Empty";
     print_r(json_encode($response));
     return false;
 }
@@ -70,9 +58,7 @@ if (empty($_POST['grand_total'])) {
 
 $user_id = $db->escapeString($_POST['user_id']);
 $mobile = $db->escapeString($_POST['mobile']);
-$name = $db->escapeString($_POST['name']);
 $address = $db->escapeString($_POST['address']);
-$pincode = $db->escapeString($_POST['pincode']);
 $product_id = $db->escapeString($_POST['product_id']);
 $product_variant_id = $db->escapeString($_POST['product_variant_id']);
 $model = $db->escapeString($_POST['model']);
@@ -90,7 +76,7 @@ if($num>=1){
         $total = $row['price'];
         $quantity = $row['quantity'];
 
-        $sql = "INSERT INTO orders (`user_id`,`mobile`,`name`,`address`,`pincode`,`product_id`,`product_variant_id`,`model`,`quantity`,`price`,`grand_total`,`order_date`,`status`)VALUES('$user_id','$mobile','$name','$address','$pincode','$product_id','$product_variant_id','$model','$quantity','$total','$grand_total','$date',1)";
+        $sql = "INSERT INTO orders (`user_id`,`mobile`,`address`,`product_id`,`product_variant_id`,`model`,`quantity`,`price`,`grand_total`,`order_date`,`status`)VALUES('$user_id','$mobile','$address','$product_id','$product_variant_id','$model','$quantity','$total','$grand_total','$date',1)";
         $db->sql($sql);
         $sql = "DELETE FROM cart WHERE id = '$id'";
         $db->sql($sql);
