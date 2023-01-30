@@ -30,7 +30,7 @@ if($num==1){
     $response['message'] = "Checkout Retrived Successfully";
     $response['name'] = $res[0]['name'];
     $response['mobile'] = $res[0]['mobile'];
-    // $response['address'] = $res[0]['address'].','.$res[0]['village'].','.$res[0]['district'].'-'.$res[0]['pincode'];
+    $response['address'] =$res[0]['address'].'-'.$res[0]['city'].'-'.$res[0]['pincode'];
 
     $sql = "SELECT *,cart.id AS id,products.price * cart.quantity AS price   FROM cart,products WHERE cart.product_id=products.id AND cart.user_id='$user_id'";
     $db->sql($sql);

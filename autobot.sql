@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 07:14 AM
+-- Generation Time: Jan 30, 2023 at 09:36 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -197,6 +197,13 @@ CREATE TABLE `cart` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
+(6, 1, 6, 3, '2023-01-30 07:57:59');
+
 -- --------------------------------------------------------
 
 --
@@ -338,7 +345,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `mobile`, `name`, `address`, `pincode`, `product_id`, `product_variant_id`, `model`, `quantity`, `price`, `grand_total`, `order_date`, `status`) VALUES
-(1, 2, '8428225519', 'Divakar', '1,Thayanur,Trichy', '643452', 6, 5, 'Yamaha FZ', 2, '450.00', '450.00', '2023-01-30', 1);
+(1, 2, '8428225519', 'Divakar', '1,Thayanur,Trichy', '643452', 6, 5, 'Yamaha FZ', 2, '450.00', '450.00', '2023-01-30', 1),
+(2, 1, '98489884', 'sanjay', 'Coimbatore', '643452', 6, 5, 'KTM dUKE200', 2, '370.00', '370.00', '2023-01-30', 1);
 
 -- --------------------------------------------------------
 
@@ -849,6 +857,9 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `city` text DEFAULT NULL,
+  `pincode` int(11) DEFAULT NULL,
   `status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -856,9 +867,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `mobile`, `status`) VALUES
-(1, 'Divakar', '1234567890', '0'),
-(2, 'Senthilganesh', '9876543234', '1');
+INSERT INTO `users` (`id`, `name`, `mobile`, `address`, `city`, `pincode`, `status`) VALUES
+(1, 'Divakar', '1234567890', 'Nellur', 'Trichirapalli', 654889, '0'),
+(2, 'Senthilganesh', '9876543234', NULL, NULL, NULL, '1');
 
 --
 -- Indexes for dumped tables
@@ -1118,7 +1129,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1154,7 +1165,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
