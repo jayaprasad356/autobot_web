@@ -31,18 +31,6 @@ if (empty($_POST['address'])) {
     print_r(json_encode($response));
     return false;
 }
-if (empty($_POST['product_id'])) {
-    $response['success'] = false;
-    $response['message'] = "Product Id is Empty";
-    print_r(json_encode($response));
-    return false;
-}
-if (empty($_POST['product_variant_id'])) {
-    $response['success'] = false;
-    $response['message'] = "Product Variant Id is Empty";
-    print_r(json_encode($response));
-    return false;
-}
 if (empty($_POST['model'])) {
     $response['success'] = false;
     $response['message'] = "Model is Empty";
@@ -59,11 +47,8 @@ if (empty($_POST['grand_total'])) {
 $user_id = $db->escapeString($_POST['user_id']);
 $mobile = $db->escapeString($_POST['mobile']);
 $address = $db->escapeString($_POST['address']);
-$product_id = $db->escapeString($_POST['product_id']);
-$product_variant_id = $db->escapeString($_POST['product_variant_id']);
 $model = $db->escapeString($_POST['model']);
 $grand_total = $db->escapeString($_POST['grand_total']);
-// $customised_tyre_size = (isset($_POST['customised_tyre_size']) && !empty($_POST['customised_tyre_size'])) ? trim($db->escapeString($_POST['customised_tyre_size'])) : "";
 $date = date('Y-m-d');
 $sql = "SELECT *,cart.id AS id  FROM cart,products WHERE cart.product_id=products.id AND cart.user_id='$user_id'";
 $db->sql($sql);
@@ -76,7 +61,7 @@ if($num>=1){
         $total = $row['price'];
         $quantity = $row['quantity'];
 
-        $sql = "INSERT INTO orders (`user_id`,`mobile`,`address`,`product_id`,`product_variant_id`,`model`,`quantity`,`price`,`grand_total`,`order_date`,`status`)VALUES('$user_id','$mobile','$address','$product_id','$product_variant_id','$model','$quantity','$total','$grand_total','$date',1)";
+        $sql = "INSERT INTO orders (`user_id`,`mobile`,`address`,`product_id`,`model`,`quantity`,`price`,`grand_total`,`order_date`,`status`)VALUES('$user_id','$mobile','$address','$product_id','$model','$quantity','$total','$grand_total','$date',1)";
         $db->sql($sql);
         $sql = "DELETE FROM cart WHERE id = '$id'";
         $db->sql($sql);

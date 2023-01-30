@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 11:58 AM
+-- Generation Time: Jan 30, 2023 at 12:14 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -320,7 +320,6 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `product_variant_id` int(11) DEFAULT NULL,
   `model` text DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
@@ -335,8 +334,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `product_id`, `product_variant_id`, `model`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
-(1, 1, 6, 5, 'Yamaha FZ', 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
+INSERT INTO `orders` (`id`, `user_id`, `product_id`, `model`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
+(1, 1, 6, 'Yamaha FZ', 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
 
 -- --------------------------------------------------------
 
@@ -1119,7 +1118,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
