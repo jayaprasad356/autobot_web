@@ -24,7 +24,7 @@ $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1){
     
-        $sql = "SELECT *,products.image AS image,orders.model AS model,orders.price AS price,orders.id AS id FROM orders,products WHERE orders.product_id = products.id AND orders.user_id='$user_id'";
+        $sql = "SELECT *,products.image AS image,orders.model AS model,orders.price AS price,orders.id AS id,orders.order_date FROM orders,products WHERE orders.product_id = products.id AND orders.user_id='$user_id'";
         $db->sql($sql);
         $res = $db->getResult();
         $num = $db->numRows($res);
@@ -40,6 +40,7 @@ if ($num >= 1){
                 $temp['image'] = DOMAIN_URL . $row['image'];
                 $temp['model'] = $row['model'];
                 $temp['price'] = $row['price'];
+                $temp['order_date'] = $row['order_date'];
                 $rows[] = $temp;
                 
             }

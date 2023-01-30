@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2023 at 01:14 PM
+-- Generation Time: Jan 30, 2023 at 06:37 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -197,14 +197,6 @@ CREATE TABLE `cart` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
-(1, 1, 6, 2, '2023-01-24 05:32:55'),
-(2, 2, 8, 1, '2023-01-24 05:34:54');
-
 -- --------------------------------------------------------
 
 --
@@ -334,7 +326,10 @@ CREATE TABLE `orders` (
   `product_id` int(11) DEFAULT NULL,
   `product_variant_id` int(11) DEFAULT NULL,
   `model` text DEFAULT NULL,
-  `price` text DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `grand_total` decimal(10,2) DEFAULT NULL,
+  `order_date` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -342,9 +337,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `mobile`, `name`, `address`, `pincode`, `product_id`, `product_variant_id`, `model`, `price`, `status`) VALUES
-(1, 1, '7358832695', 'Henry', '1,Thayanur,Trichy', '643452', 6, 5, NULL, NULL, 1),
-(2, 2, '8428225519', 'Divakar', '1,Thayanur,Trichy', '643452', 6, 5, 'Yamaha FZ', '500', 1);
+INSERT INTO `orders` (`id`, `user_id`, `mobile`, `name`, `address`, `pincode`, `product_id`, `product_variant_id`, `model`, `quantity`, `price`, `grand_total`, `order_date`, `status`) VALUES
+(1, 2, '8428225519', 'Divakar', '1,Thayanur,Trichy', '643452', 6, 5, 'Yamaha FZ', 2, '450.00', '450.00', '2023-01-30', 1);
 
 -- --------------------------------------------------------
 
@@ -370,8 +364,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `model`, `price`, `description`, `image`, `ratings`, `status`) VALUES
-(1, 5, 'Engine Oil', 'Racer', '', '', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333, 1),
-(6, 2, 'Handle Miror', 'jace', NULL, NULL, 'cdsce', 'upload/products/1659119349.1368.jpg', NULL, 1),
+(1, 5, 'Engine Oil', 'Racer', '', '270', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333, 1),
+(6, 2, 'Handle Miror', 'jace', NULL, '450', 'cdsce', 'upload/products/1659119349.1368.jpg', NULL, 1),
 (8, 3, 'Front tyre', 'MRF', 'Splender', '600', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg', NULL, 1);
 
 -- --------------------------------------------------------
@@ -1124,7 +1118,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1160,7 +1154,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`

@@ -6,6 +6,7 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+date_default_timezone_set('Asia/Kolkata');
 
 
 include_once('../includes/crud.php');
@@ -34,6 +35,7 @@ if (empty($_POST['quantity'])) {
 $user_id = $db->escapeString($_POST['user_id']);
 $product_id = $db->escapeString($_POST['product_id']);
 $quantity = $db->escapeString($_POST['quantity']);
+$datetime = date('Y-m-d H:i:s');
 
 $sql = "SELECT * FROM cart WHERE user_id = '" . $user_id . "' AND product_id = '" . $product_id . "'";
 $db->sql($sql);
@@ -54,7 +56,7 @@ if ($num >= 1) {
 
 }
 else {
-    $sql = "INSERT INTO cart(`user_id`,`product_id`,`quantity`)VALUES('$user_id','$product_id','$quantity')";
+    $sql = "INSERT INTO cart(`user_id`,`product_id`,`quantity`,`date_created`)VALUES('$user_id','$product_id','$quantity','$datetime')";
     $db->sql($sql);
     $res = $db->getResult();
     $response['success'] = true;
