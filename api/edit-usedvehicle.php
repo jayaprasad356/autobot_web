@@ -90,29 +90,96 @@ $sql = "SELECT * FROM used_vehicles WHERE id=" . $used_vehicle_id;
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
-if($num==1){
-    if (isset($_FILES['image']) && !empty($_FILES['image']) && $_FILES['image']['error'] == 0 && $_FILES['image']['size'] > 0) {
-        if (!empty($res[0]['image'])) {
-            $old_image = $res[0]['image'];
-            if ( !empty($old_image)) {
-                unlink('../upload/vehicles/' . $old_image);
-            }
-        }
-    
-        $image = $db->escapeString($fn->xss_clean($_FILES['image']['name']));
+if($num>=1){
+    if (isset($_FILES['image']) && $_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0) {
+        //image isn't empty and update the image
+        $old_image="../upload/vehicles/".$res[0]['image'];
         $extension = pathinfo($_FILES["image"]["name"])['extension'];
-    
+
+        $result = $fn->validate_image($_FILES["image"]);
+        $target_path = '../upload/vehicles/';
+        
         $filename = microtime(true) . '.' . strtolower($extension);
-        $full_path = 'upload/vehicles/' . "" . $filename;
+        $full_path = $target_path . "" . $filename;
         if (!move_uploaded_file($_FILES["image"]["tmp_name"], $full_path)) {
-            $response["error"]   = true;
-            $response["message"] = "Invalid directory to load license!";
-            print_r(json_encode($response));
+            echo '<p class="alert alert-danger">Can not upload image.</p>';
             return false;
+            exit();
         }
-        $sql = "UPDATE used_vehicles SET `image`='$filename' WHERE id=" . $used_vehicle_id;
+        if (!empty($old_image)) {
+            unlink($old_image);
+        }
+        $upload_image =$filename;
+        $sql = "UPDATE used_vehicles SET `image`='" . $upload_image . "' WHERE `id`=" . $used_vehicle_id;
         $db->sql($sql);
     }
+    if (isset($_FILES['image1']) && $_FILES['image1']['size'] != 0 && $_FILES['image1']['error'] == 0) {
+        //image isn't empty and update the image
+        $old_image1="../upload/vehicles/".$res[0]['image1'];
+        $extension = pathinfo($_FILES["image1"]["name"])['extension'];
+
+        $result = $fn->validate_image($_FILES["image1"]);
+        $target_path = '../upload/vehicles/';
+        
+        $filename = microtime(true) . '.' . strtolower($extension);
+        $full_path = $target_path . "" . $filename;
+        if (!move_uploaded_file($_FILES["image1"]["tmp_name"], $full_path)) {
+            echo '<p class="alert alert-danger">Can not upload image.</p>';
+            return false;
+            exit();
+        }
+        if (!empty($old_image1)) {
+            unlink($old_image1);
+        }
+        $upload_image1 =$filename;
+        $sql = "UPDATE used_vehicles SET `image1`='" . $upload_image1 . "' WHERE `id`=" . $used_vehicle_id;
+        $db->sql($sql);
+    }
+    if (isset($_FILES['image2']) && $_FILES['image2']['size'] != 0 && $_FILES['image2']['error'] == 0) {
+        //image isn't empty and update the image
+        $old_image2="../upload/vehicles/".$res[0]['image2'];
+        $extension = pathinfo($_FILES["image2"]["name"])['extension'];
+
+        $result = $fn->validate_image($_FILES["image2"]);
+        $target_path = '../upload/vehicles/';
+        
+        $filename = microtime(true) . '.' . strtolower($extension);
+        $full_path = $target_path . "" . $filename;
+        if (!move_uploaded_file($_FILES["image2"]["tmp_name"], $full_path)) {
+            echo '<p class="alert alert-danger">Can not upload image.</p>';
+            return false;
+            exit();
+        }
+        if (!empty($old_image2)) {
+            unlink($old_image2);
+        }
+        $upload_image2 =$filename;
+        $sql = "UPDATE used_vehicles SET `image2`='" . $upload_image2 . "' WHERE `id`=" . $used_vehicle_id;
+        $db->sql($sql);
+    }
+    if (isset($_FILES['image3']) && $_FILES['image3']['size'] != 0 && $_FILES['image3']['error'] == 0) {
+        //image isn't empty and update the image
+        $old_image3="../upload/vehicles/".$res[0]['image3'];
+        $extension = pathinfo($_FILES["image3"]["name"])['extension'];
+
+        $result = $fn->validate_image($_FILES["image3"]);
+        $target_path = '../upload/vehicles/';
+        
+        $filename = microtime(true) . '.' . strtolower($extension);
+        $full_path = $target_path . "" . $filename;
+        if (!move_uploaded_file($_FILES["image3"]["tmp_name"], $full_path)) {
+            echo '<p class="alert alert-danger">Can not upload image.</p>';
+            return false;
+            exit();
+        }
+        if (!empty($old_image3)) {
+            unlink($old_image3);
+        }
+        $upload_image3 =$filename;
+        $sql = "UPDATE used_vehicles SET `image3`='" . $upload_image3 . "' WHERE `id`=" . $used_vehicle_id;
+        $db->sql($sql);
+    }
+
     $sql = "UPDATE used_vehicles SET `user_id`='$user_id',`brand`='$brand',`bike_name`='$bike_name',`model`='$model',`km_driven`='$km_driven',`price`='$price',`location`='$location',`color`='$color' WHERE id=" . $used_vehicle_id;
     $db->sql($sql);
     $res = $db->getResult();

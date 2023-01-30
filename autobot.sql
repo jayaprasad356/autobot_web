@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 06:37 AM
+-- Generation Time: Jan 30, 2023 at 07:14 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -815,7 +815,7 @@ CREATE TABLE `used_vehicles` (
 --
 
 INSERT INTO `used_vehicles` (`id`, `user_id`, `brand`, `bike_name`, `model`, `km_driven`, `price`, `location`, `image`, `image1`, `image2`, `image3`, `color`, `status`) VALUES
-(1, 1, 'KTM', 'Duke 200', '2018', '14320', '220000', 'Coimbatore', '1674906579.803.jpg', '1674906508.2295.jpg', '1674906508.2341.jpg', '1674906508.2393.jpg', 'Orange', 1);
+(1, 2, 'Yamaha', 'R15 V3M', '2022', '5000', '222000', 'Kattur,Trichy', '1675059219.7488.jpg', '1675059219.7973.jpg', '1675059219.8042.jpg', '1675059219.8103.jpg', 'blue', 1);
 
 -- --------------------------------------------------------
 
