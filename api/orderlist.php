@@ -24,7 +24,7 @@ $res = $db->getResult();
 $num = $db->numRows($res);
 if ($num >= 1){
     
-        $sql = "SELECT *,products.image AS image,orders.model AS model,orders.price AS price,orders.id AS id,orders.order_date FROM orders,products WHERE orders.product_id = products.id AND orders.user_id='$user_id'";
+        $sql = "SELECT *,products.image AS image,orders.price AS price,orders.id AS id,orders.order_date FROM orders,products WHERE orders.product_id = products.id AND orders.user_id='$user_id'";
         $db->sql($sql);
         $res = $db->getResult();
         $num = $db->numRows($res);

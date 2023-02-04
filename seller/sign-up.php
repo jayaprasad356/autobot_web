@@ -73,7 +73,7 @@ $res = $db->getResult();
                         </div>
                         <div class="form-group">
                             <label for="">Password</label><i class="text-danger asterik">*</i>
-                            <input type="password" class="form-control" name="password" id="password" required>
+                            <input type="text" class="form-control" name="password" id="password" required>
                         </div>
                         <div class="form-group">
                             <label for="">Confirm Password</label><i class="text-danger asterik">*</i>
