@@ -28,11 +28,11 @@ if($num>=1){
     foreach ($res as $row) {
         $sum += $row['price'];
         $temp['id'] = $row['id'];
-        $temp['price'] = $row['price'];
         $temp['product_name'] = $row['product_name'];
-        $temp['quantity'] = $row['quantity'];
         $temp['brand'] = $row['brand'];
         $temp['description'] = $row['description'];
+        $temp['quantity'] = $row['quantity'];
+        $temp['price'] = $row['price'];
         $temp['image'] = DOMAIN_URL . $row['image'];
         $rows[] = $temp;
     }

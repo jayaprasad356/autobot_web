@@ -17,6 +17,7 @@ if (isset($_POST['btnAdd'])) {
         $brand = $db->escapeString($_POST['brand']);
         $description = $db->escapeString($_POST['description']);
         $model = $db->escapeString($_POST['model']);
+        $mrp = $db->escapeString($_POST['mrp']);
         $price = $db->escapeString($_POST['price']);
 
         // get image info
@@ -62,7 +63,7 @@ if (isset($_POST['btnAdd'])) {
 
             
            
-            $sql_query = "INSERT INTO products (category_id,product_name,brand,description,model,price,image)VALUES('$category','$product_name','$brand','$description','$model','$price','$upload_image')";
+            $sql_query = "INSERT INTO products (category_id,product_name,brand,description,model,mrp,price,image)VALUES('$category','$product_name','$brand','$description','$model','$mrp','$price','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -154,6 +155,10 @@ if (isset($_POST['btnAdd'])) {
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Model</label> <i class="text-danger asterik">*</i><?php echo isset($error['model']) ? $error['model'] : ''; ?>
                                         <input type="text" class="form-control" name="model" required />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">MRP</label> <i class="text-danger asterik">*</i><?php echo isset($error['mrp']) ? $error['mrp'] : ''; ?>
+                                        <input type="text" class="form-control" name="mrp" required />
                                     </div>
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Price</label> <i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>

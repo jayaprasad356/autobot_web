@@ -23,6 +23,7 @@ if (isset($_POST['btnEdit'])) {
         $brand = $db->escapeString($_POST['brand']);
         $description = $db->escapeString($_POST['description']);
 		$model = $db->escapeString($_POST['model']);
+		$mrp = $db->escapeString($_POST['mrp']);
         $price = $db->escapeString($_POST['price']);
 		$status = $db->escapeString($_POST['status']);
 		$error = array();
@@ -67,7 +68,7 @@ if (isset($_POST['btnEdit'])) {
 				$db->sql($sql);
 			}
 			
-             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',brand='$brand',description='$description',model='$model',price='$price',status='$status' WHERE id =  $ID";
+             $sql_query = "UPDATE products SET category_id='$category',product_name='$product_name',brand='$brand',description='$description',model='$model',mrp='$mrp',price='$price',status='$status' WHERE id =  $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -180,6 +181,10 @@ if (isset($_POST['btnCancel'])) { ?>
 								    <div class="col-md-4">
 										<label for="exampleInputEmail1">Model</label><?php echo isset($error['model']) ? $error['model'] : ''; ?>
 										<input type="text" class="form-control" name="model" value="<?php echo $res[0]['model']; ?>">
+									 </div>
+									 <div class="col-md-4">
+										<label for="exampleInputEmail1">MRP</label><?php echo isset($error['mrp']) ? $error['mrp'] : ''; ?>
+										<input type="text" class="form-control" name="mrp" value="<?php echo $res[0]['mrp']; ?>">
 									 </div>
 									 <div class="col-md-4">
 										<label for="exampleInputEmail1">Price</label><?php echo isset($error['price']) ? $error['price'] : ''; ?>

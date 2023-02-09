@@ -218,6 +218,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'products') {
         $tempRow['product_name'] = $row['product_name'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['model'] = $row['model'];
+        $tempRow['mrp'] = $row['mrp'];
         $tempRow['price'] = $row['price'];
         $tempRow['description'] = $row['description'];
         if(!empty($row['image'])){
