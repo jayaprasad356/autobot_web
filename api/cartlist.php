@@ -19,7 +19,7 @@ if (empty($_POST['user_id'])) {
     return false;
 }
 $user_id = $db->escapeString($_POST['user_id']);
-$sql = "SELECT *,cart.id AS id,products.price * cart.quantity AS price  FROM cart,products WHERE cart.product_id=products.id AND cart.user_id='$user_id'";
+$sql = "SELECT *,cart.id AS id,products.price * cart.quantity AS price,products.mrp,products.price AS product_price  FROM cart,products WHERE cart.product_id=products.id AND cart.user_id='$user_id'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
@@ -31,8 +31,10 @@ if($num>=1){
         $temp['product_name'] = $row['product_name'];
         $temp['brand'] = $row['brand'];
         $temp['description'] = $row['description'];
+        $temp['MRP'] = $row['mrp'];
+        $temp['Product_price'] = $row['product_price'];
         $temp['quantity'] = $row['quantity'];
-        $temp['price'] = $row['price'];
+        $temp['total'] = $row['price'];
         $temp['image'] = DOMAIN_URL . $row['image'];
         $rows[] = $temp;
     }
