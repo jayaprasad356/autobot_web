@@ -26,6 +26,7 @@
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
                                     <th data-field="name" data-sortable="true">Name</th>
+                                    <th data-field="type" data-sortable="true">Type</th>
                                     <th data-field="image">Image</th>
                                     <th data-field="status" data-sortable="true" >Status</th>
                                     <th data-field="operate">Action</th>

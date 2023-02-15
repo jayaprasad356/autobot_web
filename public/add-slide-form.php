@@ -10,7 +10,8 @@ if (isset($_POST['btnAdd'])) {
 
 
         $name = $db->escapeString(($_POST['name']));
-        
+        $type = $db->escapeString(($_POST['type']));
+
         // get image info
         $menu_image = $db->escapeString($_FILES['category_image']['name']);
         $image_error = $db->escapeString($_FILES['category_image']['error']);
@@ -29,15 +30,15 @@ if (isset($_POST['btnAdd'])) {
         if (empty($name)) {
             $error['name'] = " <span class='label label-danger'>Required!</span>";
         }
-        if (empty($status)) {
-            $error['status'] = " <span class='label label-danger'>Required!</span>";
+        if (empty($type)) {
+            $error['type'] = " <span class='label label-danger'>Required!</span>";
         }
      
        
 
       
 
-        if (!empty($name)) {
+        if (!empty($name) && !empty($type)) {
             $result = $fn->validate_image($_FILES["category_image"]);
                 // create random image file name
                 $string = '0123456789';
@@ -52,7 +53,7 @@ if (isset($_POST['btnAdd'])) {
 
             
            
-            $sql_query = "INSERT INTO slides (name,image,status)VALUES('$name','$upload_image',1)";
+            $sql_query = "INSERT INTO slides (name,type,image,status)VALUES('$name','$type','$upload_image',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -94,6 +95,14 @@ if (isset($_POST['btnAdd'])) {
                         <div class="form-group">
                             <label for="exampleInputEmail1"> Name</label><i class="text-danger asterik">*</i><?php echo isset($error['name']) ? $error['name'] : ''; ?>
                             <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Slider Type</label> <i class="text-danger asterik">*</i>
+                            <select id="type" name="type" class="form-control">
+                                <option value="">--select--</option>
+                                <option value="home_slider">Home Slider</option>
+                                <option value="service_slider">Service Slider</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputFile">Image</label><i class="text-danger asterik">*</i><?php echo isset($error['category_image']) ? $error['category_image'] : ''; ?>

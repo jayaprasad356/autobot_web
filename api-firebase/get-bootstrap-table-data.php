@@ -257,7 +257,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE name like '%" . $search . "%' OR status like '%" . $search . "%'";
+        $where .= "WHERE name like '%" . $search . "%' OR status like '%" . $search . "%' OR type like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -289,6 +289,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
 
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
+        $tempRow['type'] = $row['type'];
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
 
@@ -296,7 +297,6 @@ if (isset($_GET['table']) && $_GET['table'] == 'slides') {
             $tempRow['image'] = 'No Image';
 
         }
-        $tempRow['status'] = $row['status'];
         if ($row['status'] == 1)
             $tempRow['status'] = "<p class='text text-success'> Active</p>";
         else 

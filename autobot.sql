@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 12:14 PM
+-- Generation Time: Feb 15, 2023 at 05:40 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -197,6 +197,13 @@ CREATE TABLE `cart` (
   `date_created` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
+(10, 1, 8, 1, '2023-02-09 04:05:07');
+
 -- --------------------------------------------------------
 
 --
@@ -320,7 +327,6 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `model` text DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `grand_total` decimal(10,2) DEFAULT NULL,
@@ -334,8 +340,8 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `product_id`, `model`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
-(1, 1, 6, 'Yamaha FZ', 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
+INSERT INTO `orders` (`id`, `user_id`, `product_id`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
+(1, 1, 6, 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
 
 -- --------------------------------------------------------
 
@@ -349,7 +355,8 @@ CREATE TABLE `products` (
   `product_name` text DEFAULT NULL,
   `brand` text DEFAULT NULL,
   `model` text DEFAULT NULL,
-  `price` text DEFAULT NULL,
+  `mrp` decimal(10,2) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `image` text DEFAULT NULL,
   `ratings` float DEFAULT NULL,
@@ -360,10 +367,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `model`, `price`, `description`, `image`, `ratings`, `status`) VALUES
-(1, 5, 'Engine Oil', 'Racer', '', '270', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333, 1),
-(6, 2, 'Handle Miror', 'jace', NULL, '450', 'cdsce', 'upload/products/1659119349.1368.jpg', NULL, 1),
-(8, 3, 'Front tyre', 'MRF', 'Splender', '600', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg', NULL, 1);
+INSERT INTO `products` (`id`, `category_id`, `product_name`, `brand`, `model`, `mrp`, `price`, `description`, `image`, `ratings`, `status`) VALUES
+(1, 5, 'Engine Oil', 'Racer', '', NULL, '270.00', 'one of the best brand used by 1000+ customers', 'upload/products/1659114493.4682.jpg', 4.3333, 1),
+(6, 2, 'Handle Miror', 'jace', NULL, NULL, '450.00', 'cdsce', 'upload/products/1659119349.1368.jpg', NULL, 1),
+(8, 3, 'Front tyre', 'MRF', 'Splender', '699.00', '600.00', 'It is one of the best brand', 'upload/products/2225-2022-07-30.jpg', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -601,7 +608,7 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `name`, `store_name`, `slug`, `email`, `mobile`, `password`, `balance`, `store_url`, `logo`, `store_description`, `street`, `pincode_id`, `city_id`, `pincode_text`, `city_text`, `state`, `categories`, `account_number`, `bank_ifsc_code`, `account_name`, `bank_name`, `commission`, `status`, `last_updated`, `date_created`, `require_products_approval`, `fcm_id`, `national_identity_card`, `address_proof`, `pan_number`, `tax_name`, `tax_number`, `customer_privacy`, `latitude`, `longitude`, `forgot_password_code`, `view_order_otp`, `assign_delivery_boy`) VALUES
-(1, 'Divakar A', 'gold', NULL, 'example@gmail.com', '9876543210', 'e807f1fcf82d132f9bb018ca6738a19f', 0, NULL, '1661624684.1169.jpg', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, NULL, '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, NULL, NULL, NULL, 0, 0);
+(1, 'Divakar A', 'gold', NULL, 'example@gmail.com', '9876543210', '1234567890', 0, NULL, '1661624684.1169.jpg', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, '2023-02-04 15:57:29', '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, NULL, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -697,6 +704,7 @@ INSERT INTO `showrooms` (`id`, `store_name`, `email_id`, `mobile`, `password`, `
 CREATE TABLE `slides` (
   `id` int(11) NOT NULL,
   `name` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
   `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -705,9 +713,10 @@ CREATE TABLE `slides` (
 -- Dumping data for table `slides`
 --
 
-INSERT INTO `slides` (`id`, `name`, `image`, `status`) VALUES
-(2, 'shop', 'upload/slides/3595-2022-07-28.jpg', 1),
-(3, 'home', 'upload/slides/0232-2022-07-29.png', 1);
+INSERT INTO `slides` (`id`, `name`, `type`, `image`, `status`) VALUES
+(2, 'shop', NULL, 'upload/slides/3595-2022-07-28.jpg', 1),
+(3, 'home', NULL, 'upload/slides/0232-2022-07-29.png', 1),
+(4, 'General Service', 'service_slider', 'upload/slides/6272-2023-02-15.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -1118,7 +1127,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1238,7 +1247,7 @@ ALTER TABLE `showrooms`
 -- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tyreproduct_bookings`

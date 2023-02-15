@@ -168,7 +168,7 @@ $fn = new custom_functions;
                         <i class="fa fa-user"></i>
                         <span>Users</span>
                     </a>
-                </li>
+                </li> -->
                
                
                 <li class="treeview">
@@ -176,7 +176,7 @@ $fn = new custom_functions;
                         <i class="fa fa-sliders"></i>
                         <span>Slides</span>
                     </a>
-                </li> -->
+                </li>
                 <!-- <li class="treeview">
                     <a href="services.php">
                         <i class="fa fa-wrench"></i>

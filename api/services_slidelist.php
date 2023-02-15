@@ -12,7 +12,7 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$sql = "SELECT * FROM slides WHERE type='home_slider'";
+$sql = "SELECT * FROM slides WHERE type='service_slider'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
@@ -27,7 +27,7 @@ if ($num >= 1) {
     }
 
     $response['success'] = true;
-    $response['message'] = "Home Slides listed Successfully";
+    $response['message'] = "Slides listed Successfully";
     $response['data'] = $rows;
     print_r(json_encode($response));
 
