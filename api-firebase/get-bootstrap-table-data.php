@@ -682,6 +682,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'showrooms') {
         $tempRow['brand'] = $row['brand'];
         $tempRow['latitude'] = $row['latitude'];
         $tempRow['longitude'] = $row['longitude'];
+        if($row['status']== '0')
+            $tempRow['status'] = '<p class="text text-danger">Not-verified</p>';
+        else
+            $tempRow['status'] = '<p class="text text-success">Verified</p>';
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
         }
@@ -734,7 +738,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'sellers') {
     $tempRow = array();
     foreach ($res as $row) {
 
-        // $operate = ' <a href="edit-showrooms.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate = ' <a href="edit-seller.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['store_name'] = $row['store_name'];
@@ -745,7 +749,11 @@ if (isset($_GET['table']) && $_GET['table'] == 'sellers') {
         $tempRow['balance'] = $row['balance'];
         $tempRow['latitude'] = $row['latitude'];
         $tempRow['longitude'] = $row['longitude'];
-        // $tempRow['operate'] = $operate;
+        if($row['status']== '0')
+             $tempRow['status'] = '<p class="text text-danger">Not-verified</p>';
+        else
+           $tempRow['status'] = '<p class="text text-success">Verified</p>';
+        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
         }
     $bulkData['rows'] = $rows;
@@ -798,14 +806,18 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_showrooms') {
     $tempRow = array();
     foreach ($res as $row) {
 
-        // $operate = ' <a href="edit-showrooms.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate = ' <a href="edit-rental_showroom.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['name'] = $row['name'];
         $tempRow['email'] = $row['email'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['password'] = $row['password'];
         $tempRow['location'] = $row['location'];
-        // $tempRow['operate'] = $operate;
+        if($row['status']== '0')
+            $tempRow['status'] = '<p class="text text-danger">Not-verified</p>';
+        else
+           $tempRow['status'] = '<p class="text text-success">Verified</p>';
+        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
         }
     $bulkData['rows'] = $rows;

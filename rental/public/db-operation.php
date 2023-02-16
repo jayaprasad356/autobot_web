@@ -19,10 +19,7 @@ if (isset($_POST['update_rental'])  && !empty($_POST['update_rental'])) {
     $id = $db->escapeString($fn->xss_clean($_POST['update_id']));
     $name = $db->escapeString($fn->xss_clean($_POST['name']));
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
-    $email = $db->escapeString($fn->xss_clean($_POST['email']));
-
-    $status = (isset($_POST['status']) && $_POST['status'] != "") ? $db->escapeString($fn->xss_clean($_POST['status'])) : "0";
-  
+    $email = $db->escapeString($fn->xss_clean($_POST['email']));  
     $location = (isset($_POST['location']) && $_POST['location'] != "") ? $db->escapeString($fn->xss_clean($_POST['location'])) : "";
 
     $sql = "SELECT * from rental_showrooms where id='$id'";
@@ -37,9 +34,9 @@ if (isset($_POST['update_rental'])  && !empty($_POST['update_rental'])) {
     }
     if (isset($_POST['old_password']) && $_POST['old_password'] != '') {
         $old_password = $db->escapeString($fn->xss_clean($_POST['old_password']));
-        $old_password = md5($old_password);
-        $res = $fn->get_data($column = ['password'], "id=" . $id, 'seller');
-        if ($res[0]['password'] != $old_password) {
+        // $old_password = md5($old_password);
+        // $res = $fn->get_data($column = ['password'], "id=" . $id, 'rental_showrooms');
+        if ($res_id[0]['password'] != $old_password) {
             echo "<label class='alert alert-danger'>Old password does't match.</label>";
             return false;
         }

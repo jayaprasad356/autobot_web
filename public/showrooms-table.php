@@ -30,6 +30,7 @@
                                 <th data-field="brand" data-sortable="true">Brand</th>
                                 <th data-field="latitude" data-sortable="true">Latitude</th>
                                 <th data-field="longitude" data-sortable="true">Longitude</th>
+                                <th data-field="status">Status</th>
                                 <th data-field="operate" data-events="actionEvents">Action</th>
                             </tr>
                         </thead>

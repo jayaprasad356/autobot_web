@@ -26,36 +26,32 @@ if (isset($_POST['btnEdit'])) {
 	$brand = $db->escapeString($_POST['brand']);
 	$latitude = $db->escapeString($_POST['latitude']);
 	$longitude = $db->escapeString($_POST['longitude']);
-
+	$status = $db->escapeString($_POST['status']);
+	$permission = $db->escapeString($_POST['permission']);
 	$error = array();
 
 	if (empty($store_name)) {
-		$error['store_name'] = "Store Name is required";
+		$error['store_name'] = " <span class='label label-danger'>Required!</span>";
 	}
 	if (empty($email_id)) {
-		$error['email_id'] = "E-mail ID is required";
+		$error['email_id'] = " <span class='label label-danger'>Required!</span>";
 	}
 	if (empty($mobile)) {
-		$error['mobile'] = "Mobile is required";
+		$error['mobile'] = " <span class='label label-danger'>Required!</span>";
 	}
 	if (empty($password)) {
-		$error['password'] = "Password is required";
-	}
-	if (empty($address)) {
-		$error['address'] = "Address is required";
-	}
-	if (empty($brand)) {
-		$error['brand'] = "Working Hours is required";
+		$error['password'] = " <span class='label label-danger'>Required!</span>";
 	}
 	if (empty($latitude)) {
-		$error['latitude'] = "Latitude is required";
+		$error['latitude'] = " <span class='label label-danger'>Required!</span>";
 	}
 	if (empty($longitude)) {
-		$error['longitude'] = "Longitude is required";
+		$error['longitude'] = " <span class='label label-danger'>Required!</span>";
 	}
 
-	if (!empty($store_name) && !empty($email_id) && !empty($mobile) && !empty($password) && !empty($address) && !empty($brand) && !empty($latitude) && !empty($longitude)) {
-		$sql_query = "UPDATE showrooms SET store_name = '$store_name', email_id = '$email_id', mobile = '$mobile', password = '$password', address = '$address', brand = '$brand', latitude = '$latitude', longitude = '$longitude' WHERE id = '$ID'";
+	
+	if (!empty($store_name) && !empty($email_id) && !empty($mobile) && !empty($password) && !empty($latitude) && !empty($longitude)) {
+		$sql_query = "UPDATE showrooms SET store_name = '$store_name', email_id = '$email_id', mobile = '$mobile', password = '$password', address = '$address', brand = '$brand', latitude = '$latitude', longitude = '$longitude',status='$status',permission='$permission' WHERE id = '$ID'";
 		$db->sql($sql_query);
 		$res = $db->getResult();
 		$update_showroom = $db->getResult();
@@ -130,11 +126,9 @@ if (isset($_POST['btnCancel'])) { ?>
 								</div>
 							</div>
 						</div>
-						<hr>
+						<br>
 						<div class="row">
 							<div class="form-group">
-
-
 								<div class="col-md-3">
 									<label for="exampleInputEmail1">Address</label><?php echo isset($error['address']) ? $error['address'] : ''; ?>
 									<input type="text" class="form-control" name="address" value="<?php echo $res[0]['address']; ?>">
@@ -146,16 +140,33 @@ if (isset($_POST['btnCancel'])) { ?>
 
 								<div class="col-md-3">
 									<label for="exampleInputEmail1">Latitude</label><?php echo isset($error['latitude']) ? $error['latitude'] : ''; ?>
-									<input type="number" class="form-control" name="latitude" value="<?php echo $res[0]['latitude']; ?>">
+									<input type="text" class="form-control" name="latitude" value="<?php echo $res[0]['latitude']; ?>">
 								</div>
 								<div class="col-md-3">
 									<label for="exampleInputEmail1">Longitude</label><?php echo isset($error['longitude']) ? $error['longitude'] : ''; ?>
 									<input type="text" class="form-control" name="longitude" value="<?php echo $res[0]['longitude']; ?>">
 								</div>
-
 							</div>
 						</div>
-						<hr>
+						<br>
+						<div class="row">
+								<div class="form-group col-md-4">
+									<label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
+									<div id="status" class="btn-group">
+										<label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+											<input type="radio" name="status" value="0" <?= ($res[0]['status'] == 0) ? 'checked' : ''; ?>> Not-verified
+										</label>
+										<label class="btn btn-success" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+											<input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Verified
+										</label>
+									</div>
+								</div>
+								<div class="form-group col-md-3">
+                                        <label for="">Update Permission</label><br>
+                                        <input type="checkbox" id="permission_button" class="js-switch" <?= isset($res[0]['permission']) && $res[0]['permission'] == 1 ? 'checked' : '' ?>>
+                                        <input type="hidden" id="permission_status" name="permission" value="<?= isset($res[0]['permission']) && $res[0]['permission'] == 1 ? 1 : 0 ?>">
+                                </div>
+						</div>
 
 
 
@@ -175,4 +186,16 @@ if (isset($_POST['btnCancel'])) { ?>
 
 <div class="separator"> </div>
 <?php $db->disconnect(); ?>
+<script>
+    var changeCheckbox = document.querySelector('#permission_button');
+    var init = new Switchery(changeCheckbox);
+    changeCheckbox.onchange = function() {
+        if ($(this).is(':checked')) {
+            $('#permission_status').val(1);
+
+        } else {
+            $('#permission_status').val(0);
+        }
+    };
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>

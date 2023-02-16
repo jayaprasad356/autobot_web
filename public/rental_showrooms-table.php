@@ -27,6 +27,8 @@
                                 <th data-field="mobile" data-sortable="true"> Mobile</th>
                                 <th data-field="password" data-sortable="true">Password </th>
                                 <th data-field="location" data-sortable="true">Location</th>
+                                <th data-field="status">Status</th>
+                                <th data-field="operate" data-events="actionEvents">Action</th>
                             </tr>
                         </thead>
                     </table>

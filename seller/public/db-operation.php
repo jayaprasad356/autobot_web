@@ -151,8 +151,8 @@ if (isset($_POST['update_seller'])  && !empty($_POST['update_seller'])) {
     if (isset($_POST['old_password']) && $_POST['old_password'] != '') {
         $old_password = $db->escapeString($fn->xss_clean($_POST['old_password']));
         // $old_password = md5($old_password);
-        $res = $fn->get_data($column = ['password'], "id=" . $id, 'seller');
-        if ($res[0]['password'] != $old_password) {
+        // $res = $fn->get_data($column = ['password'], "id=" . $id, 'seller');
+        if ($res_id[0]['password'] != $old_password) {
             echo "<label class='alert alert-danger'>Old password does't match.</label>";
             return false;
         }

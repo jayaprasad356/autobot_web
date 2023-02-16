@@ -95,6 +95,12 @@ include "header.php"; ?>
                                             <input type="email" class="form-control" name="email" id="email" value="<?= $res[0]['email']; ?>" required>
                                         </div>
                                     </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Store Name</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="store_name" id="store_name" value="<?= $res[0]['store_name']; ?>" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-4">
@@ -109,12 +115,10 @@ include "header.php"; ?>
                                             <input type="text" class="form-control" name="store_url" id="store_url" value="<?= $res[0]['store_url']; ?>">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label for="">Old Password :</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
-                                            <input type="password" class="form-control" name="old_password" id="old_password" />
+                                            <input type="text" class="form-control" name="old_password" id="old_password" />
                                         </div>
                                     </div>
                                 </div>
@@ -122,13 +126,99 @@ include "header.php"; ?>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label for="">New Password</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
-                                            <input type="password" class="form-control" name="password" id="password">
+                                            <input type="text" class="form-control" name="password" id="password">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label for="">Confirm Password</label><i class="text-danger asterik">*</i>
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+                                            <input type="text" class="form-control" name="confirm_password" id="confirm_password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Commission (%)</label>
+                                            <input type="number" class="form-control" name="commission" id="commission" value="<?= $res[0]['commission']; ?>" required disabled><br>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Tax Name</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="tax_name" value="<?= $res[0]['tax_name']; ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Tax Number</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="tax_number" value="<?= $res[0]['tax_number']; ?>" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Street</label>
+                                            <input type="text" class="form-control" name="street" id="street" value="<?= $res[0]['street']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                           <label for="">Pincode</label>
+                                            <input type="text" class="form-control" name="pincode_id" id="pincode_id" value="<?= $res[0]['pincode_id']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">State</label>
+                                            <input type="text" class="form-control" name="state" id="state" value="<?= $res[0]['state']; ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   <div class="form-group col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Bank's IFSC Code</label>
+                                            <input type="text" class="form-control" name="ifsc_code" id="ifsc_code" value="<?= $res[0]['bank_ifsc_code']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Account Number</label>
+                                            <input type="number" class="form-control" name="account_number" id="account_number" value="<?= $res[0]['account_number']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Bank Name</label>
+                                            <input type="text" class="form-control" name="bank_name" id="bank_name" value="<?= $res[0]['bank_name']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <div class="form-group">
+                                            <label for=""> Account Holder Name</label>
+                                            <input type="text" class="form-control" name="account_name" id="account_name" value="<?= $res[0]['account_name']; ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Latitude</label>
+                                            <input type="number" class="form-control" name="latitude" id="latitude" value="<?= $res[0]['latitude']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Longitude</label>
+                                            <input type="text" class="form-control" name="longitude" id="longitude" value="<?= $res[0]['longitude']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">PAN Number</label>
+                                            <input type="text" class="form-control" name="pan_number" value="<?= $res[0]['pan_number']; ?>" required>
                                         </div>
                                     </div>
                                 </div>
@@ -155,128 +245,7 @@ include "header.php"; ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Commission (%)</label>
-                                            <input type="number" class="form-control" name="commission" id="commission" value="<?= $res[0]['commission']; ?>" required disabled><br>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Store Name</label>
-                                            <input type="text" class="form-control" name="store_name" id="store_name" value="<?= $res[0]['store_name']; ?>" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Street</label>
-                                            <input type="text" class="form-control" name="street" id="street" value="<?= $res[0]['street']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label" for="pincode_id">Pincode ID</label>
-                                            <?php $db->sql("SET NAMES 'utf8'");
-                                            $sql = "SELECT * FROM pincodes ORDER BY id + 0 ASC";
-                                            $db->sql($sql);
-                                            $pincodes = $db->getResult();
-                                            ?>
-                                            <select id='pincode_id' name="pincode_id" class='form-control'>
-                                                <option value=''>Select Pincode</option>
-                                                <?php foreach ($pincodes as $row) { ?>
-                                                    <option value='<?= $row['id'] ?>' <?= ($res[0]['pincode_id'] == $row['id']) ? 'selected' : ''; ?>><?= $row['pincode']  ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">State</label>
-                                            <input type="text" class="form-control" name="state" id="state" value="<?= $res[0]['state']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Bank's IFSC Code</label>
-                                            <input type="text" class="form-control" name="ifsc_code" id="ifsc_code" value="<?= $res[0]['bank_ifsc_code']; ?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Account Number</label>
-                                            <input type="number" class="form-control" name="account_number" id="account_number" value="<?= $res[0]['account_number']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Bank Name</label>
-                                            <input type="text" class="form-control" name="bank_name" id="bank_name" value="<?= $res[0]['bank_name']; ?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Bank Account Name</label>
-                                            <input type="text" class="form-control" name="account_name" id="account_name" value="<?= $res[0]['account_name']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for='catogories_ids'>Category IDs <small>( Ex : 100,205, 360 <comma separated>)</small></label>
-                                            <select name='cat_ids[]' id='cat_ids' class='form-control' placeholder='Enter the category IDs you want to assign Seller' required multiple="multiple" disabled>
-                                                <?php $sql = 'select id,name from `category`  order by id desc';
-                                                $db->sql($sql);
-                                                $result = $db->getResult();
-                                                foreach ($result as $value) {
-                                                ?>
-                                                    <option value='<?= $value['id'] ?>' <?= (strpos(" " . $res[0]['categories'], $value['id'])) ? 'selected' : ''; ?>><?= $value['name'] ?></option>
-                                                <?php } ?>
-
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Tax Name</label><i class="text-danger asterik">*</i>
-                                            <input type="text" class="form-control" name="tax_name" value="<?= $res[0]['tax_name']; ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Tax Number</label><i class="text-danger asterik">*</i>
-                                            <input type="text" class="form-control" name="tax_number" value="<?= $res[0]['tax_number']; ?>" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Latitude</label>
-                                            <input type="number" class="form-control" name="latitude" id="latitude" value="<?= $res[0]['latitude']; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Longitude</label>
-                                            <input type="text" class="form-control" name="longitude" id="longitude" value="<?= $res[0]['longitude']; ?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label class="control-label" for="city_id">City</label>
@@ -293,13 +262,7 @@ include "header.php"; ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label for="">PAN Number</label>
-                                            <input type="text" class="form-control" name="pan_number" value="<?= $res[0]['pan_number']; ?>" required>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                     <div class="form-group col-md-8">
                                         <div class="form-group">

@@ -24,13 +24,15 @@
                                 <th data-field="id" data-sortable="true">ID</th>
                                 <th data-field="name" data-sortable="true">Name</th>
                                 <th data-field="store_name" data-sortable="true">Store Name</th>
-                                <th data-field="email_id" data-sortable="true"> E-mail ID</th>
+                                <th data-field="email" data-sortable="true"> E-mail ID</th>
                                 <th data-field="mobile" data-sortable="true"> Mobile</th>
                                 <th data-field="password" data-sortable="true">Password </th>
                                 <th data-field="street" data-sortable="true">Street</th>
                                 <th data-field="balance" data-sortable="true">Balance</th>
                                 <th data-field="latitude" data-sortable="true">Latitude</th>
                                 <th data-field="longitude" data-sortable="true">Longitude</th>
+                                <th data-field="status">Status</th>
+                                <th data-field="operate" data-events="actionEvents">Action</th>
                             </tr>
                         </thead>
                     </table>

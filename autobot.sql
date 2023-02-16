@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 06:34 AM
+-- Generation Time: Feb 16, 2023 at 01:18 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -204,8 +204,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
-(10, 1, 8, 1, '2023-02-09 04:05:07'),
-(11, 1, 6, 2, '2023-02-09 04:05:07');
+(10, 1, 8, 1, '2023-02-09 04:05:07');
 
 -- --------------------------------------------------------
 
@@ -526,16 +525,17 @@ CREATE TABLE `rental_showrooms` (
   `mobile` text DEFAULT NULL,
   `password` text DEFAULT NULL,
   `location` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 0
+  `status` tinyint(4) DEFAULT 0,
+  `permission` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `rental_showrooms`
 --
 
-INSERT INTO `rental_showrooms` (`id`, `name`, `email`, `mobile`, `password`, `location`, `status`) VALUES
-(1, 'sivam Rentals', 'sivamrent32@gmail.com', '9876543210', 'sivamrent@098', 'Thiruvanamalai', 1),
-(2, 'test', 'example@gmail.com', '9876543234', 'jk123', 'Coimbatore', 2);
+INSERT INTO `rental_showrooms` (`id`, `name`, `email`, `mobile`, `password`, `location`, `status`, `permission`) VALUES
+(1, 'sivam Rentals', 'sivamrent32@gmail.com', '9876543210', 'Smsatta@2022', 'Thiruvanamalai', 1, 1),
+(2, 'test', 'example@gmail.com', '9876543234', 'jk123', 'Coimbatore', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -577,7 +577,7 @@ CREATE TABLE `seller` (
   `logo` text CHARACTER SET utf8 DEFAULT NULL,
   `store_description` text CHARACTER SET utf8 DEFAULT NULL,
   `street` text CHARACTER SET utf8 DEFAULT NULL,
-  `pincode_id` int(11) DEFAULT NULL,
+  `pincode_id` text DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `pincode_text` varchar(100) NOT NULL,
   `city_text` varchar(100) NOT NULL,
@@ -603,15 +603,17 @@ CREATE TABLE `seller` (
   `longitude` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
   `forgot_password_code` varchar(256) DEFAULT NULL,
   `view_order_otp` tinyint(2) DEFAULT 0,
-  `assign_delivery_boy` tinyint(2) DEFAULT 0
+  `assign_delivery_boy` tinyint(2) DEFAULT 0,
+  `permission` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `seller`
 --
 
-INSERT INTO `seller` (`id`, `name`, `store_name`, `slug`, `email`, `mobile`, `password`, `balance`, `store_url`, `logo`, `store_description`, `street`, `pincode_id`, `city_id`, `pincode_text`, `city_text`, `state`, `categories`, `account_number`, `bank_ifsc_code`, `account_name`, `bank_name`, `commission`, `status`, `last_updated`, `date_created`, `require_products_approval`, `fcm_id`, `national_identity_card`, `address_proof`, `pan_number`, `tax_name`, `tax_number`, `customer_privacy`, `latitude`, `longitude`, `forgot_password_code`, `view_order_otp`, `assign_delivery_boy`) VALUES
-(1, 'Divakar A', 'gold', NULL, 'example@gmail.com', '9876543210', '1234567890', 0, NULL, '1661624684.1169.jpg', NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, 2, '2023-02-04 15:57:29', '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, NULL, NULL, NULL, 0, 0);
+INSERT INTO `seller` (`id`, `name`, `store_name`, `slug`, `email`, `mobile`, `password`, `balance`, `store_url`, `logo`, `store_description`, `street`, `pincode_id`, `city_id`, `pincode_text`, `city_text`, `state`, `categories`, `account_number`, `bank_ifsc_code`, `account_name`, `bank_name`, `commission`, `status`, `last_updated`, `date_created`, `require_products_approval`, `fcm_id`, `national_identity_card`, `address_proof`, `pan_number`, `tax_name`, `tax_number`, `customer_privacy`, `latitude`, `longitude`, `forgot_password_code`, `view_order_otp`, `assign_delivery_boy`, `permission`) VALUES
+(1, 'Divakar A', 'gold', 'gold-1', 'example@gmail.com', '9876543210', 'Smsatta@2022', 0, '', '1661624684.1169.jpg', '', '2/42, Azhagapuri,R.T.Malai(Po)', '621313', 0, '', '', 'Tamil Nadu', NULL, '', '', '', '', 0, 1, '2023-02-16 12:08:14', '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, '65577', '10.776', NULL, 0, 0, 1),
+(4, 'dcdgrg', 'Hi Golden', NULL, 'grgrg@gmail.com', '7358832695', 'Dangi@314', 0, NULL, '1676546807.5392.jpg', NULL, '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, '2023-02-16 11:27:51', '2023-02-16 11:26:47', 0, NULL, '1676546807.5403.jpg', '1676546807.5415.jpeg', '9876543', 'Government', '76543r4', 0, '', '', NULL, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -687,16 +689,18 @@ CREATE TABLE `showrooms` (
   `address` varchar(255) DEFAULT NULL,
   `brand` varchar(255) DEFAULT NULL,
   `latitude` varchar(255) DEFAULT NULL,
-  `longitude` varchar(255) DEFAULT NULL
+  `longitude` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 0,
+  `permission` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `showrooms`
 --
 
-INSERT INTO `showrooms` (`id`, `store_name`, `email_id`, `mobile`, `password`, `address`, `brand`, `latitude`, `longitude`) VALUES
-(1, 'Hyundai', 'hyundai@gmail.com', '32535436', '34643636', '23242424', '3636346346', '4364363', '346346'),
-(4, 'dfdf', 'fdfd', '1234', '234', NULL, NULL, NULL, NULL);
+INSERT INTO `showrooms` (`id`, `store_name`, `email_id`, `mobile`, `password`, `address`, `brand`, `latitude`, `longitude`, `status`, `permission`) VALUES
+(1, 'Hyundai', 'hyundai@gmail.com', '32535436', '34643636', '23242424', '3636346346', '4364363', '346346', 0, 0),
+(4, 'dfdf', 'fdfd', '1234', '234', 'Thanajvur', 'HERO', '74.259377', '10.677280', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -837,9 +841,9 @@ CREATE TABLE `used_vehicle_orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `used_vehicles_id` int(11) DEFAULT NULL,
-  `price` text DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT 0.00,
   `description` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL
+  `status` tinyint(6) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -847,7 +851,7 @@ CREATE TABLE `used_vehicle_orders` (
 --
 
 INSERT INTO `used_vehicle_orders` (`id`, `user_id`, `used_vehicles_id`, `price`, `description`, `status`) VALUES
-(1, 2, 1, '50000', 'Hi Vehicle', 1);
+(1, 2, 1, '50000.00', 'Hi Vehicle', 0);
 
 -- --------------------------------------------------------
 
@@ -1227,7 +1231,7 @@ ALTER TABLE `rental_vehicles`
 -- AUTO_INCREMENT for table `seller`
 --
 ALTER TABLE `seller`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `services`
