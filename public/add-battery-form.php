@@ -21,6 +21,20 @@ if (isset($_POST['btnAdd'])) {
         $actual_price = $db->escapeString($_POST['actual_price']);
         $final_price = $db->escapeString($_POST['final_price']);
 
+        // get image info
+        $menu_image = $db->escapeString($_FILES['battery_image']['name']);
+        $image_error = $db->escapeString($_FILES['battery_image']['error']);
+        $image_type = $db->escapeString($_FILES['battery_image']['type']);
+
+        // create array variable to handle error
+        $error = array();
+            // common image file extensions
+        $allowedExts = array("gif", "jpeg", "jpg", "png");
+
+        // get image file extension
+        error_reporting(E_ERROR | E_PARSE);
+        $extension = end(explode(".", $_FILES["battery_image"]["name"]));
+
         
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
@@ -49,7 +63,19 @@ if (isset($_POST['btnAdd'])) {
        
        if (!empty($brand) && !empty($type) && !empty($warranty) && !empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price) && !empty($final_price)) 
        {   
-           
+            $result = $fn->validate_image($_FILES["battery_image"]);
+            // create random image file name
+            $string = '0123456789';
+            $file = preg_replace("/\s+/", "_", $_FILES['battery_image']['name']);
+            $menu_image = $function->get_random_string($string, 4) . "-" . date("Y-m-d") . "." . $extension;
+
+            // upload new image
+            $upload = move_uploaded_file($_FILES['battery_image']['tmp_name'], 'upload/products/' . $menu_image);
+
+            // insert new data to menu table
+            $upload_image = 'upload/products/' . $menu_image;
+
+
             $sql_query = "INSERT INTO `batteries` (brand,type,warranty,amount,delivery_charges,fitting_charges,actual_price,final_price,status)VALUES('$brand','$type','$warranty','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
@@ -144,6 +170,16 @@ if (isset($_POST['btnAdd'])) {
                                     </div>
                             </div>
                         </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                        <label for="exampleInputFile">Image</label> <i class="text-danger asterik">*</i><?php echo isset($error['battery_image']) ? $error['battery_image'] : ''; ?>
+                                        <input type="file" name="battery_image" onchange="readURL(this);" accept="image/png,  image/jpeg" id="battery_image"/>
+                                        <img id="blah" src="#" alt="" />
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- /.box-body -->
@@ -177,6 +213,22 @@ if (isset($_POST['btnAdd'])) {
             CKEDITOR.instances[instance].setData('');
         }
     });
+</script>
+<script>
+    function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 </script>
 
 <!--code for page clear-->

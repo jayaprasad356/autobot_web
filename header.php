@@ -244,6 +244,12 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
+                    <a href="orders.php">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-tag"></i>
                         <span>Login Details</span>
@@ -278,12 +284,7 @@ $fn = new custom_functions;
                         <li><a href="pincodes.php"><i class="fa fa-sliders"></i> Manage Pincodes</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="orders.php">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>Orders</span>
-                    </a>
-                </li>
+               
                 <li class="treeview">
                     <a href="notifications.php">
                         <i class="fa fa-bell"></i>

@@ -373,6 +373,10 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     $sort = 'id';
     $order = 'DESC';
     $where = '';
+    if (isset($_GET['date']) && !empty($_GET['date'] != '')){
+        $date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $where .= "AND o.order_date = '$date' ";  
+    }
     if (isset($_GET['offset']))
         $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
     if (isset($_GET['limit']))
@@ -385,7 +389,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE product_name like '%" . $search . "%' OR brand like '%" . $search . "%'OR status like '%" . $search . "%'OR mobile like '%" . $search . "%'";
+        $where .= "AND p.product_name like '%" . $search . "%' OR p.brand like '%" . $search . "%' OR u.name like '%" . $search . "%' OR u.mobile like '%" . $search . "%' OR o.grand_total like '%" . $search . "%' OR o.order_date like '%" . $search . "%' ";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -394,13 +398,16 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     if (isset($_GET['order'])){
         $order = $db->escapeString($_GET['order']);
     }
-    $sql = "SELECT COUNT(`id`) as total FROM `orders` ";
+    $join = "LEFT JOIN `users` u ON o.user_id = u.id LEFT JOIN `products` p ON o.product_id = p.id WHERE o.id IS NOT NULL ";
+
+    $sql = "SELECT COUNT(o.id) as total FROM `orders` o $join " . $where . "";
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT *,orders.id AS id,orders.status AS status,products.image AS image FROM orders,products WHERE orders.product_id=products.id ";
+    $sql = "SELECT o.id AS id,o.*,u.name AS name,u.mobile AS mobile,p.product_name,p.brand AS brand,p.mrp AS mrp,p.image AS image,o.quantity,o.price AS price,o.grand_total,o.status AS status,o.order_date FROM `orders` o $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit";
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -412,19 +419,27 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     $tempRow = array();
 
     foreach ($res as $row) {
-
+        
         $operate = '<a href="view-order.php?id=' . $row['id'] . '" class="label label-primary" title="View">View</a>';
+        $operate .= ' <a class="btn-xs btn-danger" href="delete-order.php?id=' . $row['id'] . '"><i class="fa fa-trash-o"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['name'] = $row['name'];
         $tempRow['product_name'] = $row['product_name'];
         $tempRow['brand'] = $row['brand'];
+        $tempRow['quantity'] = $row['quantity'];
+        $tempRow['price'] = $row['price'];
+        $tempRow['grand_total'] = $row['grand_total'];
         $tempRow['status'] = $row['status'];
-        if($row['status']== '1'){
-            $tempRow['status'] = '<p class="text text-success">Booked</p>';
-        }else{
-            $tempRow['status'] = '<p class="text text-danger">Not Booked</p>';
-        }
+        if ($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-warning'>Booked</p>";
+        else if($row['status'] == 2)
+            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
+        else if($row['status'] == 3)
+            $tempRow['status'] = "<p class='text text-primary'>Completed</p>";
+        else
+             $tempRow['status'] = "<p class='text text-danger'>Cancelled</p>";
+
         if(!empty($row['image'])){
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
 
@@ -432,6 +447,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
             $tempRow['image'] = 'No Image';
 
         }
+        $tempRow['order_date'] = $row['order_date'];
        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
@@ -1260,9 +1276,13 @@ if (isset($_GET['table']) && $_GET['table'] == 'batteries') {
         $tempRow['actual_price'] = $row['actual_price'];
         $tempRow['final_price'] = $row['final_price'];
         if ($row['status'] == 0)
-        $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
+           $tempRow['status'] = "<label class='label label-danger'>Not-Available</label>";
         else
-        $tempRow['status'] = "<label class='label label-success'>Available</label>";
+           $tempRow['status'] = "<label class='label label-success'>Available</label>";
+        if($row['image'] != null)
+            $tempRow['image'] = "<img src='" . $row['image'] . "' class='img img-responsive' style='width:50px;'>";
+        else
+            $tempRow['image'] = "<img src='images/default.jpg' class='img img-responsive' style='width:100px;'>";
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }

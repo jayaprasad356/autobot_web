@@ -27,7 +27,7 @@ if ($num >= 1) {
             $temp['fitting_charges'] = $row['fitting_charges'];
             $temp['actual_price'] = $row['actual_price'];
             $temp['final_price'] = $row['final_price'];
-            $temp['stock'] = $row['status'];
+            $temp['image'] = DOMAIN_URL . $row['image'];
             if($row['status']==1){
                 $temp['stock'] ='Available';
             }

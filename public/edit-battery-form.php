@@ -29,6 +29,29 @@ if (isset($_POST['btnEdit'])) {
 
 		  if (!empty($brand) && !empty($type) && !empty($warranty) &&!empty($amount) && !empty($delivery_charges) && !empty($fitting_charges)&& !empty($actual_price)&& !empty($final_price)) 
        {   
+                if ($_FILES['image']['size'] != 0 && $_FILES['image']['error'] == 0 && !empty($_FILES['image'])) {
+                    //image isn't empty and update the image
+                    $old_image = $db->escapeString($_POST['old_image']);
+                    $extension = pathinfo($_FILES["image"]["name"])['extension'];
+            
+                    $result = $fn->validate_image($_FILES["image"]);
+                    $target_path = 'upload/products/';
+                    
+                    $filename = microtime(true) . '.' . strtolower($extension);
+                    $full_path = $target_path . "" . $filename;
+                    if (!move_uploaded_file($_FILES["image"]["tmp_name"], $full_path)) {
+                        echo '<p class="alert alert-danger">Can not upload image.</p>';
+                        return false;
+                        exit();
+                    }
+                    if (!empty($old_image)) {
+                        unlink($old_image);
+                    }
+                    $upload_image = 'upload/products/' . $filename;
+                    $sql = "UPDATE batteries SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
+                    $db->sql($sql);
+                }
+
 				$sql_query = "UPDATE batteries SET brand='$brand',type='$type',warranty='$warranty',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
 				$db->sql($sql_query);
 				$update_result = $db->getResult();
@@ -83,7 +106,8 @@ if (isset($_POST['btnCancel'])) { ?>
 				<!-- form start -->
 				<form id="edit_battery_form" method="post" enctype="multipart/form-data">
 					<div class="box-body">
-					<div class="row">
+                        <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
+                        <div class="row">
                             <div class="form-group">
                                    <div class="col-md-6">
                                         <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
@@ -141,6 +165,11 @@ if (isset($_POST['btnCancel'])) { ?>
                         <br>
                         <div class="row">
                             <div class="form-group">
+                                    <div class="col-md-4">
+									     <label for="exampleInputFile">Image</label>
+                                        <input type="file" accept="image/png,  image/jpeg" onchange="readURL(this);"  name="image" id="image">
+                                        <p class="help-block"><img id="blah" src="<?php echo $res[0]['image']; ?>" style="max-width:100%" /></p>
+									</div>
                                    <div class='col-md-6'>
                                         <label class="control-label">Stock</label> <i class="text-danger asterik">*</i><br>
                                         <div id="status" class="btn-group">
@@ -167,7 +196,20 @@ if (isset($_POST['btnCancel'])) { ?>
 		</div>
 	</div>
 </section>
-
 <div class="separator"> </div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <?php $db->disconnect(); ?>
 

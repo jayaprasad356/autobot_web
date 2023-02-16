@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2023 at 05:40 AM
+-- Generation Time: Feb 16, 2023 at 06:34 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -55,11 +55,12 @@ CREATE TABLE `batteries` (
   `brand` text DEFAULT NULL,
   `type` text DEFAULT NULL,
   `warranty` text DEFAULT NULL,
-  `amount` text DEFAULT NULL,
-  `delivery_charges` text DEFAULT NULL,
-  `fitting_charges` text DEFAULT NULL,
-  `actual_price` text DEFAULT NULL,
-  `final_price` text DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT 0.00,
+  `delivery_charges` decimal(10,2) DEFAULT 0.00,
+  `fitting_charges` decimal(10,2) DEFAULT 0.00,
+  `actual_price` decimal(10,2) DEFAULT 0.00,
+  `final_price` decimal(10,2) DEFAULT 0.00,
+  `image` text DEFAULT NULL,
   `status` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -67,9 +68,10 @@ CREATE TABLE `batteries` (
 -- Dumping data for table `batteries`
 --
 
-INSERT INTO `batteries` (`id`, `brand`, `type`, `warranty`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `status`) VALUES
-(1, 'Excel', 'Self start', '2', '1500', '50', '100', '1699', '1400', 1),
-(2, 'Excel', 'Self start', '2', '1500', '50', '100', '1699', '1400', 0);
+INSERT INTO `batteries` (`id`, `brand`, `type`, `warranty`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `image`, `status`) VALUES
+(1, 'Excel', 'Self start', '2', '1500.00', '50.00', '100.00', '1699.00', '1400.00', NULL, 1),
+(2, 'Excel', 'Self start', '2', '1500.00', '50.00', '100.00', '1699.00', '1400.00', NULL, 1),
+(3, 'Amaron', 'Self start', '2', '1890.00', '50.00', '200.00', '2199.00', '1890.00', 'upload/products/1676519263.3444.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -202,7 +204,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `date_created`) VALUES
-(10, 1, 8, 1, '2023-02-09 04:05:07');
+(10, 1, 8, 1, '2023-02-09 04:05:07'),
+(11, 1, 6, 2, '2023-02-09 04:05:07');
 
 -- --------------------------------------------------------
 
@@ -333,7 +336,7 @@ CREATE TABLE `orders` (
   `address` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
   `order_date` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL
+  `status` tinyint(4) DEFAULT NULL COMMENT 'Booked-1\r\nConfirmed-2\r\ncompleted-3\r\nCancelled-0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -341,7 +344,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `product_id`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
-(1, 1, 6, 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
+(1, 1, 6, 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 0);
 
 -- --------------------------------------------------------
 
@@ -791,7 +794,8 @@ CREATE TABLE `tyre_products` (
 --
 
 INSERT INTO `tyre_products` (`id`, `brand`, `size`, `wheel`, `pattern`, `tyre_type`, `amount`, `delivery_charges`, `fitting_charges`, `actual_price`, `final_price`, `image`, `status`) VALUES
-(1, 'CEAT', 25, 'Front tyre', 'S-pattern', 'Tube', 5000, 50, 200, 5000, 2699, 'upload/images/9181-2022-12-13.jpg', 1);
+(1, 'CEAT', 25, 'Front tyre', 'S-pattern', 'Tube', 5000, 50, 200, 5000, 2699, 'upload/images/9181-2022-12-13.jpg', 1),
+(2, 'MRF', 25, 'Rear tyre', 'S-pattern', 'Tubeless', 4250, 50, 200, 4499, 4000, 'upload/images/9181-2022-12-13.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -1091,7 +1095,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `batteries`
 --
 ALTER TABLE `batteries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `battery_bookings`
@@ -1127,7 +1131,7 @@ ALTER TABLE `booked_services`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1265,7 +1269,7 @@ ALTER TABLE `tyrepuncture_bookings`
 -- AUTO_INCREMENT for table `tyre_products`
 --
 ALTER TABLE `tyre_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `used_vehicles`

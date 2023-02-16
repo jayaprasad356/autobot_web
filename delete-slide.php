@@ -11,9 +11,15 @@ $db->connect();
 		exit(0);
 	}
 	$data = array();
-
-	$sql_query = "DELETE  FROM slides WHERE id =" . $ID;
+	$sql_query = "SELECT *  FROM slides WHERE id =" . $ID;
 	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:slides.php");
+	$target_path = "".$res[0]['image'];
+
+		if(unlink($target_path)){	
+				$sql_query = "DELETE  FROM slides WHERE id =" . $ID;
+				$db->sql($sql_query);
+				$res = $db->getResult();
+				header("location:slides.php");
+		}
 ?>
