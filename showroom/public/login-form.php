@@ -33,10 +33,15 @@ if (isset($_POST['btnLogin'])) {
         $num = $db->numRows($res);
 
         if ($num == 1) {
-            $_SESSION['store_name'] = $res[0]['store_name'];
-            $_SESSION['id'] = $res[0]['id'];
-            $_SESSION['timeout'] = $currentTime + $expired;
-            header("location: home.php");
+            if($res[0]['status'] == 1){
+                $_SESSION['store_name'] = $res[0]['store_name'];
+                $_SESSION['id'] = $res[0]['id'];
+                $_SESSION['timeout'] = $currentTime + $expired;
+                header("location: home.php");
+            }
+            else{
+                $error['failed'] = "<span class='btn btn-danger'>Your account is not activated yet!</span>";
+            }
         } else {
             $error['failed'] = "<span class='btn btn-danger'>Invalid Mobile or Password!</span>".$password;
         }

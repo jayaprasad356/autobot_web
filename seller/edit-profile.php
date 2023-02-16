@@ -310,7 +310,7 @@ include "header.php"; ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
 
                                     <div id="status" class="btn-group">
@@ -321,7 +321,7 @@ include "header.php"; ?>
                                             <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Activated
                                         </label>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary" id="submit_btn">Update</button><br>
                                     <div style="display:none;" id="result"></div>

@@ -47,7 +47,7 @@ if (isset($_POST['btnAdd'])) {
 
     if (!empty($store_name) && !empty($email_id) && !empty($mobile) && !empty($password) && !empty($address) && !empty($brand) && !empty($latitude) && !empty($longitude)) {
 
-        $sql_query = "INSERT INTO showrooms (store_name,email_id,mobile,password,address,brand,latitude,longitude)VALUES('$store_name','$email_id','$mobile','$password','$address','$brand','$latitude','$longitude')";
+        $sql_query = "INSERT INTO showrooms (store_name,email_id,mobile,password,address,brand,latitude,longitude,status,permission)VALUES('$store_name','$email_id','$mobile','$password','$address','$brand','$latitude','$longitude',0,0)";
         $db->sql($sql_query);
         $result = $db->getResult();
         if (!empty($result)) {

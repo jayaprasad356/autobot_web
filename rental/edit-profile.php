@@ -131,7 +131,7 @@ include "header.php"; ?>
                                             <input type="text" class="form-control" name="location" value="<?= $res[0]['location']; ?>"  id="location">
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <!-- <div class="form-group col-md-4">
                                         <label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
                                         <div id="status" class="btn-group">
                                             <label class="btn btn-default" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
@@ -141,7 +141,7 @@ include "header.php"; ?>
                                                 <input type="radio" name="status" value="1" <?= ($res[0]['status'] == 1) ? 'checked' : ''; ?>> Activated
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary" id="submit_btn">Update</button><br>

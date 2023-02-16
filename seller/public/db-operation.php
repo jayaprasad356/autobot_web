@@ -23,11 +23,11 @@ if (isset($_POST['add_seller']) && $_POST['add_seller'] == 1) {
     $tax_number = $db->escapeString($fn->xss_clean($_POST['tax_number']));
     $pan_number = $db->escapeString($fn->xss_clean($_POST['pan_number']));
     $commission = 0;
-    $status = '2';
+    $status = '0';
 
     $password = $db->escapeString($fn->xss_clean($_POST['password']));
 
-    $password = md5($password);
+    // $password = md5($password);
 
     $sql = 'SELECT id FROM seller WHERE mobile=' . $mobile;
     $db->sql($sql);
@@ -93,7 +93,7 @@ if (isset($_POST['add_seller']) && $_POST['add_seller'] == 1) {
             return false;
         }
     }
-    $sql = "INSERT INTO `seller`(`name`, `store_name`, `email`, `mobile`, `password`, `logo`,`commission`,`status`,`national_identity_card`,`address_proof`,`pan_number`,`tax_name`,`tax_number`) VALUES ('$name','$store_name','$email', '$mobile', '$password','$filename', '$commission','$status','$national_id_card','$address_proof','$pan_number','$tax_name','$tax_number')";
+    $sql = "INSERT INTO `seller`(`name`, `store_name`, `email`, `mobile`, `password`, `logo`,`commission`,`status`,`national_identity_card`,`address_proof`,`pan_number`,`tax_name`,`tax_number`,`permission`) VALUES ('$name','$store_name','$email', '$mobile', '$password','$filename', '$commission','$status','$national_id_card','$address_proof','$pan_number','$tax_name','$tax_number',0)";
 
     if ($db->sql($sql)) {
         echo '<label class="alert alert-success">Seller Added Successfully!</label>';
@@ -119,7 +119,6 @@ if (isset($_POST['update_seller'])  && !empty($_POST['update_seller'])) {
     $tax_number = $db->escapeString($fn->xss_clean($_POST['tax_number']));
     $pan_number = $db->escapeString($fn->xss_clean($_POST['pan_number']));
 
-    $status = (isset($_POST['status']) && $_POST['status'] != "") ? $db->escapeString($fn->xss_clean($_POST['status'])) : "2";
     $store_url = (isset($_POST['store_url']) && $_POST['store_url'] != "") ? $db->escapeString($fn->xss_clean($_POST['store_url'])) : "";
     $store_description = (isset($_POST['hide_description']) && $_POST['hide_description'] != "") ? $db->escapeString($fn->xss_clean($_POST['hide_description'])) : "";
     if (strpos($name, "'") !== false) {
@@ -142,7 +141,7 @@ if (isset($_POST['update_seller'])  && !empty($_POST['update_seller'])) {
     $sql = "SELECT * from seller where id='$id'";
     $db->sql($sql);
     $res_id = $db->getResult();
-    if (!empty($res_id) && ($res_id[0]['status'] == 2 || $res_id[0]['status'] == 7)) {
+    if (!empty($res_id) && ($res_id[0]['status'] == 0)) {
         $response['error'] = true;
         $response['message'] = "Seller can not update becasue you have not-approoved or removed.";
         print_r(json_encode($response));
@@ -151,7 +150,7 @@ if (isset($_POST['update_seller'])  && !empty($_POST['update_seller'])) {
     }
     if (isset($_POST['old_password']) && $_POST['old_password'] != '') {
         $old_password = $db->escapeString($fn->xss_clean($_POST['old_password']));
-        $old_password = md5($old_password);
+        // $old_password = md5($old_password);
         $res = $fn->get_data($column = ['password'], "id=" . $id, 'seller');
         if ($res[0]['password'] != $old_password) {
             echo "<label class='alert alert-danger'>Old password does't match.</label>";
@@ -164,7 +163,7 @@ if (isset($_POST['update_seller'])  && !empty($_POST['update_seller'])) {
         return false;
     }
     $password = !empty($_POST['password']) ? $db->escapeString($fn->xss_clean($_POST['password'])) : '';
-    $password = !empty($password) ? md5($password) : '';
+    // $password = !empty($password) ? md5($password) : '';
 
     if ($_FILES['store_logo']['size'] != 0 && $_FILES['store_logo']['error'] == 0 && !empty($_FILES['store_logo'])) {
         //image isn't empty and update the image
@@ -243,9 +242,9 @@ if (isset($_POST['update_seller'])  && !empty($_POST['update_seller'])) {
     }
 
     if (!empty($password)) {
-        $sql = "UPDATE `seller` SET `name`='$name',`latitude`='$latitude',`longitude`='$longitude',`city_id`='$city_id',`store_name`='$store_name',`slug`='$slug',`email`='$email',`mobile`='$mobile',`password`='$password',`store_url`='$store_url',`store_description`='$store_description',`street`='$street',`pincode_id`='$pincode_id',`state`='$state',`account_number`='$account_number',`bank_ifsc_code`='$bank_ifsc_code',`account_name`='$account_name',`bank_name`='$bank_name',`status`=$status,`pan_number`='$pan_number',`tax_name`='$tax_name',`tax_number`='$tax_number' WHERE id=" . $id;
+        $sql = "UPDATE `seller` SET `name`='$name',`latitude`='$latitude',`longitude`='$longitude',`city_id`='$city_id',`store_name`='$store_name',`slug`='$slug',`email`='$email',`mobile`='$mobile',`password`='$password',`store_url`='$store_url',`store_description`='$store_description',`street`='$street',`pincode_id`='$pincode_id',`state`='$state',`account_number`='$account_number',`bank_ifsc_code`='$bank_ifsc_code',`account_name`='$account_name',`bank_name`='$bank_name',`pan_number`='$pan_number',`tax_name`='$tax_name',`tax_number`='$tax_number' WHERE id=" . $id;
     } else {
-        $sql = "UPDATE `seller` SET `name`='$name',`latitude`='$latitude',`longitude`='$longitude',`city_id`='$city_id',`store_name`='$store_name',`slug`='$slug',`email`='$email',`mobile`='$mobile',`store_url`='$store_url',`store_description`='$store_description',`street`='$street',`pincode_id`='$pincode_id',`state`='$state',`account_number`='$account_number',`bank_ifsc_code`='$bank_ifsc_code',`account_name`='$account_name',`bank_name`='$bank_name',`status`=$status,`pan_number`='$pan_number',`tax_name`='$tax_name',`tax_number`='$tax_number' WHERE id=" . $id;
+        $sql = "UPDATE `seller` SET `name`='$name',`latitude`='$latitude',`longitude`='$longitude',`city_id`='$city_id',`store_name`='$store_name',`slug`='$slug',`email`='$email',`mobile`='$mobile',`store_url`='$store_url',`store_description`='$store_description',`street`='$street',`pincode_id`='$pincode_id',`state`='$state',`account_number`='$account_number',`bank_ifsc_code`='$bank_ifsc_code',`account_name`='$account_name',`bank_name`='$bank_name',`pan_number`='$pan_number',`tax_name`='$tax_name',`tax_number`='$tax_number' WHERE id=" . $id;
     }
     if ($db->sql($sql)) {
         echo "<label class='alert alert-success'>Information Updated Successfully.</label>";

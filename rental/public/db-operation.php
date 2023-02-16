@@ -21,14 +21,14 @@ if (isset($_POST['update_rental'])  && !empty($_POST['update_rental'])) {
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
     $email = $db->escapeString($fn->xss_clean($_POST['email']));
 
-    $status = (isset($_POST['status']) && $_POST['status'] != "") ? $db->escapeString($fn->xss_clean($_POST['status'])) : "2";
+    $status = (isset($_POST['status']) && $_POST['status'] != "") ? $db->escapeString($fn->xss_clean($_POST['status'])) : "0";
   
     $location = (isset($_POST['location']) && $_POST['location'] != "") ? $db->escapeString($fn->xss_clean($_POST['location'])) : "";
 
     $sql = "SELECT * from rental_showrooms where id='$id'";
     $db->sql($sql);
     $res_id = $db->getResult();
-    if (!empty($res_id) && ($res_id[0]['status'] == 2 || $res_id[0]['status'] == 7)) {
+    if (!empty($res_id) && ($res_id[0]['status'] == 0)) {
         $response['error'] = true;
         $response['message'] = "You can not update becasue you have not-approoved or removed.";
         print_r(json_encode($response));
@@ -52,9 +52,9 @@ if (isset($_POST['update_rental'])  && !empty($_POST['update_rental'])) {
     $password = !empty($_POST['password']) ? $db->escapeString($fn->xss_clean($_POST['password'])) : '';
 
     if (!empty($password)) {
-        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`location`='$location',`email`='$email',`mobile`='$mobile',`password`='$password',`status`=$status WHERE id=" . $id;
+        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`location`='$location',`email`='$email',`mobile`='$mobile',`password`='$password' WHERE id=" . $id;
     } else {
-        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`email`='$email',`mobile`='$mobile',`status`=$status WHERE id=" . $id;
+        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`email`='$email',`mobile`='$mobile' WHERE id=" . $id;
     }
     if ($db->sql($sql)) {
         echo "<label class='alert alert-success'>Information Updated Successfully.</label>";
@@ -70,7 +70,7 @@ if (isset($_POST['add_rental_showroom']) && $_POST['add_rental_showroom'] == 1) 
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
     $location = $db->escapeString($fn->xss_clean($_POST['location']));
 
-    $status = '2';
+    $status = '0';
 
     $password = $db->escapeString($fn->xss_clean($_POST['password']));
 
@@ -84,7 +84,7 @@ if (isset($_POST['add_rental_showroom']) && $_POST['add_rental_showroom'] == 1) 
         return false;
     }
 
-    $sql = "INSERT INTO `rental_showrooms`(`name`,`email`, `mobile`, `password`, `location`,`status`) VALUES ('$name','$email', '$mobile', '$password','$location', '$status')";
+    $sql = "INSERT INTO `rental_showrooms`(`name`,`email`, `mobile`, `password`, `location`,`status`,`permission`) VALUES ('$name','$email', '$mobile', '$password','$location', '$status',0)";
 
     if ($db->sql($sql)) {
         echo '<label class="alert alert-success">Rental Showroom Added Successfully!</label>';
