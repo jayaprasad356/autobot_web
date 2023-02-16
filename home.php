@@ -59,22 +59,22 @@ include "header.php";
                         <a href="bikes.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
                         <h3><?php
-                            $sql = "SELECT * FROM categories";
+                            $sql = "SELECT * FROM products";
                             $db->sql($sql);
                             $res = $db->getResult();
                             $num = $db->numRows($res);
                             echo $num;
                              ?></h3>
-                            <p>Categories</p>
+                            <p>Products</p>
                         </div>
-                        <div class="icon"><i class="fa fa-shopping-cart"></i></div>
-                        <a href="categories.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <div class="icon"><i class="fa fa-cube"></i></div>
+                        <a href="products.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div> -->
+                </div>
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-green">
                         <div class="inner">
@@ -87,15 +87,31 @@ include "header.php";
                              ?></h3>
                             <p>Tyre Products</p>
                         </div>
-                        <div class="icon"><i class="fa fa-cubes"></i></div>
+                        <div class="icon"><i class="fa fa-circle"></i></div>
                         <a href="tyre_products.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-3 col-xs-6">
                     <div class="small-box bg-red">
                         <div class="inner">
                         <h3><?php
-                            $sql = "SELECT * FROM showroom";
+                            $sql = "SELECT * FROM batteries";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $num = $db->numRows($res);
+                            echo $num;
+                             ?></h3>
+                            <p>Batteries</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-battery-full"></i></div>
+                        <a href="batteries.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-orange">
+                        <div class="inner">
+                        <h3><?php
+                            $sql = "SELECT * FROM showrooms";
                             $db->sql($sql);
                             $res = $db->getResult();
                             $num = $db->numRows($res);
@@ -103,10 +119,58 @@ include "header.php";
                              ?></h3>
                             <p>Showrooms</p>
                         </div>
-                        <div class="icon"><i class="fa fa-map"></i></div>
+                        <div class="icon"><i class="fa fa-building"></i></div>
                         <a href="showrooms.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div> -->
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-purple">
+                        <div class="inner">
+                        <h3><?php
+                            $sql = "SELECT * FROM seller";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $num = $db->numRows($res);
+                            echo $num;
+                             ?></h3>
+                            <p>Sellers</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-users"></i></div>
+                        <a href="sellers.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-blue">
+                        <div class="inner">
+                        <h3><?php
+                            $sql = "SELECT * FROM rental_showrooms";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $num = $db->numRows($res);
+                            echo $num;
+                             ?></h3>
+                            <p>Rental Showrooms</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-home"></i></div>
+                        <a href="rental_showrooms.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                        <h3><?php
+                            $sql = "SELECT * FROM orders";
+                            $db->sql($sql);
+                            $res = $db->getResult();
+                            $num = $db->numRows($res);
+                            echo $num;
+                             ?></h3>
+                            <p>Today Orders</p>
+                        </div>
+                        <div class="icon"><i class="fa fa-shopping-cart"></i></div>
+                        <a href="orders.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
             </div>
         </section>
     </div>

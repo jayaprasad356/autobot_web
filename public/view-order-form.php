@@ -6,7 +6,7 @@ include_once('includes/custom-functions.php');
 $fn = new custom_functions;
 // session_start();
 $order_id = $_GET['id'];
-$sql = "SELECT *,orders.id AS id,orders.status AS status,users.name AS name,users.address AS address,users.pincode AS pincode,users.mobile AS mobile FROM `orders`,`products`,`users` WHERE orders.user_id=users.id AND orders.product_id=products.id  AND orders.id = '$order_id'";
+$sql = "SELECT *,orders.id AS id,orders.status AS status,users.name AS name,users.address AS address,users.pincode AS pincode,users.mobile AS mobile,orders.price AS price FROM `orders`,`products`,`users` WHERE orders.user_id=users.id AND orders.product_id=products.id  AND orders.id = '$order_id'";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
