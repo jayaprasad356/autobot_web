@@ -26,7 +26,7 @@ $res = $db->getResult();
                         <h3 class="box-title">Order Detail</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                    <table class="table table-bordered">
+                        <table class="table table-bordered">
                             <tr>
                                 <th style="width: 200px">ID</th>
                                 <td><?php echo $res[0]['id'] ?></td>
@@ -92,7 +92,7 @@ $res = $db->getResult();
 
                                 </td>
                             </tr>
-                         </table>
+                        </table>
     
                     </div><!-- /.box-body -->
                     <?php
@@ -165,5 +165,5 @@ $res = $db->getResult();
     }
     function showpanel() {     
         window.location.replace("orders.php");
- }
+    }
 </script>

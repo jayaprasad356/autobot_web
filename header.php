@@ -108,7 +108,7 @@ $fn = new custom_functions;
             <a href="home.php" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">
-                    <h2>Autobot</h2>
+                <img src="dist/img/logo.png" class="img-circle" alt="User Image" width="50px">
                 </span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">

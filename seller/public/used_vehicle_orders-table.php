@@ -24,11 +24,14 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
-                                    <th data-field="user_id" data-sortable="true">User Id</th>
-                                    <th data-field="used_vehicles_id" data-sortable="true"> Used Vehicle Id</th>
+                                    <th data-field="name" data-sortable="true">Name</th>
+                                    <th data-field="mobile" data-sortable="true">Mobile</th>
+                                    <th data-field="bike_name" data-sortable="true">Bike Name</th>
+                                    <th data-field="brand" data-sortable="true">Brand</th>
                                     <th data-field="price" data-sortable="true">Price</th>
                                     <th data-field="description" data-sortable="true">Description</th>
                                     <th data-field="status" data-sortable="true">Status</th>
+                                    <th data-field="image">Image</th>
                                     <th  data-field="operate" data-events="actionEvents">Action</th>   
                                 </tr>
                             </thead>
@@ -43,6 +46,13 @@
         <!-- /.row (main row) -->
     </section>
 <script>
+    $('#seller_id').on('change', function() {
+        $('#products_table').bootstrapTable('refresh');
+    });
+    $('#community').on('change', function() {
+        $('#users_table').bootstrapTable('refresh');
+    });
+
     function queryParams(p) {
         return {
             "category_id": $('#category_id').val(),

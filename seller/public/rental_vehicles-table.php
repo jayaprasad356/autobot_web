@@ -24,7 +24,8 @@
                             <thead>
                                 <tr>
                                     <th data-field="id" data-sortable="true">ID</th>
-                                    <th data-field="rental_category_id" data-sortable="true">Rental Category Id</th>
+                                    <th data-field="bike_name" data-sortable="true">Bike Name</th>
+                                    <th data-field="brand" data-sortable="true">Brand</th>
                                     <th data-field="pincode" data-sortable="true">Pincode</th>
                                     <th data-field="image">Image</th>
                                     <th data-field="status" data-sortable="true">Status</th>

@@ -76,11 +76,11 @@ if (isset($_POST['btnAdd'])) {
                 <form name="add_vehicle_form" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                        <label for="exampleInputEmail1">User Id</label><i class="text-danger asterik">*</i>
+                                        <label for="exampleInputEmail1">User</label><i class="text-danger asterik">*</i>
                                         <select id='user_id' name="user_id" class='form-control' required>
-                                                <option value="none">Select</option>
+                                                <option value="none">--Select--</option>
                                                             <?php
                                                             $sql = "SELECT * FROM `users`";
                                                             $db->sql($sql);
@@ -93,11 +93,11 @@ if (isset($_POST['btnAdd'])) {
                                         </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Used Vehicle Id</label><i class="text-danger asterik">*</i>
+                                    <label for="exampleInputEmail1">Select Vehicle</label><i class="text-danger asterik">*</i>
                                         <select id='used_vehicles_id' name="used_vehicles_id" class='form-control' required>
-                                                <option value="">Select</option>
+                                                <option value="">--Select--</option>
                                                             <?php
                                                             $sql = "SELECT * FROM `used_vehicles`";
                                                             $db->sql($sql);
@@ -115,26 +115,24 @@ if (isset($_POST['btnAdd'])) {
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Price</label><i class="text-danger asterik">*</i><?php echo isset($error['price']) ? $error['price'] : ''; ?>
-                                    <input type="number" class="form-control" name="price" required>
+                                    <input type="text" class="form-control" name="price" required>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Description</label><i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
-                                    <input type="text" class="form-control" name="description" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Status</label><i class="text-danger asterik">*</i><?php echo isset($error['status']) ? $error['status'] : ''; ?>
                                     <select id="status" name="status" class="form-control">
-                                        <option value="">Select</option>
+                                        <option value="">--Select--</option>
                                         <option  value="1">Booked</option>
                                         <option value="2">Confirmed</option>
                                         <option value="3">Completed</option>
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Description</label><i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
+                            <textarea type="text" rows="3" class="form-control" name="description" required></textarea>
                         </div>
                     </div>
                   

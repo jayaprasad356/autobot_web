@@ -6,12 +6,6 @@ include_once('../includes/custom-functions.php');
 $fn = new custom_functions;
 // session_start();
 $order_id = $_GET['id'];
-
-if (isset($_POST['btnUpdate'])) {
-    $status = $db->escapeString(($_POST['status']));
-    $sql = "UPDATE rental_orders SET `status`='" . $status . "' WHERE `id`=" . $order_id;
-    $db->sql($sql);
-}
 $sql = "SELECT *,rental_orders.status AS status,rental_orders.id AS id FROM rental_orders,rental_vehicles,rental_category WHERE rental_orders.rental_vehicles_id=rental_vehicles.id AND rental_vehicles.rental_category_id=rental_category.id AND rental_orders.id = $order_id";
 $db->sql($sql);
 $res = $db->getResult();
@@ -101,6 +95,38 @@ $res = $db->getResult();
                         </table>
     
                     </div><!-- /.box-body -->
+
+                    <?php
+                    $order_id = $_GET['id'];
+
+                    if (isset($_POST['btnUpdate'])) {
+                        
+                        $status = $db->escapeString($_POST['status']);    
+                    
+                            $sql = "UPDATE rental_orders SET `status` = '$status' WHERE id = '" . $order_id . "'";
+                            $db->sql($sql);
+                            $order_result = $db->getResult();
+                            if (!empty($order_result)) {
+                                $order_result = 0;
+                            } else {
+                                $order_result = 1;
+                            }
+                            if ($order_result == 1 ) {
+                                $error['add_menu'] = "<section class='content-header'>
+                                                                    <span id='success' class='label label-success'>Updated Successfully</span>
+                                                                    
+                                                                     </section>";
+                            } else {
+                                $error['add_menu'] = " <span class='label label-danger'>Failed</span>";
+                            }
+                    
+                    }
+                    $sql_query = "SELECT status FROM rental_orders WHERE id = '" . $order_id . "'";
+                    $db->sql($sql_query);
+                    
+                    $res = $db->getResult();
+                    
+                    ?>
                     <section class="content-header">
                         <?php echo isset($error['add_menu']) ? $error['add_menu'] : ''; ?>
                     </section>
@@ -132,9 +158,9 @@ $res = $db->getResult();
     if ($("#success").text() == "Updated Successfully")
     {
         setTimeout(showpanel, 1000);
-        function showpanel() {     
-        window.location("rental_orders.php");
-         }
         
+    }
+    function showpanel() {     
+        window.location.replace("rental_orders.php");
     }
 </script>

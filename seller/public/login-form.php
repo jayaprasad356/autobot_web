@@ -22,7 +22,7 @@ if (isset($_POST['btnLogin'])) {
     }
 
     if (!empty($mobile) && !empty($password)) {
-        $password = md5($password);
+        // $password = md5($password);
 
         $sql_query = "SELECT * FROM seller WHERE mobile = '" . $mobile . "' AND password = '" . $password . "'";
 

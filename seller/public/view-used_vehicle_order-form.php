@@ -40,6 +40,14 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['mobile'] ?></td>
                             </tr>
                             <tr>
+                                <th style="width: 200px">Address</th>
+                                <td><?php echo $res[0]['address'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Pincode</th>
+                                <td><?php echo $res[0]['pincode'] ?></td>
+                            </tr>
+                            <tr>
                                 <th style="width: 200px"> Brand</th>
                                 <td><?php echo $res[0]['brand'] ?></td>
                             </tr>
@@ -52,16 +60,8 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['model'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Vehicle Number</th>
-                                <td><?php echo $res[0]['vehicle_no'] ?></td>
-                            </tr>
-                            <tr>
                                 <th style="width: 200px">KM Driven</th>
                                 <td><?php echo $res[0]['km_driven']; ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">Insurance</th>
-                                <td><?php echo $res[0]['insurance']; ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Price</th>
@@ -78,14 +78,6 @@ $res = $db->getResult();
                             <tr>
                                 <th style="width: 200px">Color</th>
                                 <td><?php echo $res[0]['color']; ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">Owner</th>
-                                <td><?php echo $res[0]['owner']; ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">Fuel</th>
-                                <td><?php echo $res[0]['fuel']; ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Status</th>
