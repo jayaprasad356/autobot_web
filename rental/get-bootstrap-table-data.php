@@ -55,7 +55,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE category like '%" . $search . "%' OR brand like '%" . $search . "%' OR bike_name like '%" . $search . "%'";
+        $where .= "AND rc.bike_name like '%" . $search . "%' OR rc.brand like '%" . $search . "%' OR rc.id like '%" . $search . "%' ";
     }
     if (isset($_GET['sort'])) {
         $sort = $db->escapeString($_GET['sort']);
@@ -63,13 +63,18 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
     if (isset($_GET['order'])) {
         $order = $db->escapeString($_GET['order']);
     }
-    $sql = "SELECT COUNT(`id`) as total FROM `rental_vehicles` ";
+
+    $join = "LEFT JOIN `rental_category` rc ON rv.rental_category_id = rc.id WHERE rv.id IS NOT NULL ";
+
+
+    $sql = "SELECT COUNT(rv.id) as total FROM `rental_vehicles` rv $join " . $where . "";
     $db->sql($sql);
     $res = $db->getResult();
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT * FROM `rental_vehicles` " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
+    $sql = "SELECT rv.id AS id,rv.*,rv.status AS status,rc.brand AS brand,rc.bike_name AS bike_name FROM `rental_vehicles` rv $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit";
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -84,7 +89,8 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
 
         $operate = ' <a href="edit-rental_vehicle.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $tempRow['id'] = $row['id'];
-        $tempRow['rental_category_id'] = $row['rental_category_id'];
+        $tempRow['bike_name'] = $row['bike_name'];
+        $tempRow['brand'] = $row['brand'];
         $tempRow['pincode'] = $row['pincode'];
         if (!empty($row['image'])) {
             $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['image'] . "'><img src='../upload/rentals/" . $row['image'] . "' title='" . $row['image'] . "' height='50' /></a>";
@@ -159,8 +165,12 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $tempRow['rental_vehicles_id'] = $row['rental_vehicles_id'];
         $tempRow['start_time'] = $row['start_time'];
         $tempRow['end_time'] = $row['end_time'];
-        $tempRow['status'] = $row['status'];
-        $tempRow['operate'] = $operate;
+        if ($row['status'] == 0)
+            $tempRow['status'] = "<p class='text text-primary'>Booked</p>";
+        elseif($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>"; 
+        else
+           $tempRow['status'] = "<p class='text text-danger'>Completed</p>";         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
     $bulkData['rows'] = $rows;
