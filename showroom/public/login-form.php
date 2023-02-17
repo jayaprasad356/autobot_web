@@ -53,7 +53,7 @@ if (isset($_POST['btnLogin'])) {
     <!-- general form elements -->
     <div class='row'>
         <div class="col-md-12 text-center">
-            <img src="dist/img/logo.png" height="110">
+            <img src="../dist/img/logo.png" height="110">
             <h3>Showroom-Dashboard</h3>
         </div>
         <div class="box box-info col-md-12">
