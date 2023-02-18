@@ -454,6 +454,189 @@ if (isset($_GET['table']) && $_GET['table'] == 'orders') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+
+//battery orders table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'battery_orders') {
+
+    $offset = 0;
+    $limit = 10;
+    $sort = 'id';
+    $order = 'DESC';
+    $where = '';
+    if (isset($_GET['date']) && !empty($_GET['date'] != '')){
+        $date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $where .= "AND bb.order_date = '$date' ";  
+    }
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= "AND b.brand like '%" . $search . "%' OR b.warranty like '%" . $search . "%' OR b.type like '%" . $search . "%' OR u.mobile like '%" . $search . "%' OR bb.grand_total like '%" . $search . "%' OR bb.order_date like '%" . $search . "%' ";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $join = "LEFT JOIN `users` u ON bb.user_id = u.id LEFT JOIN `batteries` b ON bb.product_id = b.id WHERE bb.id IS NOT NULL ";
+
+    $sql = "SELECT COUNT(bb.id) as total FROM `battery_bookings` bb $join " . $where . "";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+    $sql = "SELECT bb.id AS id,bb.*,u.name AS name,u.mobile AS mobile,b.type,b.warranty,b.brand AS brand,b.image AS image,bb.quantity,bb.price AS price,bb.grand_total,bb.status AS status,bb.order_date FROM `battery_bookings` bb $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit";
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+        
+        $operate = '<a href="view-battery_order.php?id=' . $row['id'] . '" class="label label-primary" title="View">View</a>';
+        $operate .= ' <a class="btn-xs btn-danger" href="delete-battery_order.php?id=' . $row['id'] . '"><i class="fa fa-trash-o"></i>Delete</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['mobile'] = $row['mobile'];
+        $tempRow['name'] = $row['name'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['type'] = $row['type'];
+        $tempRow['warranty'] = $row['warranty'];
+        $tempRow['quantity'] = $row['quantity'];
+        $tempRow['price'] = $row['price'];
+        $tempRow['grand_total'] = $row['grand_total'];
+        $tempRow['status'] = $row['status'];
+        if ($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-warning'>Booked</p>";
+        else if($row['status'] == 2)
+            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
+        else if($row['status'] == 3)
+            $tempRow['status'] = "<p class='text text-primary'>Completed</p>";
+        else
+             $tempRow['status'] = "<p class='text text-danger'>Cancelled</p>";
+
+        if(!empty($row['image'])){
+            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
+
+        }else{
+            $tempRow['image'] = 'No Image';
+
+        }
+        $tempRow['order_date'] = $row['order_date'];
+       $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//tyreproduct orders table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'tyreproduct_orders') {
+
+    $offset = 0;
+    $limit = 10;
+    $sort = 'id';
+    $order = 'DESC';
+    $where = '';
+    if (isset($_GET['date']) && !empty($_GET['date'] != '')){
+        $date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $where .= "AND tb.order_date = '$date' ";  
+    }
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= "AND tp.brand like '%" . $search . "%' OR tb.pattern like '%" . $search . "%' OR tp.wheel like '%" . $search . "%' OR tp.tyre_type like '%" . $search . "%' OR u.mobile like '%" . $search . "%' OR tb.grand_total like '%" . $search . "%' OR tb.order_date like '%" . $search . "%' ";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $join = "LEFT JOIN `users` u ON tb.user_id = u.id LEFT JOIN `tyre_products` tp ON tb.product_id = tp.id WHERE tb.id IS NOT NULL ";
+
+    $sql = "SELECT COUNT(tb.id) as total FROM `tyreproduct_bookings` tb $join " . $where . "";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+    $sql = "SELECT tb.id AS id,tb.*,u.name AS name,u.mobile AS mobile,tp.wheel,tp.tyre_type,tp.pattern,tp.size,tp.brand AS brand,tp.image AS image,tb.quantity,tb.price AS price,tb.grand_total,tb.status AS status,tb.order_date FROM `tyreproduct_bookings` tb $join 
+        $where ORDER BY $sort $order LIMIT $offset, $limit";
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+        
+        $operate = '<a href="view-tyreproduct_order.php?id=' . $row['id'] . '" class="label label-primary" title="View">View</a>';
+        $operate .= ' <a class="btn-xs btn-danger" href="delete-tyreproduct_order.php?id=' . $row['id'] . '"><i class="fa fa-trash-o"></i>Delete</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['mobile'] = $row['mobile'];
+        $tempRow['name'] = $row['name'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['tyre_type'] = $row['tyre_type'];
+        $tempRow['size'] = $row['size'];
+        $tempRow['wheel'] = $row['wheel'];
+        $tempRow['pattern'] = $row['pattern'];
+        $tempRow['quantity'] = $row['quantity'];
+        $tempRow['price'] = $row['price'];
+        $tempRow['grand_total'] = $row['grand_total'];
+        if ($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-warning'>Booked</p>";
+        else if($row['status'] == 2)
+            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
+        else if($row['status'] == 3)
+            $tempRow['status'] = "<p class='text text-primary'>Completed</p>";
+        else
+             $tempRow['status'] = "<p class='text text-danger'>Cancelled</p>";
+
+        if(!empty($row['image'])){
+            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
+
+        }else{
+            $tempRow['image'] = 'No Image';
+
+        }
+        $tempRow['order_date'] = $row['order_date'];
+       $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 if (isset($_GET['table']) && $_GET['table'] == 'services') {
 
     $offset = 0;
@@ -1298,65 +1481,6 @@ if (isset($_GET['table']) && $_GET['table'] == 'batteries') {
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
-    $bulkData['rows'] = $rows;
-    print_r(json_encode($bulkData));
-}
-if (isset($_GET['table']) && $_GET['table'] == 'tyreproduct_bookings') {
-    $offset = 0;
-    $limit = 10;
-    $where = '';
-    $sort = 'id';
-    $order = 'DESC';
-    if (isset($_GET['offset']))
-        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
-    if (isset($_GET['limit']))
-        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
-
-    if (isset($_GET['sort']))
-        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
-    if (isset($_GET['order']))
-        $order = $db->escapeString($fn->xss_clean($_GET['order']));
-
-    if (isset($_GET['search']) && !empty($_GET['search'])) {
-        $search = $db->escapeString($fn->xss_clean($_GET['search']));
-        $where .= "WHERE name like '%" . $search . "%' OR mobile like '%" . $search . "%' OR address like '%" . $search . "%' ";
-    }
-    if (isset($_GET['sort'])){
-        $sort = $db->escapeString($_GET['sort']);
-
-    }
-    if (isset($_GET['order'])){
-        $order = $db->escapeString($_GET['order']);
-
-    }        
-    $sql = "SELECT COUNT(`id`) as total FROM `tyreproduct_bookings`" . $where;
-    $db->sql($sql);
-    $res = $db->getResult();
-    foreach ($res as $row)
-        $total = $row['total'];
-
-    $sql = "SELECT * FROM tyreproduct_bookings ". $where ." ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . "," . $limit;
-    $db->sql($sql);
-    $res = $db->getResult();
-
-    $bulkData = array();
-    $bulkData['total'] = $total;
-
-    $rows = array();
-    $tempRow = array();
-    foreach ($res as $row) {
-
-        $tempRow['id'] = $row['id'];
-        $tempRow['bike_name'] = $row['bike_name'];
-        $tempRow['tyre_type'] = $row['tyre_type'];
-        $tempRow['wheel'] = $row['wheel'];
-        $tempRow['product_id'] = $row['product_id'];
-        $tempRow['price'] = $row['price'];
-        $tempRow['name'] = $row['name'];
-        $tempRow['size'] = $row['size'];
-        $tempRow['operate'] = $operate;
-        $rows[] = $tempRow;
-        }
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }

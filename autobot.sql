@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 05:38 AM
+-- Generation Time: Feb 18, 2023 at 09:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -81,20 +81,35 @@ INSERT INTO `batteries` (`id`, `brand`, `type`, `warranty`, `amount`, `delivery_
 
 CREATE TABLE `battery_bookings` (
   `id` int(11) NOT NULL,
-  `bike_name` text DEFAULT NULL,
-  `type` text DEFAULT NULL,
+  `user_id` int(11) DEFAULT 0,
   `product_id` int(11) DEFAULT 0,
-  `name` text DEFAULT NULL,
-  `price` text DEFAULT NULL,
-  `size` text DEFAULT NULL
+  `quantity` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT 0.00,
+  `grand_total` decimal(10,2) DEFAULT 0.00,
+  `order_date` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 1 COMMENT 'Booked-1\r\nConfirmed-2\r\nCompleted-3\r\nCancelled-0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `battery_bookings`
 --
 
-INSERT INTO `battery_bookings` (`id`, `bike_name`, `type`, `product_id`, `name`, `price`, `size`) VALUES
-(1, 'Duke 200', 'Self start', 1, 'Excel', '1426', '10');
+INSERT INTO `battery_bookings` (`id`, `user_id`, `product_id`, `quantity`, `price`, `grand_total`, `order_date`, `status`) VALUES
+(1, 1, 1, 2, '1400.00', '2800.00', '2023-02-18', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `battery_cart`
+--
+
+CREATE TABLE `battery_cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -345,7 +360,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `product_id`, `quantity`, `price`, `grand_total`, `address`, `mobile`, `order_date`, `status`) VALUES
-(1, 1, 6, 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 0);
+(1, 1, 6, 2, '450.00', '900.00', '1,Thayanur,Trichy', '8428225519', '2023-01-30', 1);
 
 -- --------------------------------------------------------
 
@@ -614,7 +629,7 @@ CREATE TABLE `seller` (
 --
 
 INSERT INTO `seller` (`id`, `name`, `store_name`, `slug`, `email`, `mobile`, `password`, `balance`, `store_url`, `logo`, `store_description`, `street`, `pincode_id`, `city_id`, `pincode_text`, `city_text`, `state`, `categories`, `account_number`, `bank_ifsc_code`, `account_name`, `bank_name`, `commission`, `status`, `last_updated`, `date_created`, `require_products_approval`, `fcm_id`, `national_identity_card`, `address_proof`, `pan_number`, `tax_name`, `tax_number`, `customer_privacy`, `latitude`, `longitude`, `forgot_password_code`, `view_order_otp`, `assign_delivery_boy`, `permission`) VALUES
-(1, 'Divakar A', 'gold', 'gold-1', 'example@gmail.com', '9876543210', 'Smsatta@2022', 0, '', '1661624684.1169.jpg', '', '2/42, Azhagapuri,R.T.Malai(Po)', '621313', 0, '', '', 'Tamil Nadu', NULL, '', '', '', '', 0, 1, '2023-02-16 12:08:14', '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, '65577', '10.776', NULL, 0, 0, 1),
+(1, 'Divakar A', 'gold', 'gold-1', 'example@gmail.com', '9876543210', 'seller@123', 0, '', '1661624684.1169.jpg', '', '2/42, Azhagapuri,R.T.Malai(Po)', '621313', 0, '', '', 'Tamil Nadu', NULL, '', '', '', '', 0, 1, '2023-02-17 13:35:42', '2022-08-27 18:24:44', 0, NULL, '1661624684.1189.jpg', '1661624684.1199.jpg', 'SMD787R4G', 'dentenf', '12345678', 0, '65577', '10.776', NULL, 0, 0, 1),
 (4, 'dcdgrg', 'Hi Golden', NULL, 'grgrg@gmail.com', '7358832695', 'Dangi@314', 0, NULL, '1676546807.5392.jpg', NULL, '', NULL, NULL, '', '', '', NULL, '', '', '', '', 0, 0, '2023-02-16 11:27:51', '2023-02-16 11:26:47', 0, NULL, '1676546807.5403.jpg', '1676546807.5415.jpeg', '9876543', 'Government', '76543r4', 0, '', '', NULL, 0, 0, 1);
 
 -- --------------------------------------------------------
@@ -735,22 +750,21 @@ INSERT INTO `slides` (`id`, `name`, `type`, `image`, `status`) VALUES
 
 CREATE TABLE `tyreproduct_bookings` (
   `id` int(11) NOT NULL,
-  `bike_name` text DEFAULT NULL,
-  `tyre_type` text DEFAULT NULL,
-  `wheel` text DEFAULT NULL,
-  `product_id` int(11) DEFAULT 0,
-  `price` text DEFAULT NULL,
-  `name` text DEFAULT NULL,
-  `size` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 0
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT 0.00,
+  `grand_total` decimal(10,2) DEFAULT 0.00,
+  `order_date` text DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 1 COMMENT 'Booked-1\r\nConfirmed-2\r\nCompleted-3\r\nCancelled-0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tyreproduct_bookings`
 --
 
-INSERT INTO `tyreproduct_bookings` (`id`, `bike_name`, `tyre_type`, `wheel`, `product_id`, `price`, `name`, `size`, `status`) VALUES
-(1, 'Hero Honda', 'Tube tyre', 'Front', 1, '1200', 'Miechlin', '24', 0);
+INSERT INTO `tyreproduct_bookings` (`id`, `user_id`, `product_id`, `quantity`, `price`, `grand_total`, `order_date`, `status`) VALUES
+(1, 1, 1, 2, '2699.00', '5328.00', '2023-02-17', 0);
 
 -- --------------------------------------------------------
 
@@ -772,6 +786,20 @@ CREATE TABLE `tyrepuncture_bookings` (
 
 INSERT INTO `tyrepuncture_bookings` (`id`, `bike_name`, `tyre_type`, `wheel`, `price`) VALUES
 (1, 'TVS', 'Tube-tyre', 'Front', '449');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tyre_cart`
+--
+
+CREATE TABLE `tyre_cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT 0,
+  `product_id` int(11) DEFAULT 0,
+  `quantity` int(11) DEFAULT 0,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -899,6 +927,12 @@ ALTER TABLE `batteries`
 -- Indexes for table `battery_bookings`
 --
 ALTER TABLE `battery_bookings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `battery_cart`
+--
+ALTER TABLE `battery_cart`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1064,6 +1098,12 @@ ALTER TABLE `tyrepuncture_bookings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tyre_cart`
+--
+ALTER TABLE `tyre_cart`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tyre_products`
 --
 ALTER TABLE `tyre_products`
@@ -1108,6 +1148,12 @@ ALTER TABLE `batteries`
 --
 ALTER TABLE `battery_bookings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `battery_cart`
+--
+ALTER TABLE `battery_cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bikes`
@@ -1263,12 +1309,18 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT for table `tyreproduct_bookings`
 --
 ALTER TABLE `tyreproduct_bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tyrepuncture_bookings`
 --
 ALTER TABLE `tyrepuncture_bookings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tyre_cart`
+--
+ALTER TABLE `tyre_cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --

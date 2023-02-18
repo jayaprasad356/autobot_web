@@ -45,7 +45,7 @@ $orders = $db->getResult();
 $total = $orders[0]['total'];
 
 
-$sql = "SELECT * FROM sellers";
+$sql = "SELECT * FROM seller";
 $db->sql($sql);
 $seller = $db->getResult();
 $sellers = $db->numRows($seller);

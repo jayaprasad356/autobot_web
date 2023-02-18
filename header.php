@@ -244,10 +244,17 @@ $fn = new custom_functions;
                     </a>
                 </li>
                 <li class="treeview">
-                    <a href="orders.php">
+                    <a href="#">
                         <i class="fa fa-shopping-cart"></i>
                         <span>Orders</span>
+                        <i class="fa fa-angle-right pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a href="orders.php"><i class="fa fa-shopping-cart"></i>Orders</a></li>
+                        <li><a href="battery_orders.php"><i class="fa fa-battery-full"></i>Battery Bookings</a></li>
+                        <li><a href="tyreproduct_orders.php"><i class="fa fa-circle"></i>Tyreproduct Bookings</a></li>
+
+                    </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">

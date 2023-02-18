@@ -11,50 +11,45 @@ include_once('../includes/crud.php');
 
 $db = new Database();
 $db->connect();
+
 if (empty($_POST['user_id'])) {
     $response['success'] = false;
     $response['message'] = "User Id is Empty";
     print_r(json_encode($response));
     return false;
 }
-
 $user_id = $db->escapeString($_POST['user_id']);
-
-$sql = "SELECT * FROM `booked_services` WHERE user_id='$user_id'";
+$sql = "SELECT *,battery_cart.id AS id,batteries.final_price * battery_cart.quantity AS price,batteries.amount,batteries.final_price AS product_price  FROM battery_cart,batteries WHERE battery_cart.product_id=batteries.id AND battery_cart.user_id='$user_id'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
-if ($num >= 1) {
+if($num>=1){
+    $sum = 0;
     foreach ($res as $row) {
+        $sum += $row['price'];
         $temp['id'] = $row['id'];
-        $temp['bike_name'] = $row['bike_name'];
+        $temp['brand'] = $row['brand'];
         $temp['type'] = $row['type'];
-        $temp['complaint'] = $row['complaint'];
-        $temp['price'] = $row['price'];
-        if($row['status'] == 0){
-            $temp['status'] = "Pending";
-        }else if($row['status'] == 1){
-            $temp['status'] = "Confirmed";
-        }else{
-            $temp['status'] = "Completed";
-        }
-        $temp['date'] = $row['date'];
-        $temp['time'] = $row['time'];
+        $temp['warranty'] = $row['warranty'];
+        $temp['mrp'] = $row['amount'];
+        $temp['product_price'] = $row['product_price'];
+        $temp['quantity'] = $row['quantity'];
+        $temp['total'] = $row['price'];
+        $temp['image'] = DOMAIN_URL . $row['image'];
         $rows[] = $temp;
-        
     }
-    
     $response['success'] = true;
-    $response['message'] = "My Service Bookings listed Successfully";
+    $response['message'] = "Batteries Cart listed Successfully";
+    $response['total_items'] = $num;
+    $response['total_price'] = $sum;
     $response['data'] = $rows;
     print_r(json_encode($response));
-    
-
-}else{
-    $response['success'] = false;
-    $response['message'] = "You are not booked any service yet";
-    print_r(json_encode($response));
-
 }
+else{
+    $response['success'] = false;
+    $response['message'] = "Batteries Not Found in Batterycart";
+    print_r(json_encode($response));
+}
+
 
 ?>
