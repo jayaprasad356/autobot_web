@@ -15,9 +15,9 @@ $db->connect();
 $size = isset($_GET['size']) && !empty($_GET['size']) ? $db->escapeString($_GET['size']) : "";
 
 if (!empty($size)) {
-    $sql = "SELECT size FROM batteries WHERE size LIKE '%$size%'";
+    $sql = "SELECT DISTINCT size FROM batteries WHERE size LIKE '%$size%'";
 } else {
-    $sql = "SELECT size FROM batteries";
+    $sql = "SELECT DISTINCT size FROM batteries";
 }
 
 $db->sql($sql);
