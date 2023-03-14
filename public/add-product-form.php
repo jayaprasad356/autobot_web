@@ -63,7 +63,7 @@ if (isset($_POST['btnAdd'])) {
 
             
            
-            $sql_query = "INSERT INTO products (category_id,product_name,brand,description,model,mrp,price,image)VALUES('$category','$product_name','$brand','$description','$model','$mrp','$price','$upload_image')";
+            $sql_query = "INSERT INTO products (category_id,product_name,brand,description,model,mrp,price,image)VALUES('$category','$product_name','$brand','$description','$model','$mrp',$price','$upload_image')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -156,7 +156,7 @@ if (isset($_POST['btnAdd'])) {
                                         <label for="exampleInputEmail1">Model</label> <i class="text-danger asterik">*</i><?php echo isset($error['model']) ? $error['model'] : ''; ?>
                                         <input type="text" class="form-control" name="model" required />
                                     </div>
-                                    <div class="col-md-4">
+                                      <div class="col-md-4">
                                         <label for="exampleInputEmail1">MRP</label> <i class="text-danger asterik">*</i><?php echo isset($error['mrp']) ? $error['mrp'] : ''; ?>
                                         <input type="text" class="form-control" name="mrp" required />
                                     </div>

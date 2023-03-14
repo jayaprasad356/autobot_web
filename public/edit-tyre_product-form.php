@@ -17,6 +17,7 @@ if (isset($_GET['id'])) {
 if (isset($_POST['btnEdit'])) {
 
 	      $error = array();
+          $bike_name = $db->escapeString(($_POST['bike_name']));
 		  $brand = $db->escapeString(($_POST['brand']));
 		  $size = $db->escapeString($_POST['size']);
 		  $wheel = $db->escapeString($_POST['wheel']);
@@ -53,7 +54,7 @@ if (isset($_POST['btnEdit'])) {
                     $sql = "UPDATE tyre_products SET `image`='" . $upload_image . "' WHERE `id`=" . $ID;
                     $db->sql($sql);
                 }
-				$sql_query = "UPDATE tyre_products SET brand='$brand',size='$size',wheel='$wheel',pattern='$pattern',tyre_type='$tyre_type',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
+				$sql_query = "UPDATE tyre_products SET bike_name='$bike_name',brand='$brand',size='$size',wheel='$wheel',pattern='$pattern',tyre_type='$tyre_type',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
 				$db->sql($sql_query);
 				$update_result = $db->getResult();
 				if (!empty($update_result)) {
@@ -108,7 +109,16 @@ if (isset($_POST['btnCancel'])) { ?>
 				<form id="edit_tyre_product_form" method="post" enctype="multipart/form-data">
 					<div class="box-body">
                     <input type="hidden" id="old_image" name="old_image"  value="<?= $res[0]['image']; ?>">
-					<div class="row">
+                        <div class="row">
+                            <div class="form-group">
+                                   <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                        <input type="text" class="form-control" name="bike_name" value="<?php echo $res[0]['bike_name']; ?>">
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+					    <div class="row">
                             <div class="form-group">
                                    <div class="col-md-4">
                                         <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>

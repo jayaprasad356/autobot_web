@@ -11,7 +11,7 @@ $res = $db->getResult();
 ?>
 <?php
 if (isset($_POST['btnAdd'])) {
-
+    $bike_name = $db->escapeString(($_POST['bike_name']));
         $brand = $db->escapeString(($_POST['brand']));
         $size = $db->escapeString($_POST['size']);
         $wheel = $db->escapeString($_POST['wheel']);
@@ -37,7 +37,9 @@ if (isset($_POST['btnAdd'])) {
          error_reporting(E_ERROR | E_PARSE);
          $extension = end(explode(".", $_FILES["tyre_image"]["name"]));
 
-        
+         if (empty($bike_name)) {
+            $error['bike_name'] = " <span class='label label-danger'>Required!</span>";
+        }
         if (empty($brand)) {
             $error['brand'] = " <span class='label label-danger'>Required!</span>";
         }
@@ -84,7 +86,7 @@ if (isset($_POST['btnAdd'])) {
                 $upload_image = 'upload/images/' . $menu_image;
 
            
-            $sql_query = "INSERT INTO tyre_products (brand,size,wheel,pattern,tyre_type,amount,delivery_charges,fitting_charges,actual_price,final_price,image,status)VALUES('$brand','$size','$wheel','$pattern','$tyre_type','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price','$upload_image',1)";
+            $sql_query = "INSERT INTO tyre_products (bike_name,brand,size,wheel,pattern,tyre_type,amount,delivery_charges,fitting_charges,actual_price,final_price,image,status)VALUES('$bike_name'.'$brand','$size','$wheel','$pattern','$tyre_type','$amount','$delivery_charges','$fitting_charges','$actual_price','$final_price','$upload_image',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -123,6 +125,15 @@ if (isset($_POST['btnAdd'])) {
                 <!-- form start -->
                 <form name="add_tyre_product_form" method="post" enctype="multipart/form-data">
                     <div class="box-body">
+                        <div class="row">
+                            <div class="form-group">
+                                   <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                        <input type="text" class="form-control" name="bike_name" required>
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
                         <div class="row">
                             <div class="form-group">
                                    <div class="col-md-4">

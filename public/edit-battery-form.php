@@ -17,6 +17,8 @@ if (isset($_GET['id'])) {
 if (isset($_POST['btnEdit'])) {
 
 	      $error = array();
+          $bike_name = $db->escapeString(($_POST['bike_name']));
+          $size = $db->escapeString(($_POST['size']));
 		  $brand = $db->escapeString(($_POST['brand']));
           $type = $db->escapeString(($_POST['type']));
 		  $warranty = $db->escapeString($_POST['warranty']);
@@ -52,7 +54,7 @@ if (isset($_POST['btnEdit'])) {
                     $db->sql($sql);
                 }
 
-				$sql_query = "UPDATE batteries SET brand='$brand',type='$type',warranty='$warranty',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
+				$sql_query = "UPDATE batteries SET bike_name='$bike_name',size='$size',brand='$brand',type='$type',warranty='$warranty',amount='$amount',delivery_charges='$delivery_charges',fitting_charges='$fitting_charges',actual_price='$actual_price',final_price='$final_price',status='$status' WHERE id=$ID";
 				$db->sql($sql_query);
 				$update_result = $db->getResult();
 				if (!empty($update_result)) {
@@ -110,16 +112,29 @@ if (isset($_POST['btnCancel'])) { ?>
                         <div class="row">
                             <div class="form-group">
                                    <div class="col-md-6">
+                                        <label for="exampleInputEmail1">Bike Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bike_name']) ? $error['bike_name'] : ''; ?>
+                                        <input type="text" class="form-control" name="bike_name" value="<?php echo $res[0]['bike_name']; ?>">
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group">
+                                   <div class="col-md-4">
                                         <label for="exampleInputEmail1">Brand</label><i class="text-danger asterik">*</i><?php echo isset($error['brand']) ? $error['brand'] : ''; ?>
                                         <input type="text" class="form-control" name="brand" value="<?php echo $res[0]['brand']; ?>">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="">Type</label> <i class="text-danger asterik">*</i>
 										<select id="type" name="type" class="form-control">
 										    <option value="">select</option>
 											<option value="Self start"<?=$res[0]['type'] == 'Self start' ? ' selected="selected"' : '';?>>Self start</option>
 											<option value="Non-Self start"<?=$res[0]['type'] == 'Non-Self start' ? ' selected="selected"' : '';?> >Non-Self start</option>
 										</select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Size</label><i class="text-danger asterik">*</i><?php echo isset($error['size']) ? $error['size'] : ''; ?>
+                                        <input type="text" class="form-control" name="size" value="<?php echo $res[0]['size']; ?>">
                                     </div>
                             </div>
                         </div>

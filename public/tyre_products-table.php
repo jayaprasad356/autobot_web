@@ -23,6 +23,7 @@
                                 <tr>
                                     
                                     <th  data-field="id" data-sortable="true">ID</th>
+                                    <th  data-field="bike_name" data-sortable="true">Bike Name</th>
                                     <th  data-field="brand" data-sortable="true">Brand</th>
                                     <th data-field="size" data-sortable="true">Size</th>
                                     <th data-field="wheel" data-sortable="true">Wheel Type</th>

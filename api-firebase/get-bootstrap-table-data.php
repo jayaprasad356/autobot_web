@@ -1316,6 +1316,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'tyre_products') {
         $operate = ' <a href="edit-tyre_product.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $operate .= ' <a class="text text-danger" href="delete-tyre_product.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
+        $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
         $tempRow['size'] = $row['size'];
         $tempRow['wheel'] = $row['wheel'];
@@ -1432,7 +1433,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'batteries') {
 
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = $db->escapeString($_GET['search']);
-        $where .= "WHERE brand like '%" . $search . "%' OR id like '%" . $search . "%' OR wheel like '%" . $search . "%' OR pattern like '%" . $search . "%' OR tyre_type like '%" . $search . "%'";
+        $where .= "WHERE brand like '%" . $search . "%' OR id like '%" . $search . "%' OR type like '%" . $search . "%' OR brand like '%" . $search . "%' OR bike_name like '%" . $search . "%'";
     }
     if (isset($_GET['sort'])){
         $sort = $db->escapeString($_GET['sort']);
@@ -1462,7 +1463,9 @@ if (isset($_GET['table']) && $_GET['table'] == 'batteries') {
         $operate = ' <a href="edit-battery.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $operate .= ' <a class="text text-danger" href="delete-battery.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
         $tempRow['id'] = $row['id'];
+        $tempRow['bike_name'] = $row['bike_name'];
         $tempRow['brand'] = $row['brand'];
+        $tempRow['size'] = $row['size'];
         $tempRow['type'] = $row['type'];
         $tempRow['warranty'] = $row['warranty'];
         $tempRow['amount'] = $row['amount'];
