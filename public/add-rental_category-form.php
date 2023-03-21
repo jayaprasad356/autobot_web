@@ -13,7 +13,7 @@ if (isset($_POST['btnAdd'])) {
         $cc = $db->escapeString($_POST['cc']);
         $hills_price = $db->escapeString($_POST['hills_price']);
         $normal_price = $db->escapeString($_POST['normal_price']);
-        
+        $commission = $db->escapeString($_POST['commission']);
       
         
         if (empty($brand)) {
@@ -33,9 +33,9 @@ if (isset($_POST['btnAdd'])) {
         }
        
        
-       if (!empty($brand) && !empty($bike_name) && !empty($cc) && !empty($hills_price)&& !empty($normal_price)) {
+       if (!empty($brand) && !empty($bike_name) && !empty($cc) && !empty($hills_price) && !empty($normal_price)) {
            
-            $sql_query = "INSERT INTO rental_category (brand,bike_name,cc,hills_price,normal_price)VALUES('$brand','$bike_name','$cc','$hills_price','$normal_price')";
+            $sql_query = "INSERT INTO rental_category (brand,bike_name,cc,hills_price,normal_price,commission)VALUES('$brand','$bike_name','$cc','$hills_price','$normal_price','$commission')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -114,16 +114,22 @@ if (isset($_POST['btnAdd'])) {
 
                                  </div>
                             </div>
-                            <hr>
-                  
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                            <label for="exampleInputEmail1">Commission</label> <i class="text-danger asterik">*</i><?php echo isset($error['commission']) ? $error['commission'] : ''; ?>
+                                            <input type="number" class="form-control"  name="commission" required>
+                                    </div>
+                                 </div>
+                            </div>
+                    </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary" name="btnAdd">Add</button>
                         <input type="reset" onClick="refreshPage()" class="btn-warning btn" value="Clear" />
                     </div>
-
-                </div>
 
                 </form>
 

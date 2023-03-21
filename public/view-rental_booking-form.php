@@ -1,17 +1,17 @@
 <?php
-include_once('../includes/functions.php');
+include_once('includes/functions.php');
 date_default_timezone_set('Asia/Kolkata');
 $function = new functions;
-include_once('../includes/custom-functions.php');
+include_once('includes/custom-functions.php');
 $fn = new custom_functions;
 // session_start();
 $order_id = $_GET['id'];
-$sql = "SELECT *,rental_orders.status AS status,rental_orders.id AS id FROM rental_orders,rental_vehicles,rental_category WHERE rental_orders.rental_vehicles_id=rental_vehicles.id AND rental_vehicles.rental_category_id=rental_category.id AND rental_orders.id = $order_id";
+$sql = "SELECT ro.*,ro.id AS id,ro.status AS status,ro.name AS name,ro.mobile AS mobile,ro.start_time,ro.end_time,ro.commission_status,rv.pincode AS pincode,rc.brand,rc.bike_name,rc.hills_price,rc.normal_price,rc.commission,rv.rental_category_id,ro.rental_vehicles_id FROM `rental_orders` ro,`rental_vehicles` rv,`rental_category` rc WHERE ro.rental_vehicles_id=rv.id AND rv.rental_category_id=rc.id  AND ro.id = '$order_id'";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
 <section class="content-header">
-    <h1>View Order</h1>
+    <h1>View Rental Bookings</h1>
     <?php echo isset($error['add_menu']) ? $error['add_menu'] : ''; ?>
     <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
@@ -20,10 +20,10 @@ $res = $db->getResult();
 </section>
 <section class="content">
 <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Order Detail</h3>
+                        <h3 class="box-title">Booking Detail</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
@@ -40,16 +40,16 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['mobile'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px"> Brand</th>
+                                <th style="width: 200px">PinCode</th>
+                                <td><?php echo $res[0]['pincode'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Brand</th>
                                 <td><?php echo $res[0]['brand'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Bike Name</th>
                                 <td><?php echo $res[0]['bike_name'] ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">CC</th>
-                                <td><?php echo $res[0]['cc'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Hills Price</th>
@@ -60,18 +60,6 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['normal_price'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Pincode</th>
-                                <td><?php echo $res[0]['pincode'] ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">Start Time</th>
-                                <td><?php echo $res[0]['start_time']; ?></td>
-                            </tr>
-                            <tr>
-                                <th style="width: 200px">End Time</th>
-                                <td><?php echo $res[0]['end_time']; ?></td>
-                            </tr>
-                            <tr>
                                 <th style="width: 200px">Commission</th>
                                 <td><?php echo $res[0]['commission'] ?></td>
                             </tr>
@@ -80,20 +68,18 @@ $res = $db->getResult();
                                 <td>
                                     <?php 
                                     if($res[0]['status']==0){ ?>
-                                    <p class="text text-info">Booked</p>
+                                         <p class="text text-info">Booked</p>
                                     <?php
                                     }
-                                    else if($res[0]['status']==1){?>
-                                    <p class="text text-success">Confirmed</p>
+                                    elseif($res[0]['status']==1){ ?>
+                                          <p class="text text-success">Confirmed</p>
                                     <?php
                                     }
-                                    else{
-                                        ?>
-                                        <p class="text text-danger">Completed</p>
-                                <?php
-                                    }
+                                    else {
                                     ?>
-
+                                        <p class="text text-primary">Completed</p>
+                                    <?php
+                                    } ?>
                                 </td>
                             </tr>
                             <tr>
@@ -114,15 +100,14 @@ $res = $db->getResult();
                         </table>
     
                     </div><!-- /.box-body -->
-
                     <?php
                     $order_id = $_GET['id'];
 
                     if (isset($_POST['btnUpdate'])) {
                         
-                        $status = $db->escapeString($_POST['status']);    
+                        $commission_status = $db->escapeString($_POST['commission_status']);    
                     
-                            $sql = "UPDATE rental_orders SET `status` = '$status' WHERE id = '" . $order_id . "'";
+                            $sql = "UPDATE rental_orders SET `commission_status` = '$commission_status' WHERE id = '" . $order_id . "'";
                             $db->sql($sql);
                             $order_result = $db->getResult();
                             if (!empty($order_result)) {
@@ -140,7 +125,7 @@ $res = $db->getResult();
                             }
                     
                     }
-                    $sql_query = "SELECT status FROM rental_orders WHERE id = '" . $order_id . "'";
+                    $sql_query = "SELECT commission_status FROM rental_orders WHERE id = '" . $order_id . "'";
                     $db->sql($sql_query);
                     
                     $res = $db->getResult();
@@ -151,16 +136,17 @@ $res = $db->getResult();
                     </section>
                 <form id='add_product_form' method="post" enctype="multipart/form-data">
                     <div class="box-body">
-                        <div class="col-md-6">
                             <div class="form-group" >
-                                <label for="exampleInputEmail1">Status</label><i class="text-danger asterik">*</i><?php echo isset($error['status']) ? $error['status'] : ''; ?>
-                                <select name="status" class="form-control" required>
-                                <option value="0"<?=$res[0]['status'] == '0' ? ' selected="selected"' : '';?>>Booked</option>
-                                <option value="1"<?=$res[0]['status'] == '1' ? ' selected="selected"' : '';?>>Confirmed</option>
-                                <option value="2"<?=$res[0]['status'] == '2' ? ' selected="selected"' : '';?>>Completed</option>                                                                          
-                                </select>
+                               <label class="control-label">Commission Status</label> <i class="text-danger asterik">*</i><br>
+                                <div id="status" class="btn-group">
+                                    <label class="btn btn-success" data-toggle-class="btn-default" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="commission_status" value="1" <?= ($res[0]['commission_status'] == 1) ? 'checked' : ''; ?>> Paid
+                                    </label>
+                                    <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                        <input type="radio" name="commission_status" value="0" <?= ($res[0]['commission_status'] == 0) ? 'checked' : ''; ?>> Unpaid
+                                    </label>
+                                </div>
                             </div>
-                       </div>
                     </div>
                     <div class="box-footer">
                         <input type="submit" class="btn-primary btn" value="Update" name="btnUpdate" />
@@ -173,6 +159,7 @@ $res = $db->getResult();
         </div>
 </section>
 <div class="separator"> </div>
+
 <script>
     if ($("#success").text() == "Updated Successfully")
     {
@@ -180,6 +167,6 @@ $res = $db->getResult();
         
     }
     function showpanel() {     
-        window.location.replace("rental_orders.php");
+        window.location.replace("rental_bookings.php");
     }
 </script>

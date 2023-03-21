@@ -1058,6 +1058,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_category') {
         $tempRow['cc'] = $row['cc'];
         $tempRow['hills_price'] = $row['hills_price'];
         $tempRow['normal_price'] = $row['normal_price'];
+        $tempRow['commission'] = $row['commission'];
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
@@ -1547,6 +1548,92 @@ if (isset($_GET['table']) && $_GET['table'] == 'admin') {
             $tempRow['status']="<label class='label label-success'>Active</label>";
         $tempRow['operate'] = $operate;
 
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
+
+//rental vehicle bookings table goes here
+if (isset($_GET['table']) && $_GET['table'] == 'rental_bookings') {
+    $offset = 0;
+    $limit = 10;
+    $sort = 'id';
+    $order = 'DESC';
+    $where = '';
+    if (isset($_GET['date']) && !empty($_GET['date'] != '')){
+        $date = $db->escapeString($fn->xss_clean($_GET['date']));
+        $where .= "AND ro.start_date = '$date' ";  
+    }
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($fn->xss_clean($_GET['offset']));
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($fn->xss_clean($_GET['limit']));
+
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($fn->xss_clean($_GET['sort']));
+    if (isset($_GET['order']))
+        $order = $db->escapeString($fn->xss_clean($_GET['order']));
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($fn->xss_clean($_GET['search']));
+        $where .= "AND ro.name like '%" . $search . "%' OR ro.mobile like '%" . $search . "%' OR ro.start_date like '%" . $search . "%' OR ro.end_date like '%" . $search . "%' OR ro.payment_status like '%" . $search . "%' OR ro.status like '%" . $search . "%' OR rc.brand like '%" . $search . "%' OR rc.bike_name like '%" . $search . "%' ";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+    $join = "LEFT JOIN `rental_vehicles` rv ON ro.rental_vehicles_id = rv.id LEFT JOIN `rental_category` rc ON rv.rental_category_id = rc.id WHERE ro.id IS NOT NULL ";
+
+    $sql = "SELECT COUNT(ro.id) as total FROM `rental_orders` ro $join " . $where . "";
+    $db->sql($sql);
+    $res = $db->getResult();
+    foreach ($res as $row)
+        $total = $row['total'];
+
+    $sql = "SELECT ro.*,ro.id AS id,ro.name AS name,ro.mobile AS mobile,rc.brand,rc.bike_name,ro.status AS status,rv.image AS image,ro.commission_status,ro.start_time,ro.end_time  FROM `rental_orders` ro $join $where ORDER BY $sort $order LIMIT $offset, $limit";
+    $db->sql($sql);
+    $res = $db->getResult();
+
+    
+    $bulkData = array();
+    $bulkData['total'] = $total;
+    
+    $rows = array();
+    $tempRow = array();
+
+    foreach ($res as $row) {
+        
+        $operate ='<a href="view-rental_booking.php?id=' . $row['id'] . '" class="label label-primary" title="View">View</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['mobile'] = $row['mobile'];
+        $tempRow['name'] = $row['name'];
+        $tempRow['brand'] = $row['brand'];
+        $tempRow['bike_name'] = $row['bike_name'];   
+        $tempRow['start_date'] = $row['start_time'];   
+        $tempRow['end_date'] = $row['end_time'];   
+        if ($row['status'] == 0)
+            $tempRow['status'] = "<p class='text text-warning'>Booked</p>";
+        elseif($row['status'] == 1)
+            $tempRow['status'] = "<p class='text text-success'>Confirmed</p>";
+        else
+            $tempRow['status'] = "<p class='text text-primary'>Completed</p>";
+
+        if(!empty($row['image'])){
+            $tempRow['image'] = "<a data-lightbox='category' href='" . $row['image'] . "' data-caption='" . $row['name'] . "'><img src='upload/rentals/" . $row['image'] . "' title='" . $row['name'] . "' height='50' /></a>";
+
+        }else{
+            $tempRow['image'] = 'No Image';
+
+        }
+        if ($row['commission_status'] == 0)
+            $tempRow['commission_status'] = "<p class='text text-danger'>UnPaid</p>";
+        else
+            $tempRow['commission_status'] = "<p class='text text-success'>Paid</p>";
+        $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
     $bulkData['rows'] = $rows;

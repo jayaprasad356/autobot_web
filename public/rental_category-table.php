@@ -30,6 +30,7 @@
                                     <th data-field="cc" data-sortable="true">CC</th>
                                     <th data-field="hills_price" data-sortable="true">Hills Price</th>
                                     <th data-field="normal_price" data-sortable="true">Normal Price</th>
+                                    <th data-field="commission" data-sortable="true">Commission</th>
                                     <th data-field="operate">Action</th>
                                 </tr>
                             </thead>

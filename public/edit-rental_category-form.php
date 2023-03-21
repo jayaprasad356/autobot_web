@@ -22,7 +22,8 @@ if (isset($_POST['btnEdit'])) {
 	$cc = $db->escapeString($_POST['cc']);
 	$hills_price = $db->escapeString($_POST['hills_price']);
 	$normal_price = $db->escapeString($_POST['normal_price']);
-	
+	$commission = $db->escapeString($_POST['commission']);
+
   
 	
 	if (empty($brand)) {
@@ -44,7 +45,7 @@ if (isset($_POST['btnEdit'])) {
    
    if (!empty($brand) && !empty($bike_name) && !empty($cc) && !empty($hills_price)&& !empty($normal_price))
     {
-             $sql_query = "UPDATE rental_category SET brand='$brand',bike_name='$bike_name',cc='$cc',hills_price='$hills_price',normal_price='$normal_price' WHERE id =  $ID";
+             $sql_query = "UPDATE rental_category SET brand='$brand',bike_name='$bike_name',cc='$cc',hills_price='$hills_price',normal_price='$normal_price',commission='$commission' WHERE id =  $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -121,7 +122,7 @@ if (isset($_POST['btnCancel'])) { ?>
 											</div>
 								</div>
 						   </div>
-						   <hr>
+						   <br>
 						   <div class="row">
 							    <div class="form-group">
 									 <div class="col-md-4">
@@ -138,7 +139,15 @@ if (isset($_POST['btnCancel'])) { ?>
 									 </div>
 								</div>
 						   </div>
-						   <hr>
+						   <br>
+						   <div class="row">
+							    <div class="form-group">
+									 <div class="col-md-4">
+										<label for="exampleInputEmail1">Commission</label><?php echo isset($error['commission']) ? $error['commission'] : ''; ?>
+										<input type="number" class="form-control" name="commission" value="<?php echo $res[0]['commission']; ?>">
+									 </div>
+								</div>
+						   </div>
 						</div><!-- /.box-body -->
                        
 					<div class="box-footer">
