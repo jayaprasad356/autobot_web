@@ -64,12 +64,20 @@ $res = $db->getResult();
                                 <td><?php echo $res[0]['pincode'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">Start Time</th>
-                                <td><?php echo $res[0]['start_time']; ?></td>
+                                <th style="width: 200px">Start Date</th>
+                                <td><?php echo $res[0]['start_time'] ?></td>
                             </tr>
                             <tr>
-                                <th style="width: 200px">End Time</th>
-                                <td><?php echo $res[0]['end_time']; ?></td>
+                                <th style="width: 200px">End Date</th>
+                                <td><?php echo $res[0]['end_time'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Price</th>
+                                <td><?php echo $res[0]['price'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">OTP</th>
+                                <td><?php echo $res[0]['otp'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Commission</th>

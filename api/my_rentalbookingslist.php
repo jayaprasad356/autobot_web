@@ -7,53 +7,57 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
+
 include_once('../includes/crud.php');
 
 $db = new Database();
 $db->connect();
-  
-$sql = "SELECT rv.id AS id, rc.brand, rc.bike_name, rc.cc, rc.hills_price, rc.normal_price, rv.pincode, 
-       COALESCE(ro.status, 2) AS available_status, rv.image
-FROM `rental_vehicles` rv
-LEFT JOIN (
-    SELECT rental_vehicles_id, MAX(end_time) AS end_time
-    FROM `rental_orders`
-    GROUP BY rental_vehicles_id
-) ro_max ON rv.id = ro_max.rental_vehicles_id
-LEFT JOIN `rental_orders` ro ON ro_max.rental_vehicles_id = ro.rental_vehicles_id AND ro_max.end_time = ro.end_time
-INNER JOIN `rental_category` rc ON rv.rental_category_id = rc.id 
-WHERE (ro.id IS NULL OR ro.status = 2) ORDER BY available_status DESC
-";
 
-$db->sql($sql); 
+if (empty($_POST['user_id'])) {
+    $response['success'] = false;
+    $response['message'] = "User Id is Empty";
+    print_r(json_encode($response));
+    return false;
+}
+$user_id = $db->escapeString($_POST['user_id']);
+$sql = "SELECT *,ro.id AS id,rc.hills_price,rc.normal_price,rc.brand,rc.bike_name,rv.pincode,rv.image,ro.price,ro.start_time,ro.end_time,ro.name,ro.mobile,ro.status AS status,ro.rental_vehicles_id,rv.rental_category_id,ro.otp FROM `rental_orders` ro,`rental_vehicles` rv,`rental_category` rc WHERE rv.rental_category_id=rc.id AND ro.rental_vehicles_id=rv.id AND ro.user_id='$user_id' ORDER BY ro.id DESC";
+$db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
+
 if ($num >= 1) {
     foreach ($res as $row) {
         $temp['id'] = $row['id'];
+        $temp['name'] = $row['name'];
+        $temp['mobile'] = $row['mobile'];
         $temp['brand'] = $row['brand'];
         $temp['bike_name'] = $row['bike_name'];
-        $temp['cc'] = $row['cc'];
         $temp['hills_price'] = $row['hills_price'];
         $temp['normal_price'] = $row['normal_price'];
         $temp['pincode'] = $row['pincode'];
-        $temp['available_status'] = $row['available_status'];
+        $temp['start_time'] = $row['start_time'];
+        $temp['end_time'] = $row['end_time'];
+        $temp['otp'] = $row['otp'];
+        $temp['price'] = $row['price'];
+        $temp['status'] = $row['status'];
         $temp['image'] = DOMAIN_URL ."upload/rentals/" .$row['image'];
         $rows[] = $temp;
         
     }
     
     $response['success'] = true;
-    $response['message'] = "Vehicles listed Successfully";
+    $response['message'] = "Rental Bookings Listed Successfully";
     $response['data'] = $rows;
     print_r(json_encode($response));
     
 
 }else{
     $response['success'] = false;
-    $response['message'] = "No Vehicles Found";
+    $response['message'] = "You Have not booked yet";
     print_r(json_encode($response));
 
 }
+
+
 
 ?>

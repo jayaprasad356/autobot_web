@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2023 at 03:22 PM
+-- Generation Time: Mar 23, 2023 at 09:39 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -519,21 +519,24 @@ INSERT INTO `rental_category` (`id`, `brand`, `bike_name`, `cc`, `hills_price`, 
 
 CREATE TABLE `rental_orders` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `name` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
-  `rental_vehicles_id` text DEFAULT NULL,
   `start_time` date DEFAULT NULL,
   `end_time` date DEFAULT NULL,
+  `rental_vehicles_id` text DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT 0.00,
   `status` text DEFAULT NULL,
-  `commission_status` tinyint(4) DEFAULT 0
+  `commission_status` tinyint(4) DEFAULT 0,
+  `otp` text DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rental_orders`
 --
 
-INSERT INTO `rental_orders` (`id`, `name`, `mobile`, `rental_vehicles_id`, `start_time`, `end_time`, `status`, `commission_status`) VALUES
-(1, 'Divakar', '8975463738', '1', '2022-08-30', '2022-08-31', '0', 0);
+INSERT INTO `rental_orders` (`id`, `user_id`, `name`, `mobile`, `start_time`, `end_time`, `rental_vehicles_id`, `price`, `status`, `commission_status`, `otp`) VALUES
+(1, 1, 'karthi', '9876544312', '2023-03-24', '2023-03-27', '1', '1350.00', '0', 0, '445395');
 
 -- --------------------------------------------------------
 
@@ -579,7 +582,8 @@ CREATE TABLE `rental_vehicles` (
 --
 
 INSERT INTO `rental_vehicles` (`id`, `rental_category_id`, `pincode`, `image`, `status`) VALUES
-(1, 2, '621313', '1674908016.0608.jpg', 1);
+(1, 2, '621313', '1674908016.0608.jpg', 1),
+(2, 1, '620008', '1674908016.0608.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -1268,7 +1272,7 @@ ALTER TABLE `rental_category`
 -- AUTO_INCREMENT for table `rental_orders`
 --
 ALTER TABLE `rental_orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `rental_showrooms`
@@ -1280,7 +1284,7 @@ ALTER TABLE `rental_showrooms`
 -- AUTO_INCREMENT for table `rental_vehicles`
 --
 ALTER TABLE `rental_vehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seller`

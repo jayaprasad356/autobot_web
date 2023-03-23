@@ -6,7 +6,7 @@ include_once('includes/custom-functions.php');
 $fn = new custom_functions;
 // session_start();
 $order_id = $_GET['id'];
-$sql = "SELECT ro.*,ro.id AS id,ro.status AS status,ro.name AS name,ro.mobile AS mobile,ro.start_time,ro.end_time,ro.commission_status,rv.pincode AS pincode,rc.brand,rc.bike_name,rc.hills_price,rc.normal_price,rc.commission,rv.rental_category_id,ro.rental_vehicles_id FROM `rental_orders` ro,`rental_vehicles` rv,`rental_category` rc WHERE ro.rental_vehicles_id=rv.id AND rv.rental_category_id=rc.id  AND ro.id = '$order_id'";
+$sql = "SELECT ro.*,ro.id AS id,ro.status AS status,ro.name AS name,ro.mobile AS mobile,ro.start_time,ro.end_time,ro.commission_status,rv.pincode AS pincode,rc.brand,rc.bike_name,rc.hills_price,rc.normal_price,rc.commission,rv.rental_category_id,ro.rental_vehicles_id,ro.price,ro.otp FROM `rental_orders` ro,`rental_vehicles` rv,`rental_category` rc WHERE ro.rental_vehicles_id=rv.id AND rv.rental_category_id=rc.id  AND ro.id = '$order_id'";
 $db->sql($sql);
 $res = $db->getResult();
 ?>
@@ -58,6 +58,22 @@ $res = $db->getResult();
                             <tr>
                                 <th style="width: 200px">Normal Price</th>
                                 <td><?php echo $res[0]['normal_price'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Start Date</th>
+                                <td><?php echo $res[0]['start_time'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">End Date</th>
+                                <td><?php echo $res[0]['end_time'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">Price</th>
+                                <td><?php echo $res[0]['price'] ?></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 200px">OTP</th>
+                                <td><?php echo $res[0]['otp'] ?></td>
                             </tr>
                             <tr>
                                 <th style="width: 200px">Commission</th>
