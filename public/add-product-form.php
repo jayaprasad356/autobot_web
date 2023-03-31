@@ -131,7 +131,7 @@ if (isset($_POST['btnAdd'])) {
                                     <div class='col-md-4'>
                                         <label for="">Category</label> <i class="text-danger asterik">*</i>
                                         <select id='category' name="category" class='form-control' required>
-                                        <option value="">Select</option>
+                                        <option value="All">Select</option>
                                                 <?php
                                                 $sql = "SELECT * FROM `categories`WHERE status=1";
                                                 $db->sql($sql);

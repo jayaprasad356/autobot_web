@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 09:39 AM
+-- Generation Time: Mar 31, 2023 at 10:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -907,6 +907,7 @@ CREATE TABLE `users` (
   `address` text DEFAULT NULL,
   `city` text DEFAULT NULL,
   `pincode` int(11) DEFAULT NULL,
+  `image` text DEFAULT '',
   `status` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -914,9 +915,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `mobile`, `address`, `city`, `pincode`, `status`) VALUES
-(1, 'Divakar', '1234567890', 'Nellur', 'Trichirapalli', 654889, '0'),
-(2, 'Senthilganesh', '9876543234', NULL, NULL, NULL, '1');
+INSERT INTO `users` (`id`, `name`, `mobile`, `address`, `city`, `pincode`, `image`, `status`) VALUES
+(1, 'Divakar', '1234567890', 'Nellur', 'Trichirapalli', 654889, 'upload/profile/1680250188.3349.jpg', '0'),
+(2, 'Senthilganesh', '9876543234', NULL, NULL, NULL, 'upload/profile/1680249600.4349.jpg', '1');
 
 --
 -- Indexes for dumped tables

@@ -11,6 +11,7 @@ include_once('../includes/crud.php');
 
 $db = new Database();
 $db->connect();
+
 if (empty($_POST['search'])) {
     $response['success'] = false;
     $response['message'] = "Search is Empty";
@@ -19,7 +20,7 @@ if (empty($_POST['search'])) {
 }
 $search = $db->escapeString($_POST['search']);
 
-$sql = "SELECT * FROM `products` WHERE product_name like '%" . $search . "%'";
+$sql = "SELECT * FROM `products` WHERE product_name like '%" . $search . "%' OR brand like '%" . $search . "%' OR model like '%" . $search . "%'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);

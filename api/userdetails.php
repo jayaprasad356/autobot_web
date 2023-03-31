@@ -26,13 +26,22 @@ if ($num >= 1) {
     foreach ($res as $row) {
         $temp['id'] = $row['id'];
         $temp['name'] = $row['name'];
-        $temp['license'] = DOMAIN_URL . 'upload/license/' . $row['license'];
+        $temp['mobile'] = $row['mobile'];
+        $temp['address'] = $row['address'];
+        $temp['city'] = $row['city'];
+        $temp['pincode'] = $row['pincode'];
+        if(empty($row['image'])){
+            $temp['image'] = "";
+        }
+        else{
+            $temp['image'] = DOMAIN_URL . $row['image'];
+        }
         $rows[] = $temp;
         
     }
 
     $response['success'] = true;
-    $response['message'] = "Slides listed Successfully";
+    $response['message'] = "User Details Retrieved Successfully";
     $response['data'] = $rows;
     print_r(json_encode($response));
 
