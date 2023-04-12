@@ -82,24 +82,32 @@ $res = $db->getResult();
                         <!-- <div class="form-group">
                             <label for="">Confirm Password</label><i class="text-danger asterik">*</i>
                             <input type="password" class="form-control" name="confirm_password" required>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="">Address</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="address" id="address" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Store Name</label><i class="text-danger asterik">*</i>
-                            <input type="text" class="form-control" name="store_name" id="store_name" required>
+                            <label for="">Pincode</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="pincode" id="pincode" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Tax Name</label><i class="text-danger asterik">*</i>
-                            <input type="text" class="form-control" name="tax_name" required>
+                            <label for="">Account Number</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="bank_account_number" id="bank_account_number" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Tax Number</label><i class="text-danger asterik">*</i>
-                            <input type="text" class="form-control" name="tax_number" required>
+                            <label for="">IFSC Code</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="ifsc_code" id="ifsc_code" required>
                         </div>
                         <div class="form-group">
-                            <label for="">PAN Number</label><i class="text-danger asterik">*</i>
-                            <input type="text" class="form-control" name="pan_number" required>
+                            <label for="">Bank Name</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="bank_name" id="bank_name" required>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
+                            <label for="">Branch</label><i class="text-danger asterik">*</i>
+                            <input type="text" class="form-control" name="branch" id="branch" required>
+                        </div>
+                        <!-- <div class="row">
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label for="">National Identity Card</label><i class="text-danger asterik">*</i>
@@ -112,8 +120,8 @@ $res = $db->getResult();
                                     <input type="file" class="form-control" name="address_proof" id="address_proof" required><br>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> -->
+                        <!-- <div class="row">
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     <label for="logo">Logo</label><i class="text-danger asterik">*</i>

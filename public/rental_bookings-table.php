@@ -32,6 +32,7 @@
                                     <th data-field="id" data-sortable="true">ID</th>
                                     <th data-field="name" data-sortable="true">Name</th>
                                     <th data-field="mobile" data-sortable="true">Mobile</th>
+                                    <th data-field="showroom_name" data-sortable="true">Showroom Name</th>
                                     <th data-field="brand" data-sortable="true">Brand</th>
                                     <th data-field="bike_name" data-sortable="true">Bike Name</th>
                                     <th data-field="start_date" data-sortable="true">Start Date</th>

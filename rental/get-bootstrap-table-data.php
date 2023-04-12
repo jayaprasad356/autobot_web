@@ -64,7 +64,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_vehicles') {
         $order = $db->escapeString($_GET['order']);
     }
 
-    $join = "LEFT JOIN `rental_category` rc ON rv.rental_category_id = rc.id WHERE rv.id IS NOT NULL ";
+    $join = "LEFT JOIN `rental_category` rc ON rv.rental_category_id = rc.id WHERE rv.id IS NOT NULL AND rv.rental_showroom_id = $id ";
 
 
     $sql = "SELECT COUNT(rv.id) as total FROM `rental_vehicles` rv $join " . $where . "";
@@ -135,7 +135,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_orders') {
         $order = $db->escapeString($_GET['order']);
     }
 
-    $join = "LEFT JOIN `rental_vehicles` rv ON ro.rental_vehicles_id = rv.id WHERE ro.id IS NOT NULL ";
+    $join = "LEFT JOIN `rental_vehicles` rv ON ro.rental_vehicles_id = rv.id LEFT JOIN `rental_showrooms` rs ON rv.rental_showroom_id = rs.id WHERE ro.id IS NOT NULL AND rv.rental_showroom_id = $id ";
 
 
     $sql = "SELECT COUNT(ro.id) as total FROM `rental_orders` ro $join " . $where . "";

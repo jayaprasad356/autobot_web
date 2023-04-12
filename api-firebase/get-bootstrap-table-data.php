@@ -1586,7 +1586,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_bookings') {
     if (isset($_GET['order'])){
         $order = $db->escapeString($_GET['order']);
     }
-    $join = "LEFT JOIN `rental_vehicles` rv ON ro.rental_vehicles_id = rv.id LEFT JOIN `rental_category` rc ON rv.rental_category_id = rc.id WHERE ro.id IS NOT NULL ";
+    $join = "LEFT JOIN `rental_vehicles` rv ON ro.rental_vehicles_id = rv.id LEFT JOIN `rental_category` rc ON rv.rental_category_id = rc.id LEFT JOIN `rental_showrooms` rs ON rv.rental_showroom_id = rs.id WHERE ro.id IS NOT NULL ";
 
     $sql = "SELECT COUNT(ro.id) as total FROM `rental_orders` ro $join " . $where . "";
     $db->sql($sql);
@@ -1594,7 +1594,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_bookings') {
     foreach ($res as $row)
         $total = $row['total'];
 
-    $sql = "SELECT ro.*,ro.id AS id,ro.name AS name,ro.mobile AS mobile,rc.brand,rc.bike_name,ro.status AS status,rv.image AS image,ro.commission_status,ro.start_time,ro.end_time  FROM `rental_orders` ro $join $where ORDER BY $sort $order LIMIT $offset, $limit";
+    $sql = "SELECT ro.*,ro.id AS id,ro.name AS name,ro.mobile AS mobile,rc.brand,rc.bike_name,ro.status AS status,rv.image AS image,ro.commission_status,ro.start_time,ro.end_time,rs.name AS showroom_name  FROM `rental_orders` ro $join $where ORDER BY $sort $order LIMIT $offset, $limit";
     $db->sql($sql);
     $res = $db->getResult();
 
@@ -1612,6 +1612,7 @@ if (isset($_GET['table']) && $_GET['table'] == 'rental_bookings') {
         $tempRow['mobile'] = $row['mobile'];
         $tempRow['name'] = $row['name'];
         $tempRow['brand'] = $row['brand'];
+        $tempRow['showroom_name'] = $row['showroom_name'];
         $tempRow['bike_name'] = $row['bike_name'];   
         $tempRow['start_date'] = $row['start_time'];   
         $tempRow['end_date'] = $row['end_time'];   

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2023 at 10:12 AM
+-- Generation Time: Apr 12, 2023 at 04:58 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -550,18 +550,23 @@ CREATE TABLE `rental_showrooms` (
   `email` text DEFAULT NULL,
   `mobile` text DEFAULT NULL,
   `password` text DEFAULT NULL,
+  `permission` tinyint(4) DEFAULT 0,
+  `bank_account_number` text DEFAULT '\'\'',
+  `ifsc_code` text DEFAULT '\'\'',
+  `bank_name` text DEFAULT '\'\'',
+  `branch` text DEFAULT '\'\'',
+  `pincode` text DEFAULT '\'\'',
+  `address` text DEFAULT '\'\'',
   `location` text DEFAULT NULL,
-  `status` tinyint(4) DEFAULT 0,
-  `permission` tinyint(4) DEFAULT 0
+  `status` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rental_showrooms`
 --
 
-INSERT INTO `rental_showrooms` (`id`, `name`, `email`, `mobile`, `password`, `location`, `status`, `permission`) VALUES
-(1, 'sivam Rentals', 'sivamrent32@gmail.com', '9876543210', 'Smsatta@2022', 'Thiruvanamalai', 1, 1),
-(2, 'test', 'example@gmail.com', '9876543234', 'jk123', 'Coimbatore', 0, 0);
+INSERT INTO `rental_showrooms` (`id`, `name`, `email`, `mobile`, `password`, `permission`, `bank_account_number`, `ifsc_code`, `bank_name`, `branch`, `pincode`, `address`, `location`, `status`) VALUES
+(1, 'sivam Rentals', 'sivamrent32@gmail.com', '9876543210', 'sivamrent@123', 0, '798765432245', 'SBI124', 'State Bank Of India', 'Tamilnadu', '621313', '1/452,Mars Building,First Floor', 'Coimbatore', 1);
 
 -- --------------------------------------------------------
 
@@ -571,6 +576,7 @@ INSERT INTO `rental_showrooms` (`id`, `name`, `email`, `mobile`, `password`, `lo
 
 CREATE TABLE `rental_vehicles` (
   `id` int(11) NOT NULL,
+  `rental_showroom_id` int(11) DEFAULT NULL,
   `rental_category_id` int(11) DEFAULT NULL,
   `pincode` varchar(255) DEFAULT NULL,
   `image` text DEFAULT NULL,
@@ -581,9 +587,9 @@ CREATE TABLE `rental_vehicles` (
 -- Dumping data for table `rental_vehicles`
 --
 
-INSERT INTO `rental_vehicles` (`id`, `rental_category_id`, `pincode`, `image`, `status`) VALUES
-(1, 2, '621313', '1674908016.0608.jpg', 1),
-(2, 1, '620008', '1674908016.0608.jpg', 1);
+INSERT INTO `rental_vehicles` (`id`, `rental_showroom_id`, `rental_category_id`, `pincode`, `image`, `status`) VALUES
+(1, 1, 2, '621313', '1674908016.0608.jpg', 1),
+(2, 2, 1, '620008', '1674908016.0608.jpg', 1);
 
 -- --------------------------------------------------------
 

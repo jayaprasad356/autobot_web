@@ -4,6 +4,8 @@ $function = new functions;
 include_once('../includes/custom-functions.php');
 $fn = new custom_functions;
 
+$showroom_id = $_SESSION['seller_id'];
+
 ?>
 <?php
 $brand = '';
@@ -26,7 +28,7 @@ if (isset($_POST['btnView'])) {
 }
 if (isset($_POST['btnAdd'])) {
 
-
+        $showroom_id = $_SESSION['seller_id'];
         $rental_category_id = $db->escapeString($_POST['rental_category_id']);
         $pincode = $db->escapeString($_POST['pincode']);
         $error = array();
@@ -66,7 +68,7 @@ if (isset($_POST['btnAdd'])) {
                 // insert new data to menu table
                 $upload_image = $menu_image;
            
-            $sql_query = "INSERT INTO rental_vehicles (rental_category_id,pincode,image,status) VALUES ('$rental_category_id','$pincode','$upload_image',1)";
+            $sql_query = "INSERT INTO rental_vehicles (rental_showroom_id,rental_category_id,pincode,image,status) VALUES ('$showroom_id','$rental_category_id','$pincode','$upload_image',1)";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {

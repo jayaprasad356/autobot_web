@@ -21,7 +21,12 @@ if (isset($_POST['update_rental'])  && !empty($_POST['update_rental'])) {
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
     $email = $db->escapeString($fn->xss_clean($_POST['email']));  
     $location = (isset($_POST['location']) && $_POST['location'] != "") ? $db->escapeString($fn->xss_clean($_POST['location'])) : "";
-
+    $address = $db->escapeString($fn->xss_clean($_POST['address']));
+    $pincode = $db->escapeString($fn->xss_clean($_POST['pincode']));
+    $bank_account_number = $db->escapeString($fn->xss_clean($_POST['bank_account_number']));
+    $ifsc_code = $db->escapeString($fn->xss_clean($_POST['ifsc_code']));
+    $bank_name = $db->escapeString($fn->xss_clean($_POST['bank_name']));
+    $branch = $db->escapeString($fn->xss_clean($_POST['branch']));
     $sql = "SELECT * from rental_showrooms where id='$id'";
     $db->sql($sql);
     $res_id = $db->getResult();
@@ -49,9 +54,9 @@ if (isset($_POST['update_rental'])  && !empty($_POST['update_rental'])) {
     $password = !empty($_POST['password']) ? $db->escapeString($fn->xss_clean($_POST['password'])) : '';
 
     if (!empty($password)) {
-        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`location`='$location',`email`='$email',`mobile`='$mobile',`password`='$password' WHERE id=" . $id;
+        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`location`='$location',`email`='$email',`mobile`='$mobile',`password`='$password',address='$address',pincode='$pincode',bank_account_number='$bank_account_number',ifsc_code='$ifsc_code',bank_name='$bank_name',branch='$branch' WHERE id=" . $id;
     } else {
-        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`email`='$email',`mobile`='$mobile' WHERE id=" . $id;
+        $sql = "UPDATE `rental_showrooms` SET `name`='$name',`email`='$email',`mobile`='$mobile',address='$address',pincode='$pincode',bank_account_number='$bank_account_number',ifsc_code='$ifsc_code',bank_name='$bank_name',branch='$branch',location='$location' WHERE id=" . $id;
     }
     if ($db->sql($sql)) {
         echo "<label class='alert alert-success'>Information Updated Successfully.</label>";
@@ -66,9 +71,13 @@ if (isset($_POST['add_rental_showroom']) && $_POST['add_rental_showroom'] == 1) 
     $email = $db->escapeString($fn->xss_clean($_POST['email']));
     $mobile = $db->escapeString($fn->xss_clean($_POST['mobile']));
     $location = $db->escapeString($fn->xss_clean($_POST['location']));
-
+    $address = $db->escapeString($fn->xss_clean($_POST['address']));
+    $pincode = $db->escapeString($fn->xss_clean($_POST['pincode']));
+    $bank_account_number = $db->escapeString($fn->xss_clean($_POST['bank_account_number']));
+    $ifsc_code = $db->escapeString($fn->xss_clean($_POST['ifsc_code']));
+    $bank_name = $db->escapeString($fn->xss_clean($_POST['bank_name']));
+    $branch = $db->escapeString($fn->xss_clean($_POST['branch']));
     $status = '0';
-
     $password = $db->escapeString($fn->xss_clean($_POST['password']));
 
 
@@ -81,7 +90,7 @@ if (isset($_POST['add_rental_showroom']) && $_POST['add_rental_showroom'] == 1) 
         return false;
     }
 
-    $sql = "INSERT INTO `rental_showrooms`(`name`,`email`, `mobile`, `password`, `location`,`status`,`permission`) VALUES ('$name','$email', '$mobile', '$password','$location', '$status',0)";
+    $sql = "INSERT INTO `rental_showrooms`(`name`,`email`, `mobile`, `password`, `location`,`address`,`pincode`,`bank_account_number`,`ifsc_code`,`bank_name`,`branch`,`status`,`permission`) VALUES ('$name','$email', '$mobile', '$password','$location','$address','$pincode','$bank_account_number','$ifsc_code','$bank_name','$branch', '$status',0)";
 
     if ($db->sql($sql)) {
         echo '<label class="alert alert-success">Rental Showroom Added Successfully!</label>';

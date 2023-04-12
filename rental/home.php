@@ -1,9 +1,6 @@
 
-<?php session_start();
-
-include_once('../includes/custom-functions.php');
-
-$function = new custom_functions;
+<?php 
+session_start();
 
 // set time for session timeout
 $currentTime = time() + 25200;
@@ -54,7 +51,7 @@ include "header.php";
                     <div class="small-box bg-aqua">
                         <div class="inner">
                             <h3><?php
-                            $sql = "SELECT * FROM rental_vehicles";
+                            $sql = "SELECT * FROM rental_vehicles WHERE rental_showroom_id=$ID";
                             $db->sql($sql);
                             $res = $db->getResult();
                             $num = $db->numRows($res);
@@ -66,11 +63,11 @@ include "header.php";
                         <a href="rental_vehicles.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-4 col-xs-6">
                     <div class="small-box bg-green">
                         <div class="inner">
                         <h3><?php
-                            $sql = "SELECT * FROM rental_orders";
+                            $sql = "SELECT COUNT(ro.id) FROM rental_orders ro, rental_vehicles rv, rental_showrooms rs WHERE ro.rental_vehicles_id=rv.id AND rv.rental_showroom_id=rs.id AND rv.rental_showroom_id=$ID";
                             $db->sql($sql);
                             $res = $db->getResult();
                             $num = $db->numRows($res);

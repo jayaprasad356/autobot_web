@@ -52,14 +52,14 @@ include "header.php"; ?>
         ?>
 
         <section class="content-header">
-        <h1>Rental Showrooms</h1>
-        <ol class="breadcrumb">
-            <li>
-                <a href="home.php"> <i class="fa fa-home"></i> Home</a>
-            </li>
-        </ol>
-        <?php echo isset($error['update_user']) ? $error['update_user'] : ''; ?>
-        <hr />
+            <h1>Rental Showrooms</h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="home.php"> <i class="fa fa-home"></i> Home</a>
+                </li>
+            </ol>
+            <?php echo isset($error['update_user']) ? $error['update_user'] : ''; ?>
+            <hr />
         </section>
         <section class="content">
             <!-- Main row -->
@@ -69,7 +69,7 @@ include "header.php"; ?>
                     <!-- general form elements -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Edit Rental Showroom</h3>
+                            <!-- <h3 class="box-title">Edit Rental Showroom</h3> -->
                         </div><!-- /.box-header -->
                         <!-- form start -->
                         <form id="edit_form" method="post" action="public/db-operation.php" enctype="multipart/form-data">
@@ -85,6 +85,12 @@ include "header.php"; ?>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
+                                            <label for="">Mobile</label><i class="text-danger asterik">*</i>
+                                            <input type="number" class="form-control" name="mobile" id="mobile" value="<?= $res[0]['mobile']; ?>" required readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
                                             <label for="">Email</label><i class="text-danger asterik">*</i>
                                             <input type="email" class="form-control" name="email" id="email" value="<?= $res[0]['email']; ?>" required>
                                         </div>
@@ -93,18 +99,10 @@ include "header.php"; ?>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
-                                            <label for="">Mobile</label><i class="text-danger asterik">*</i>
-                                            <input type="number" class="form-control" name="mobile" id="mobile" value="<?= $res[0]['mobile']; ?>" required readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
                                             <label for="">Old Password :</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
                                             <input type="text" class="form-control" name="old_password" id="old_password" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label for="">New Password</label><i class="text-danger asterik">*</i><small>( Leave it blank for no change )</small>
@@ -123,6 +121,38 @@ include "header.php"; ?>
                                         <div class="form-group">
                                             <label for="">Location</label><i class="text-danger asterik">*</i>
                                             <input type="text" class="form-control" name="location" value="<?= $res[0]['location']; ?>"  id="location">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Address</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="address" value="<?= $res[0]['address']; ?>"  id="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Pincode</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="pincode" value="<?= $res[0]['pincode']; ?>"  id="pincode">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label for="">Account Number</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="bank_account_number" value="<?= $res[0]['bank_account_number']; ?>"  id="bank_account_number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="">IFSC Code</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="ifsc_code" value="<?= $res[0]['ifsc_code']; ?>"  id="ifsc_code">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="">Bank Name</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="bank_name" value="<?= $res[0]['bank_name']; ?>"  id="bank_name">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="">Branch</label><i class="text-danger asterik">*</i>
+                                            <input type="text" class="form-control" name="branch" value="<?= $res[0]['branch']; ?>"  id="branch">
                                         </div>
                                     </div>
                                 </div>

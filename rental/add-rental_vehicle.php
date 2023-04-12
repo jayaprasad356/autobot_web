@@ -9,14 +9,22 @@
     $currentTime = time() + 25200;
     $expired = 900;
 
-    // if current time is more than session timeout back to login page
-    if ($currentTime > $_SESSION['timeout']) {
-        session_destroy();
-        header("location:index.php");
-    }
-    // destroy previous session timeout and create new one
-    unset($_SESSION['timeout']);
-    $_SESSION['timeout'] = $currentTime + $expired;
+   // if session not set go to login page
+	if (!isset($_SESSION['seller_id']) && !isset($_SESSION['seller_name'])) {
+		header("location:index.php");
+	} else {
+		$ID = $_SESSION['seller_id'];
+	}
+	
+	// if current time is more than session timeout back to login page
+	if($currentTime > $_SESSION['timeout']){
+		session_destroy();
+		header("location:index.php");
+	}
+	
+	// destroy previous session timeout and create new one
+	unset($_SESSION['timeout']);
+	$_SESSION['timeout'] = $currentTime + $expired;
 	
 	
 	

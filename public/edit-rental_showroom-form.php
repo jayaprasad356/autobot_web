@@ -23,6 +23,12 @@ if (isset($_POST['btnEdit'])) {
 	$mobile = $db->escapeString($_POST['mobile']);
 	$password = $db->escapeString($_POST['password']);
 	$location = $db->escapeString($_POST['location']);
+	$address = $db->escapeString($_POST['address']);
+	$pincode = $db->escapeString($_POST['pincode']);
+	$bank_account_number = $db->escapeString($_POST['bank_account_number']);
+	$ifsc_code = $db->escapeString($_POST['ifsc_code']);
+	$bank_name = $db->escapeString($_POST['bank_name']);
+	$branch = $db->escapeString($_POST['branch']);
 	$status = $db->escapeString($_POST['status']);
 	$permission = $db->escapeString($_POST['permission']);
 	$error = array();
@@ -45,7 +51,7 @@ if (isset($_POST['btnEdit'])) {
 
 	
 	if (!empty($name) && !empty($email) && !empty($mobile) && !empty($password)) {
-		$sql_query = "UPDATE rental_showrooms SET name='$name',email = '$email', mobile = '$mobile', password = '$password', location = '$location',status='$status',permission='$permission' WHERE id = '$ID'";
+		$sql_query = "UPDATE rental_showrooms SET name='$name',email = '$email', mobile = '$mobile', password = '$password', location = '$location',status='$status',permission='$permission',address='$address',pincode='$pincode',bank_account_number='$bank_account_number',ifsc_code='$ifsc_code',bank_name='$bank_name',branch='$branch' WHERE id = '$ID'";
 		$db->sql($sql_query);
 		$res = $db->getResult();
 		$update_rental = $db->getResult();
@@ -89,7 +95,7 @@ if (isset($_POST['btnCancel'])) { ?>
 	<!-- Main row -->
 
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12">
 
 			<!-- general form elements -->
 			<div class="box box-primary">
@@ -101,13 +107,17 @@ if (isset($_POST['btnCancel'])) { ?>
 					<div class="box-body">
 						<div class="row">
 							<div class="form-group">
-						     	<div class="col-md-6">
+						     	<div class="col-md-4">
 									<label for="exampleInputEmail1">Name</label><i class="text-danger asterik">*</i><?php echo isset($error['name']) ? $error['name'] : ''; ?>
 									<input type="text" class="form-control" name="name" value="<?php echo $res[0]['name']; ?>">
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<label for="exampleInputEmail1">Email-ID</label><i class="text-danger asterik">*</i><?php echo isset($error['email']) ? $error['email'] : ''; ?>
 									<input type="email" class="form-control" name="email" value="<?php echo $res[0]['email']; ?>">
+								</div>
+								<div class="col-md-4">
+									<label for="exampleInputEmail1">Mobile</label><i class="text-danger asterik">*</i><?php echo isset($error['mobile']) ? $error['mobile'] : ''; ?>
+									<input type="number" class="form-control" name="mobile" value="<?php echo $res[0]['mobile']; ?>">
 								</div>
 					
 							</div>
@@ -115,34 +125,54 @@ if (isset($_POST['btnCancel'])) { ?>
 						<br>
 						<div class="row">
 							<div class="form-group">
-							   
-						     	<div class="col-md-6">
-									<label for="exampleInputEmail1">Mobile</label><i class="text-danger asterik">*</i><?php echo isset($error['mobile']) ? $error['mobile'] : ''; ?>
-									<input type="number" class="form-control" name="mobile" value="<?php echo $res[0]['mobile']; ?>">
-								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<label for="exampleInputEmail1">Password</label><i class="text-danger asterik">*</i><?php echo isset($error['password']) ? $error['password'] : ''; ?>
 									<input type="text" class="form-control" name="password" value="<?php echo $res[0]['password']; ?>">
 								</div>
+								<div class="col-md-4">
+									<label for="exampleInputEmail1">location</label><i class="text-danger asterik">*</i><?php echo isset($error['location']) ? $error['location'] : ''; ?>
+									<input type="text" class="form-control" name="location" value="<?php echo $res[0]['location']; ?>">
+							    </div>
+								<div class="col-md-4">
+									<label for="exampleInputEmail1">Address</label><i class="text-danger asterik">*</i><?php echo isset($error['address']) ? $error['address'] : ''; ?>
+									<input type="text" class="form-control" name="address" value="<?php echo $res[0]['address']; ?>">
+							    </div>
 							</div>
 						</div>
 						<br>
 						<div class="row">
 							<div class="form-group">
-								<div class="col-md-6">
-									<label for="exampleInputEmail1">location</label><i class="text-danger asterik">*</i><?php echo isset($error['location']) ? $error['location'] : ''; ?>
-									<input type="text" class="form-control" name="location" value="<?php echo $res[0]['location']; ?>">
+								<div class="col-md-3">
+									<label for="exampleInputEmail1">Account Number</label><i class="text-danger asterik">*</i><?php echo isset($error['bank_account_number']) ? $error['bank_account_number'] : ''; ?>
+									<input type="text" class="form-control" name="bank_account_number" value="<?php echo $res[0]['bank_account_number']; ?>">
 								</div>
-								<div class="col-md-4">
-                                        <label for="">Update Permission</label><br>
-                                        <input type="checkbox" id="permission_button" class="js-switch" <?= isset($res[0]['permission']) && $res[0]['permission'] == 1 ? 'checked' : '' ?>>
-                                        <input type="hidden" id="permission_status" name="permission" value="<?= isset($res[0]['permission']) && $res[0]['permission'] == 1 ? 1 : 0 ?>">
-                                </div>
+								<div class="col-md-3">
+									<label for="exampleInputEmail1">IFSC Code</label><i class="text-danger asterik">*</i><?php echo isset($error['ifsc_code']) ? $error['ifsc_code'] : ''; ?>
+									<input type="text" class="form-control" name="ifsc_code" value="<?php echo $res[0]['ifsc_code']; ?>">
+							    </div>
+								<div class="col-md-3">
+									<label for="exampleInputEmail1">Bank Name</label><i class="text-danger asterik">*</i><?php echo isset($error['bank_name']) ? $error['bank_name'] : ''; ?>
+									<input type="text" class="form-control" name="bank_name" value="<?php echo $res[0]['bank_name']; ?>">
+							    </div>
+								<div class="col-md-3">
+									<label for="exampleInputEmail1">Branch</label><i class="text-danger asterik">*</i><?php echo isset($error['branch']) ? $error['branch'] : ''; ?>
+									<input type="text" class="form-control" name="branch" value="<?php echo $res[0]['branch']; ?>">
+							    </div>
 							</div>
 						</div>
 						<br>
 						<div class="row">
-								<div class="form-group col-md-6">
+							<div class="form-group">
+							    <div class="col-md-4">
+									<label for="exampleInputEmail1">Pincode</label><i class="text-danger asterik">*</i><?php echo isset($error['pincode']) ? $error['pincode'] : ''; ?>
+									<input type="text" class="form-control" name="pincode" value="<?php echo $res[0]['pincode']; ?>">
+							    </div>
+								<div class="col-md-2">
+                                        <label for="">Update Permission</label><br>
+                                        <input type="checkbox" id="permission_button" class="js-switch" <?= isset($res[0]['permission']) && $res[0]['permission'] == 1 ? 'checked' : '' ?>>
+                                        <input type="hidden" id="permission_status" name="permission" value="<?= isset($res[0]['permission']) && $res[0]['permission'] == 1 ? 1 : 0 ?>">
+                                </div>
+								<div class="col-md-4">
 									<label class="control-label">Status</label><i class="text-danger asterik">*</i><br>
 									<div id="status" class="btn-group">
 										<label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
@@ -153,6 +183,7 @@ if (isset($_POST['btnCancel'])) { ?>
 										</label>
 									</div>
 								</div>
+							</div>
 						</div>
 
 					</div><!-- /.box-body -->
